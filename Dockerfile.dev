@@ -1,0 +1,21 @@
+FROM oven/bun:latest AS base
+
+WORKDIR /usr/src/app
+
+RUN apt-get update && apt-get install -y \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN chown -R bun:bun /usr/src/app
+
+USER bun
+
+COPY --chown=bun:bun package.json bun.lock ./
+
+RUN bun install
+
+COPY --chown=bun:bun . .
+
+EXPOSE 4321
+
+
