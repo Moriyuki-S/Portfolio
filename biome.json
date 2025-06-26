@@ -7,7 +7,7 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["src/**/*.{astro,ts,js,tsx,jsx,md,mdx}"]
+    "includes": ["src/**/*.{astro,ts,js,tsx,jsx,md,mdx}", "!src/lib/**"]
   },
   "formatter": {
     "enabled": true,
