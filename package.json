@@ -13,7 +13,10 @@
     "format:fix": "biome format --write"
   },
   "dependencies": {
-    "astro": "^5.10.1"
+    "@astrojs/svelte": "^7.1.0",
+    "astro": "^5.10.1",
+    "svelte": "^5.34.8",
+    "typescript": "^5.8.3"
   },
   "devDependencies": {
     "@biomejs/biome": "2.0.5"
