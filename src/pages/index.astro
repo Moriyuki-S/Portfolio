@@ -1,6 +1,5 @@
 ---
-import { Button } from '$lib/components/ui/button/index.ts';
-import Test from '../components/Test.svelte';
+import { Test } from 'src/components/Test';
 import Layout from '../layouts/Layout.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
@@ -8,6 +7,7 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-	<Button variant="variant" >テスト用ボタン</Button>
-	<Test />
+	<div class="w-full">
+		<Test client:visible />
+	</div>
 </Layout>
