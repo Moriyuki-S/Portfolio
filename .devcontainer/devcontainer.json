@@ -27,8 +27,7 @@
 		"vscode": {
 			"extensions": [
 				"biomejs.biome",
-				"astro-build.astro-vscode",
-				"svelte.svelte-vscode"
+				"astro-build.astro-vscode"
 			]
 		}
 	}
