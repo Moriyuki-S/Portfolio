@@ -84,9 +84,7 @@ export const FooterNav: FC = () => {
                                     'gap-4',
                                     'justify-center',
                                 ],
-                                [
-                                    '[&>li]:w-40'
-                                ],
+                                ['[&>li]:w-40'],
                             )}
                         >
                             <li>
