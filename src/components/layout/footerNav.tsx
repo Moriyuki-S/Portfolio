@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { type FC, useState } from 'react';
 import { LuMenu } from 'react-icons/lu';
+import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 
 export const FooterNav: FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -37,7 +38,8 @@ export const FooterNav: FC = () => {
                         'px-5',
                         'py-4',
                     ],
-                    ['border-t'],
+                    ['border-t', 'bg-white'],
+                    ['dark:bg-black'],
                     ['md:hidden'],
                 )}
             >
@@ -53,7 +55,12 @@ export const FooterNav: FC = () => {
                     <div>
                         <span
                             className={cn(
-                                ['font-bold', 'text-2xl'],
+                                [
+                                    'font-bold',
+                                    'text-2xl',
+                                    'text-gradient',
+                                    'animate-text-gradient',
+                                ],
                                 ['sm:text-3xl'],
                                 ['md:text-4xl'],
                             )}
@@ -61,9 +68,12 @@ export const FooterNav: FC = () => {
                             Portfolio
                         </span>
                     </div>
-                    <button type="button" onClick={handleMenuToggle}>
-                        <LuMenu size={24} />
-                    </button>
+                    <div className={cn(['flex', 'items-center', 'gap-x-8'])}>
+                        <ThemeToggleButton />
+                        <button type="button" onClick={handleMenuToggle}>
+                            <LuMenu size={24} />
+                        </button>
+                    </div>
                 </div>
             </footer>
 
