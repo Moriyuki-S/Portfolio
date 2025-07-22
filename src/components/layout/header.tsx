@@ -29,7 +29,13 @@ export const Header: FC = () => {
                 className={cn([
                     ['px-5'],
                     ['hidden'],
-                    ['md:flex', 'md:px-10', 'md:top-0'],
+                    [
+                        'md:flex',
+                        'md:px-10',
+                        'md:top-0',
+                        'md:bg-white',
+                        'dark:md:bg-transparent',
+                    ],
                 ])}
                 classNames={{
                     item: [
@@ -55,7 +61,12 @@ export const Header: FC = () => {
                     <NavbarBrand>
                         <span
                             className={cn(
-                                ['font-bold', 'text-2xl'],
+                                [
+                                    'font-bold',
+                                    'text-2xl',
+                                    'text-gradient',
+                                    'animate-text-gradient',
+                                ],
                                 ['sm:text-3xl'],
                                 ['md:text-4xl'],
                             )}
@@ -66,13 +77,14 @@ export const Header: FC = () => {
                 </NavbarContent>
                 <NavbarContent
                     className={cn(
-                        ['hidden', 'md:flex'],
-                        ['gap-x-10 [&>li]:p-4'],
+                        ['hidden', 'text-black', 'md:flex'],
+                        ['dark:text-white'],
+                        ['gap-x-10 [&>li]:p-4', '[&>li]:text-white'],
                     )}
                     justify="center"
                 >
                     <NavbarItem isActive>
-                        <Link className="flex items-center" href="#">
+                        <Link className="flex items-center " href="#">
                             <LucideHome className="me-2" />
                             ホーム
                         </Link>
