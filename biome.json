@@ -42,10 +42,12 @@
             "linter": {
                 "rules": {
                     "style": {
-                        "useImportType": "off"
+                        "useImportType": "off",
+                        "useConst": "off"
                     },
                     "correctness": {
-                        "noUnusedImports": "off"
+                        "noUnusedImports": "off",
+                        "noUnusedVariables": "off"
                     }
                 }
             }
