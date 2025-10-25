@@ -1,12 +1,12 @@
 FROM oven/bun:latest AS base
 
-WORKDIR /usr/src/app
+WORKDIR /workspaces/Portfolio
 
 RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-RUN chown -R bun:bun /usr/src/app
+RUN chown -R bun:bun /workspaces/Portfolio
 
 USER bun
 
