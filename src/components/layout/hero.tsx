@@ -40,15 +40,13 @@ export const HerolLayout: FC = () => {
                 >
                     <a
                         href="#profile"
-                        className={cn(
-                            [
+                        className={cn([
                             'flex',
                             'items-center',
                             'cursor-pointer',
                             'font-extrabold',
-                            'text-white'
-                        ]
-                    )}
+                            'text-white',
+                        ])}
                     >
                         <LuArrowDown
                             size={24}
