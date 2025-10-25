@@ -46,18 +46,18 @@ export const ThemeToggleButton: FC = () => {
                 <Button
                     size="lg"
                     isIconOnly
-                    className="p-2 flex justify-center"
+                    className="flex justify-center p-2"
                     aria-label="Toggle Theme Change"
                     variant="bordered"
                 >
                     {loading ? (
-                        <Skeleton className="w-6 h-6 rounded-sm" />
+                        <Skeleton className="h-6 w-6 rounded-sm" />
                     ) : theme === 'dark' ? (
-                        <LuMoon className="w-6 h-6" />
+                        <LuMoon className="h-6 w-6" />
                     ) : theme === 'system' ? (
-                        <MdOutlineComputer className="w-6 h-6" />
+                        <MdOutlineComputer className="h-6 w-6" />
                     ) : (
-                        <LuSun className="w-6 h-6" />
+                        <LuSun className="h-6 w-6" />
                     )}
                 </Button>
             </DropdownTrigger>

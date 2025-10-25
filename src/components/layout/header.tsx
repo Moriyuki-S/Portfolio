@@ -119,7 +119,7 @@ export const Header: FC = () => {
                         <Link href="#">
                             <HoverBorderGradient
                                 containerClassName="rounded-full"
-                                className="dark:bg-black cursor-pointer bg-white text-black dark:text-white flex items-center space-x-2"
+                                className="flex cursor-pointer items-center space-x-2 bg-white text-black dark:bg-black dark:text-white"
                             >
                                 <FaGithub className="me-2" size={20} />
                                 GitHub
