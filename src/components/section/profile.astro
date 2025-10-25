@@ -54,15 +54,12 @@ import TimelineList from '../ui/timelineList.astro';
     >
         <h3
             class={cn(
-                ['text-3xl', 'font-bold', 'mt-10', 'mb-4'],
+                ['text-3xl', 'font-bold', 'mt-10', 'mb-12'],
                 ['md:text-5xl'],
             )}
         >
             Work Experience
         </h3>
-        <p class={cn(['mtt-12', 'mb-12'])}>
-            これまでのプログラミング関連のアルバイトの経験です。
-        </p>
         <TimelineList
             timelines={[
                 {
@@ -102,7 +99,7 @@ import TimelineList from '../ui/timelineList.astro';
     >
         <h3
             class={cn(
-                ['text-3xl', 'font-bold', 'mt-10', 'mb-4'],
+                ['text-3xl', 'font-bold', 'mt-10', 'mb-12'],
                 ['md:text-5xl'],
             )}
         >
@@ -124,17 +121,6 @@ import TimelineList from '../ui/timelineList.astro';
                         text: '京都大学',
                         url: 'https://www.kyoto-u.ac.jp/',
                     },
-                },
-                {
-                    id: 2,
-                    title: 'Web Development Bootcamp',
-                    description:
-                        'Completed an intensive bootcamp focused on full-stack web development.',
-                    date: {
-                        start: new Date('2020-01-01'),
-                        end: new Date('2020-12-31'),
-                    },
-                    type: 'education',
                 },
             ]}
         />
