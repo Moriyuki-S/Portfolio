@@ -1,0 +1,29 @@
+---
+import { cn } from '$lib/utils';
+import type { TimelineType } from 'src/types/timeline';
+import { Timeline } from './timeline';
+
+interface Props {
+    timelines: TimelineType[];
+    ulClass?: string;
+    liClass?: string;
+}
+
+const { timelines, ulClass, liClass } = Astro.props;
+---
+
+<ul
+    class={cn(
+        ['flex', 'flex-col', 'gap-y-14'],
+        ['sm:gap-y-18'],
+        ulClass,
+    )}
+>
+    {timelines.map((timeline, _) => {
+        return (
+            <li class={cn(liClass)}>
+                <Timeline timeline={timeline} />
+            </li>
+        );
+    })}
+</ul>

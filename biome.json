@@ -17,7 +17,10 @@
     "linter": {
         "enabled": true,
         "rules": {
-            "recommended": true
+            "recommended": true,
+            "nursery": {
+                "useSortedClasses": "warn"
+            }
         }
     },
     "javascript": {
@@ -39,10 +42,12 @@
             "linter": {
                 "rules": {
                     "style": {
-                        "useImportType": "off"
+                        "useImportType": "off",
+                        "useConst": "off"
                     },
                     "correctness": {
-                        "noUnusedImports": "off"
+                        "noUnusedImports": "off",
+                        "noUnusedVariables": "off"
                     }
                 }
             }

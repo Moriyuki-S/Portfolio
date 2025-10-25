@@ -27,7 +27,9 @@
 		"vscode": {
 			"extensions": [
 				"biomejs.biome",
-				"astro-build.astro-vscode"
+				"astro-build.astro-vscode",
+				"Gruntfuggly.todo-tree",
+				"oderwat.indent-rainbow"
 			]
 		}
 	}

@@ -17,7 +17,7 @@ export const HerolLayout: FC = () => {
                 baseHue={120}
                 rangeY={200}
                 className={cn([
-                    'flex items-center flex-col justify-center px-2 md:px-10 py-4 w-full h-full',
+                    'flex h-full w-full flex-col items-center justify-center px-2 py-4 md:px-10',
                 ])}
             >
                 <h1
@@ -40,15 +40,13 @@ export const HerolLayout: FC = () => {
                 >
                     <a
                         href="#profile"
-                        className={cn(
-                            [
+                        className={cn([
                             'flex',
                             'items-center',
                             'cursor-pointer',
                             'font-extrabold',
-                            'text-white'
-                        ]
-                    )}
+                            'text-white',
+                        ])}
                     >
                         <LuArrowDown
                             size={24}
