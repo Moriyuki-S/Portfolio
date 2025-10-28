@@ -1,5 +1,5 @@
 ---
-import { HerolLayout } from 'src/components/section/hero';
+import Hero from 'src/components/section/hero.astro';
 import Profile from 'src/components/section/profile.astro';
 import { Test } from 'src/components/Test';
 import Layout from '../layouts/Layout.astro';
@@ -10,8 +10,8 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout>
 	<div class="w-full">
-		<HerolLayout client:visible/>
-		<div class="container mx-auto py-8">
+		<Hero />
+		<div class="py-8 dark:bg-slate-950">
 			<Profile />
 			<Test />
 		</div>
