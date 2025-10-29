@@ -55,7 +55,7 @@ export const Header: FC = () => {
                 }}
                 isBordered
                 maxWidth="full"
-                position='sticky'
+                position="sticky"
                 onMenuOpenChange={setIsMenuOpen}
             >
                 <NavbarContent justify="start">
