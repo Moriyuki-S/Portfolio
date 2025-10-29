@@ -1,4 +1,3 @@
-import { HoverBorderGradient } from '$lib/components/hover-border-gradient';
 import { cn } from '$lib/utils';
 import {
     Link,
@@ -15,8 +14,6 @@ import {
     LucideSend,
 } from 'lucide-react';
 import { type FC, useState } from 'react';
-import { FaGithub } from 'react-icons/fa6';
-import { ImNewTab } from 'react-icons/im';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 
 export const Header: FC = () => {
@@ -26,13 +23,16 @@ export const Header: FC = () => {
         <>
             <Navbar
                 shouldHideOnScroll
+                isBlurred
                 className={cn([
                     ['px-5'],
                     ['hidden'],
                     [
                         'md:flex',
-                        'md:px-10',
+                        'md:px-6',
+                        'lg:px-10',
                         'md:top-0',
+                        'md:z-50',
                         'md:bg-white',
                         'dark:md:bg-transparent',
                     ],
@@ -55,6 +55,7 @@ export const Header: FC = () => {
                 }}
                 isBordered
                 maxWidth="full"
+                position='sticky'
                 onMenuOpenChange={setIsMenuOpen}
             >
                 <NavbarContent justify="start">
@@ -68,7 +69,8 @@ export const Header: FC = () => {
                                     'animate-text-gradient',
                                 ],
                                 ['sm:text-3xl'],
-                                ['md:text-4xl'],
+                                ['md:text-3xl'],
+                                ['lg:text-4xl'],
                             )}
                         >
                             Portfolio
@@ -77,9 +79,24 @@ export const Header: FC = () => {
                 </NavbarContent>
                 <NavbarContent
                     className={cn(
-                        ['hidden', 'text-black', 'md:flex'],
+                        [
+                            'hidden',
+                            'text-black',
+                            'md:flex',
+                            'md:flex-wrap',
+                            'md:gap-x-4',
+                            'md:gap-y-1',
+                        ],
+                        ['lg:flex-nowrap', 'lg:gap-x-8'],
+                        ['xl:gap-x-10'],
                         ['dark:text-white'],
-                        ['gap-x-10 [&>li]:p-4', '[&>li]:text-white'],
+                        [
+                            '[&>li]:px-3',
+                            '[&>li]:py-2',
+                            'lg:[&>li]:py-3',
+                            'lg:[&>li]:px-4',
+                            'dark:[&>li]:text-white',
+                        ],
                     )}
                     justify="center"
                 >
@@ -114,18 +131,6 @@ export const Header: FC = () => {
                 >
                     <NavbarItem>
                         <ThemeToggleButton />
-                    </NavbarItem>
-                    <NavbarItem>
-                        <Link href="#">
-                            <HoverBorderGradient
-                                containerClassName="rounded-full"
-                                className="flex cursor-pointer items-center space-x-2 bg-white text-black dark:bg-black dark:text-white"
-                            >
-                                <FaGithub className="me-2" size={20} />
-                                GitHub
-                                <ImNewTab className="ms-2" />
-                            </HoverBorderGradient>
-                        </Link>
                     </NavbarItem>
                 </NavbarContent>
                 <NavbarMenuToggle
