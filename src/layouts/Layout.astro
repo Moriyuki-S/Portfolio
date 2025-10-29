@@ -33,9 +33,9 @@ import { Header } from 'src/components/layout/header';
 		<title>Astro Basics</title>
 	</head>
 	<body class="min-h-screen bg-white text-slate-900 antialiased text-slate-600 dark:text-slate-300 dark:bg-slate-950">
-		<Header client:visible />
+		<Header client:load />
 		<slot />
-		<FooterNav client:visible />
+		<FooterNav client:load />
 	</body>
 </html>
 

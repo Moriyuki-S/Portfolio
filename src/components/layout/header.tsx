@@ -23,6 +23,7 @@ export const Header: FC = () => {
         <>
             <Navbar
                 shouldHideOnScroll
+                isBlurred
                 className={cn([
                     ['px-5'],
                     ['hidden'],
@@ -31,6 +32,7 @@ export const Header: FC = () => {
                         'md:px-6',
                         'lg:px-10',
                         'md:top-0',
+                        'md:z-50',
                         'md:bg-white',
                         'dark:md:bg-transparent',
                     ],
@@ -53,6 +55,7 @@ export const Header: FC = () => {
                 }}
                 isBordered
                 maxWidth="full"
+                position='sticky'
                 onMenuOpenChange={setIsMenuOpen}
             >
                 <NavbarContent justify="start">
