@@ -17,6 +17,7 @@
 
 	// Uncomment the next line to run commands after the container is created.
 	// "postCreateCommand": "cat /etc/os-release",
+	"postStartCommand": "bun run dev",
 
 	// Configure tool-specific properties.
 	// "customizations": {},
