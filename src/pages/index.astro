@@ -1,7 +1,8 @@
 ---
-import Hero from 'src/components/section/hero.astro';
-import Profile from 'src/components/section/profile.astro';
 import { Test } from 'src/components/Test';
+import Hero from 'src/sections/hero.astro';
+import Profile from 'src/sections/profile.astro';
+import Project from 'src/sections/project.astro';
 import Layout from '../layouts/Layout.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
@@ -13,6 +14,7 @@ import Layout from '../layouts/Layout.astro';
 		<Hero />
 		<div class="py-8 dark:bg-slate-950">
 			<Profile />
+			<Project />
 			<Test />
 		</div>
 	</div>
