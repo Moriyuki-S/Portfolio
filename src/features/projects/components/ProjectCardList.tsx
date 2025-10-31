@@ -2,6 +2,7 @@ import { useOutsideClick } from '$lib/hooks/use-outside-click';
 import { cn } from '$lib/utils';
 import { AnimatePresence, motion } from 'motion/react';
 import { type RefObject, useEffect, useId, useRef, useState } from 'react';
+import { LuExternalLink, LuGithub } from 'react-icons/lu';
 import type { Project } from '../types';
 import { ProjectCard } from './ProjectCard';
 
@@ -81,7 +82,7 @@ export const ProjectCardList = () => {
                                 <img
                                     width={200}
                                     height={200}
-                                    src={active.imageSrc}
+                                    src={active.src}
                                     alt={active.title}
                                     className="h-80 w-full object-cover object-top sm:rounded-tl-lg sm:rounded-tr-lg lg:h-80"
                                 />
@@ -102,19 +103,64 @@ export const ProjectCardList = () => {
                                         >
                                             {active.description}
                                         </motion.p>
+                                        {active.tags.length > 0 && (
+                                            <motion.ul
+                                                layout
+                                                className="mt-3 flex flex-wrap gap-2"
+                                            >
+                                                {active.tags.map((tag) => (
+                                                    <li
+                                                        key={tag}
+                                                        className="rounded-full bg-neutral-100 px-3 py-1 font-medium text-neutral-600 text-xs dark:bg-neutral-800 dark:text-neutral-300"
+                                                    >
+                                                        {tag}
+                                                    </li>
+                                                ))}
+                                            </motion.ul>
+                                        )}
                                     </div>
 
-                                    <motion.a
-                                        layout
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        href={active.imageSrc}
-                                        target="_blank"
-                                        className="rounded-full bg-green-500 px-4 py-3 font-bold text-sm text-white"
-                                    >
-                                        {active.description}
-                                    </motion.a>
+                                    {active.link &&
+                                        (active.link.demo ||
+                                            active.link.github) && (
+                                            <motion.div
+                                                layout
+                                                className="mt-2 flex flex-wrap gap-3"
+                                            >
+                                                {active.link.demo && (
+                                                    <motion.a
+                                                        layout
+                                                        initial={{ opacity: 0 }}
+                                                        animate={{ opacity: 1 }}
+                                                        exit={{ opacity: 0 }}
+                                                        href={active.link.demo}
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        className="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 font-medium text-neutral-700 text-sm hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
+                                                    >
+                                                        <LuExternalLink className="h-4 w-4" />
+                                                        <span>Live Demo</span>
+                                                    </motion.a>
+                                                )}
+                                                {active.link.github && (
+                                                    <motion.a
+                                                        layout
+                                                        initial={{ opacity: 0 }}
+                                                        animate={{ opacity: 1 }}
+                                                        exit={{ opacity: 0 }}
+                                                        href={
+                                                            active.link.github
+                                                        }
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        className="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 font-medium text-neutral-700 text-sm hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
+                                                    >
+                                                        <LuGithub className="h-4 w-4" />
+                                                        <span>GitHub</span>
+                                                    </motion.a>
+                                                )}
+                                            </motion.div>
+                                        )}
                                 </div>
                                 <div className="relative px-4 pt-4">
                                     <motion.div
@@ -135,11 +181,11 @@ export const ProjectCardList = () => {
                 ) : null}
             </AnimatePresence>
             <ul className="mx-auto grid w-full max-w-2xl grid-cols-1 items-start gap-4 md:grid-cols-2">
-                {projects.map((project, _) => (
+                {projects.map((project) => (
                     <ProjectCard
                         project={project}
                         setActive={setActive}
-                        key={id}
+                        key={project.id}
                     />
                 ))}
             </ul>
@@ -188,7 +234,12 @@ const projects: Project[] = [
         id: 1,
         description: 'Lana Del Rey',
         title: 'Summertime Sadness',
-        imageSrc: 'https://assets.aceternity.com/demos/lana-del-rey.jpeg',
+        src: 'https://assets.aceternity.com/demos/lana-del-rey.jpeg',
+        tags: ['Astro', 'Framer Motion', 'TypeScript'],
+        link: {
+            demo: 'https://aceternity.com/demo/summertime-sadness',
+            github: 'https://github.com/example/summertime-sadness',
+        },
         content: () => {
             return (
                 <p>
@@ -211,7 +262,12 @@ const projects: Project[] = [
         id: 2,
         description: 'Babbu Maan',
         title: 'Mitran Di Chhatri',
-        imageSrc: 'https://assets.aceternity.com/demos/babbu-maan.jpeg',
+        src: 'https://assets.aceternity.com/demos/babbu-maan.jpeg',
+        tags: ['React', 'Tailwind CSS', 'Animation'],
+        link: {
+            demo: 'https://aceternity.com/demo/mitran-di-chhatri',
+            github: 'https://github.com/example/mitran-di-chhatri',
+        },
         content: () => {
             return (
                 <p>
@@ -234,7 +290,12 @@ const projects: Project[] = [
         id: 3,
         description: 'Metallica',
         title: 'For Whom The Bell Tolls',
-        imageSrc: 'https://assets.aceternity.com/demos/metallica.jpeg',
+        src: 'https://assets.aceternity.com/demos/metallica.jpeg',
+        tags: ['Vite', 'TypeScript', 'UI Motion'],
+        link: {
+            demo: 'https://aceternity.com/demo/for-whom-the-bell-tolls',
+            github: 'https://github.com/example/for-whom-the-bell-tolls',
+        },
         content: () => {
             return (
                 <p>
@@ -257,7 +318,12 @@ const projects: Project[] = [
         id: 5,
         description: 'Lord Himesh',
         title: 'Aap Ka Suroor',
-        imageSrc: 'https://assets.aceternity.com/demos/aap-ka-suroor.jpeg',
+        src: 'https://assets.aceternity.com/demos/aap-ka-suroor.jpeg',
+        tags: ['Design System', 'Accessibility', 'Storybook'],
+        link: {
+            demo: 'https://aceternity.com/demo/aap-ka-suroor',
+            github: 'https://github.com/example/aap-ka-suroor',
+        },
         content: () => {
             return (
                 <p>

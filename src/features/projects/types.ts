@@ -3,11 +3,12 @@ import type { JSX } from 'react';
 export type Project = {
     id: number;
     title: string;
-    imageSrc: string;
+    src: string;
     description: string;
-    content: () => JSX.Element;
+    tags: string[];
+    content: (() => JSX.Element) | JSX.Element;
     link?: {
-        demo: string;
-        github: string;
-    }
+        demo?: string;
+        github?: string;
+    };
 };
