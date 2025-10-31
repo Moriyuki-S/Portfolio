@@ -280,13 +280,11 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                     </div>
                 ) : null}
             </AnimatePresence>
-            <ul className="mx-auto grid w-full max-w-2xl grid-cols-1 items-start gap-4 md:grid-cols-2">
+            <ul className="grid w-full auto-rows-fr grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-10">
                 {projects.map((project) => (
-                    <ProjectCard
-                        project={project}
-                        setActive={setActive}
-                        key={project.id}
-                    />
+                    <li key={project.id} className="flex h-full w-full">
+                        <ProjectCard project={project} setActive={setActive} />
+                    </li>
                 ))}
             </ul>
         </>
