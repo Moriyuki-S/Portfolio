@@ -1,4 +1,7 @@
-import type { JSX } from 'react';
+export type ProjectContentBlock =
+    | { type: 'heading'; text: string }
+    | { type: 'paragraph'; text: string }
+    | { type: 'list'; items: string[] };
 
 export type Project = {
     id: number;
@@ -6,7 +9,7 @@ export type Project = {
     src: string;
     description: string;
     tags: string[];
-    content: (() => JSX.Element) | JSX.Element;
+    content: ProjectContentBlock[];
     link?: {
         demo?: string;
         github?: string;

@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import type { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import type { Project } from '../types';
 
 interface ProjectCardProps {
@@ -7,7 +7,7 @@ interface ProjectCardProps {
     setActive: Dispatch<SetStateAction<boolean | Project | null>>;
 }
 
-export const ProjectCard = (props: ProjectCardProps) => {
+export const ProjectCard: FC<ProjectCardProps> = (props) => {
     const { project, setActive } = props;
 
     return (
@@ -45,7 +45,7 @@ export const ProjectCard = (props: ProjectCardProps) => {
                 >
                     <motion.h3
                         layoutId={`title-${project.title}-${project.id}`}
-                        className="font-semibold text-lg text-neutral-800 dark:text-neutral-200"
+                        className="font-bold text-2xl"
                     >
                         {project.title}
                     </motion.h3>

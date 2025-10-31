@@ -1,12 +1,26 @@
 import { useOutsideClick } from '$lib/hooks/use-outside-click';
 import { cn } from '$lib/utils';
 import { AnimatePresence, motion } from 'motion/react';
-import { type RefObject, useEffect, useId, useRef, useState } from 'react';
+import {
+    type FC,
+    type MouseEvent,
+    type RefObject,
+    useEffect,
+    useId,
+    useRef,
+    useState,
+} from 'react';
 import { LuExternalLink, LuGithub } from 'react-icons/lu';
-import type { Project } from '../types';
+import type { Project, ProjectContentBlock } from '../types';
 import { ProjectCard } from './ProjectCard';
 
-export const ProjectCardList = () => {
+interface ProjectCardListProps {
+    projects: Project[];
+}
+
+export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
+    const { projects } = props;
+
     const [active, setActive] = useState<Project | boolean | null>(null);
     const id = useId();
     const ref = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
@@ -30,6 +44,48 @@ export const ProjectCardList = () => {
 
     useOutsideClick(ref, () => setActive(null));
 
+    const handleClose = (event?: MouseEvent<HTMLButtonElement>) => {
+        console.log('実行');
+        event?.stopPropagation();
+        setActive(null);
+    };
+
+    const renderContentBlock = (block: ProjectContentBlock, index: number) => {
+        switch (block.type) {
+            case 'heading':
+                return (
+                    <h3
+                        key={`heading-${index}`}
+                        className="mb-4 font-bold text-xl md:text-2xl"
+                    >
+                        {block.text}
+                    </h3>
+                );
+            case 'paragraph':
+                return (
+                    <p
+                        key={`paragraph-${index}`}
+                        className="mb-6 text-gray-600 dark:text-gray-300"
+                    >
+                        {block.text}
+                    </p>
+                );
+            case 'list':
+                return (
+                    <ul
+                        key={`list-${index}`}
+                        className="mb-6 list-inside list-disc space-y-2 text-gray-600 dark:text-gray-300"
+                    >
+                        {block.items.map((item) => (
+                            <li key={item}>{item}</li>
+                        ))}
+                    </ul>
+                );
+            default:
+                return null;
+        }
+    };
+
     return (
         <>
             <AnimatePresence>
@@ -47,136 +103,180 @@ export const ProjectCardList = () => {
             <AnimatePresence>
                 {active && typeof active === 'object' ? (
                     <div
-                        className={cn([
-                            'fixed inset-0 z-[100] grid place-items-center',
-                        ])}
+                        className={cn('fixed inset-0 z-[100] overflow-y-auto')}
                     >
-                        <motion.button
-                            key={`button-${active.title}-${id}`}
-                            layout
-                            initial={{
-                                opacity: 0,
-                            }}
-                            animate={{
-                                opacity: 1,
-                            }}
-                            exit={{
-                                opacity: 0,
-                                transition: {
-                                    duration: 0.05,
-                                },
-                            }}
-                            className="absolute top-2 right-2 flex h-6 w-6 items-center justify-center rounded-full bg-white lg:hidden"
-                            onClick={() => setActive(null)}
-                        >
-                            <CloseIcon />
-                        </motion.button>
-                        <motion.div
-                            layoutId={`project-${active.title}-${active.id}`}
-                            ref={ref}
-                            className="flex h-full w-full max-w-[500px] flex-col overflow-hidden bg-white sm:rounded-3xl md:h-fit md:max-h-[90%] dark:bg-neutral-900"
-                        >
+                        <div className="flex min-h-full items-center justify-center p-4 lg:p-6">
                             <motion.div
-                                layoutId={`image-${active.title}-${active.id}`}
+                                layoutId={`project-${active.title}-${active.id}`}
+                                ref={ref}
+                                className={cn(
+                                    'relative flex w-full max-w-[960px] flex-col gap-6 overflow-hidden rounded-3xl bg-white p-4 shadow-xl sm:p-6 md:p-8 lg:p-10 dark:bg-neutral-900',
+                                    'max-h-[90vh]',
+                                )}
                             >
-                                <img
-                                    width={200}
-                                    height={200}
-                                    src={active.src}
-                                    alt={active.title}
-                                    className="h-80 w-full object-cover object-top sm:rounded-tl-lg sm:rounded-tr-lg lg:h-80"
-                                />
-                            </motion.div>
-
-                            <div>
-                                <div className="flex items-start justify-between p-4">
-                                    <div className="">
-                                        <motion.h3
-                                            layoutId={`title-${active.title}-${active.id}`}
-                                            className="font-medium text-base text-neutral-700 dark:text-neutral-200"
-                                        >
-                                            {active.title}
-                                        </motion.h3>
-                                        <motion.p
-                                            layoutId={`description-${active.description}-${active.id}`}
-                                            className="text-base text-neutral-600 dark:text-neutral-400"
-                                        >
-                                            {active.description}
-                                        </motion.p>
-                                        {active.tags.length > 0 && (
-                                            <motion.ul
-                                                layout
-                                                className="mt-3 flex flex-wrap gap-2"
-                                            >
-                                                {active.tags.map((tag) => (
-                                                    <li
-                                                        key={tag}
-                                                        className="rounded-full bg-neutral-100 px-3 py-1 font-medium text-neutral-600 text-xs dark:bg-neutral-800 dark:text-neutral-300"
-                                                    >
-                                                        {tag}
-                                                    </li>
-                                                ))}
-                                            </motion.ul>
-                                        )}
-                                    </div>
-
-                                    {active.link &&
-                                        (active.link.demo ||
-                                            active.link.github) && (
-                                            <motion.div
-                                                layout
-                                                className="mt-2 flex flex-wrap gap-3"
-                                            >
-                                                {active.link.demo && (
-                                                    <motion.a
-                                                        layout
-                                                        initial={{ opacity: 0 }}
-                                                        animate={{ opacity: 1 }}
-                                                        exit={{ opacity: 0 }}
-                                                        href={active.link.demo}
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                        className="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 font-medium text-neutral-700 text-sm hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
-                                                    >
-                                                        <LuExternalLink className="h-4 w-4" />
-                                                        <span>Live Demo</span>
-                                                    </motion.a>
-                                                )}
-                                                {active.link.github && (
-                                                    <motion.a
-                                                        layout
-                                                        initial={{ opacity: 0 }}
-                                                        animate={{ opacity: 1 }}
-                                                        exit={{ opacity: 0 }}
-                                                        href={
-                                                            active.link.github
-                                                        }
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                        className="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 font-medium text-neutral-700 text-sm hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
-                                                    >
-                                                        <LuGithub className="h-4 w-4" />
-                                                        <span>GitHub</span>
-                                                    </motion.a>
-                                                )}
-                                            </motion.div>
-                                        )}
-                                </div>
-                                <div className="relative px-4 pt-4">
-                                    <motion.div
+                                <div className="relative flex min-h-0 flex-1 flex-col gap-6 md:flex-row md:gap-10">
+                                    <motion.button
+                                        key={`button-${active.title}-${id}-desktop`}
+                                        type="button"
                                         layout
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{ opacity: 0 }}
-                                        className="flex h-40 flex-col items-start gap-4 overflow-auto pb-10 text-neutral-600 text-xs [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] md:h-fit md:text-sm lg:text-base dark:text-neutral-400"
+                                        initial={{
+                                            opacity: 0,
+                                        }}
+                                        animate={{
+                                            opacity: 1,
+                                        }}
+                                        exit={{
+                                            opacity: 0,
+                                            transition: {
+                                                duration: 0.05,
+                                            },
+                                        }}
+                                        className={cn(
+                                            'md:-right-2 lg:-right-2 lg:-top-3 pointer-events-auto absolute top-2 right-2 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-red-400 md:flex dark:hover:bg-red-500',
+                                        )}
+                                        onClick={handleClose}
+                                        aria-label="Close project details"
                                     >
-                                        {typeof active.content === 'function'
-                                            ? active.content()
-                                            : active.content}
-                                    </motion.div>
+                                        <CloseIcon />
+                                    </motion.button>
+                                    <div className="flex min-h-0 flex-col gap-6 md:w-1/2">
+                                        <motion.div
+                                            layoutId={`image-${active.title}-${active.id}`}
+                                            className="overflow-hidden rounded-2xl"
+                                        >
+                                            <img
+                                                width={200}
+                                                height={200}
+                                                src={active.src}
+                                                alt={active.title}
+                                                className={cn(
+                                                    'h-80 w-full object-cover object-top md:h-[420px]',
+                                                )}
+                                            />
+                                        </motion.div>
+                                        <div
+                                            className={cn(
+                                                'flex flex-col gap-4',
+                                            )}
+                                        >
+                                            <motion.h3
+                                                layoutId={`title-${active.title}-${active.id}`}
+                                                className={cn(
+                                                    'font-bold text-3xl md:text-4xl',
+                                                )}
+                                            >
+                                                {active.title}
+                                            </motion.h3>
+                                            <motion.p
+                                                layoutId={`description-${active.description}-${active.id}`}
+                                                className={cn(
+                                                    'mt-2 text-neutral-600 text-sm leading-relaxed md:text-base dark:text-neutral-300',
+                                                )}
+                                            >
+                                                {active.description}
+                                            </motion.p>
+                                            {active.tags.length > 0 && (
+                                                <motion.ul
+                                                    layout
+                                                    className={cn(
+                                                        'mt-3 flex flex-wrap gap-2',
+                                                    )}
+                                                >
+                                                    {active.tags.map((tag) => (
+                                                        <li
+                                                            key={tag}
+                                                            className={cn(
+                                                                'rounded-full bg-neutral-100 px-3 py-1 font-medium text-neutral-600 text-xs dark:bg-neutral-800 dark:text-neutral-300',
+                                                            )}
+                                                        >
+                                                            {tag}
+                                                        </li>
+                                                    ))}
+                                                </motion.ul>
+                                            )}
+                                            {active.link &&
+                                                (active.link.demo ||
+                                                    active.link.github) && (
+                                                    <motion.div
+                                                        layout
+                                                        className={cn(
+                                                            'flex flex-wrap gap-3',
+                                                        )}
+                                                    >
+                                                        {active.link.demo && (
+                                                            <motion.a
+                                                                layout
+                                                                initial={{
+                                                                    opacity: 0,
+                                                                }}
+                                                                animate={{
+                                                                    opacity: 1,
+                                                                }}
+                                                                exit={{
+                                                                    opacity: 0,
+                                                                }}
+                                                                href={
+                                                                    active.link
+                                                                        .demo
+                                                                }
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                                className={cn(
+                                                                    'inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 font-medium text-neutral-700 text-sm hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800',
+                                                                )}
+                                                            >
+                                                                <LuExternalLink className="h-4 w-4" />
+                                                                <span>
+                                                                    Live Demo
+                                                                </span>
+                                                            </motion.a>
+                                                        )}
+                                                        {active.link.github && (
+                                                            <motion.a
+                                                                layout
+                                                                initial={{
+                                                                    opacity: 0,
+                                                                }}
+                                                                animate={{
+                                                                    opacity: 1,
+                                                                }}
+                                                                exit={{
+                                                                    opacity: 0,
+                                                                }}
+                                                                href={
+                                                                    active.link
+                                                                        .github
+                                                                }
+                                                                target="_blank"
+                                                                rel="noreferrer"
+                                                                className="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 font-medium text-neutral-700 text-sm hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
+                                                            >
+                                                                <LuGithub className="h-4 w-4" />
+                                                                <span>
+                                                                    GitHub
+                                                                </span>
+                                                            </motion.a>
+                                                        )}
+                                                    </motion.div>
+                                                )}
+                                        </div>
+                                    </div>
+                                    <div className="relative min-h-0 flex-1 overflow-y-scroll md:overflow-hidden md:pl-4 lg:pl-8">
+                                        <motion.div
+                                            layout
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            className="flex h-full min-h-0 flex-col items-start gap-4 overflow-y-auto pr-1 pb-10 text-neutral-600 text-xs [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] md:text-sm lg:text-base dark:text-neutral-400"
+                                        >
+                                            {active.content.map(
+                                                renderContentBlock,
+                                            )}
+                                        </motion.div>
+                                    </div>
                                 </div>
-                            </div>
-                        </motion.div>
+                            </motion.div>
+                        </div>
                     </div>
                 ) : null}
             </AnimatePresence>
@@ -228,117 +328,3 @@ export const CloseIcon = () => {
         </motion.svg>
     );
 };
-
-const projects: Project[] = [
-    {
-        id: 1,
-        description: 'Lana Del Rey',
-        title: 'Summertime Sadness',
-        src: 'https://assets.aceternity.com/demos/lana-del-rey.jpeg',
-        tags: ['Astro', 'Framer Motion', 'TypeScript'],
-        link: {
-            demo: 'https://aceternity.com/demo/summertime-sadness',
-            github: 'https://github.com/example/summertime-sadness',
-        },
-        content: () => {
-            return (
-                <p>
-                    Lana Del Rey, an iconic American singer-songwriter, is
-                    celebrated for her melancholic and cinematic music style.
-                    Born Elizabeth Woolridge Grant in New York City, she has
-                    captivated audiences worldwide with her haunting voice and
-                    introspective lyrics. <br /> <br /> Her songs often explore
-                    themes of tragic romance, glamour, and melancholia, drawing
-                    inspiration from both contemporary and vintage pop culture.
-                    With a career that has seen numerous critically acclaimed
-                    albums, Lana Del Rey has established herself as a unique and
-                    influential figure in the music industry, earning a
-                    dedicated fan base and numerous accolades.
-                </p>
-            );
-        },
-    },
-    {
-        id: 2,
-        description: 'Babbu Maan',
-        title: 'Mitran Di Chhatri',
-        src: 'https://assets.aceternity.com/demos/babbu-maan.jpeg',
-        tags: ['React', 'Tailwind CSS', 'Animation'],
-        link: {
-            demo: 'https://aceternity.com/demo/mitran-di-chhatri',
-            github: 'https://github.com/example/mitran-di-chhatri',
-        },
-        content: () => {
-            return (
-                <p>
-                    Babu Maan, a legendary Punjabi singer, is renowned for his
-                    soulful voice and profound lyrics that resonate deeply with
-                    his audience. Born in the village of Khant Maanpur in
-                    Punjab, India, he has become a cultural icon in the Punjabi
-                    music industry. <br /> <br /> His songs often reflect the
-                    struggles and triumphs of everyday life, capturing the
-                    essence of Punjabi culture and traditions. With a career
-                    spanning over two decades, Babu Maan has released numerous
-                    hit albums and singles that have garnered him a massive fan
-                    following both in India and abroad.
-                </p>
-            );
-        },
-    },
-
-    {
-        id: 3,
-        description: 'Metallica',
-        title: 'For Whom The Bell Tolls',
-        src: 'https://assets.aceternity.com/demos/metallica.jpeg',
-        tags: ['Vite', 'TypeScript', 'UI Motion'],
-        link: {
-            demo: 'https://aceternity.com/demo/for-whom-the-bell-tolls',
-            github: 'https://github.com/example/for-whom-the-bell-tolls',
-        },
-        content: () => {
-            return (
-                <p>
-                    Metallica, an iconic American heavy metal band, is renowned
-                    for their powerful sound and intense performances that
-                    resonate deeply with their audience. Formed in Los Angeles,
-                    California, they have become a cultural icon in the heavy
-                    metal music industry. <br /> <br /> Their songs often
-                    reflect themes of aggression, social issues, and personal
-                    struggles, capturing the essence of the heavy metal genre.
-                    With a career spanning over four decades, Metallica has
-                    released numerous hit albums and singles that have garnered
-                    them a massive fan following both in the United States and
-                    abroad.
-                </p>
-            );
-        },
-    },
-    {
-        id: 5,
-        description: 'Lord Himesh',
-        title: 'Aap Ka Suroor',
-        src: 'https://assets.aceternity.com/demos/aap-ka-suroor.jpeg',
-        tags: ['Design System', 'Accessibility', 'Storybook'],
-        link: {
-            demo: 'https://aceternity.com/demo/aap-ka-suroor',
-            github: 'https://github.com/example/aap-ka-suroor',
-        },
-        content: () => {
-            return (
-                <p>
-                    Himesh Reshammiya, a renowned Indian music composer, singer,
-                    and actor, is celebrated for his distinctive voice and
-                    innovative compositions. Born in Mumbai, India, he has
-                    become a prominent figure in the Bollywood music industry.{' '}
-                    <br /> <br /> His songs often feature a blend of
-                    contemporary and traditional Indian music, capturing the
-                    essence of modern Bollywood soundtracks. With a career
-                    spanning over two decades, Himesh Reshammiya has released
-                    numerous hit albums and singles that have garnered him a
-                    massive fan following both in India and abroad.
-                </p>
-            );
-        },
-    },
-];
