@@ -5,6 +5,8 @@
       "name": "bizarre-binary",
       "dependencies": {
         "@astrojs/react": "^4.3.0",
+        "@conform-to/react": "^1.13.3",
+        "@conform-to/zod": "^1.13.3",
         "@heroui/react": "^2.8.0-beta.10",
         "@react-three/drei": "^10.7.6",
         "@react-three/fiber": "^9.4.0",
@@ -104,6 +106,12 @@
     "@biomejs/cli-win32-x64": ["@biomejs/cli-win32-x64@2.0.5", "", { "os": "win32", "cpu": "x64" }, "sha512-Sw3rz2m6bBADeQpr3+MD7Ch4E1l15DTt/+dfqKnwkm3cn4BrYwnArmvKeZdVsFRDjMyjlKIP88bw1r7o+9aqzw=="],
 
     "@capsizecss/unpack": ["@capsizecss/unpack@2.4.0", "", { "dependencies": { "blob-to-buffer": "^1.2.8", "cross-fetch": "^3.0.4", "fontkit": "^2.0.2" } }, "sha512-GrSU71meACqcmIUxPYOJvGKF0yryjN/L1aCuE9DViCTJI7bfkjgYDPD1zbNDcINJwSSP6UaBZY9GAbYDO7re0Q=="],
+
+    "@conform-to/dom": ["@conform-to/dom@1.13.3", "", {}, "sha512-V4uNfUcx0cfuwnL/yNtjRvWxzwyNWhayBJXhRDBxEtiqBJiSEge6qeMN0xSUDbZezj5uAl13rzVQyf6FZXoOZQ=="],
+
+    "@conform-to/react": ["@conform-to/react@1.13.3", "", { "dependencies": { "@conform-to/dom": "1.13.3" }, "peerDependencies": { "react": ">=18" } }, "sha512-3qLE52gLUKX9UBadto06mluqU+LS+S/oo/KXfCWJYhW2WxtZg87mG0c1kstPVBOOkocPzCCHN6Hjo4vwrGgiPg=="],
+
+    "@conform-to/zod": ["@conform-to/zod@1.13.3", "", { "dependencies": { "@conform-to/dom": "1.13.3" }, "peerDependencies": { "zod": "^3.21.0 || ^4.0.0" } }, "sha512-HimtfcJPgjlhmMRWUvvyFvgdPgAmG/54qY/Bp1Wtoi+mRQ4ffBuBy+0L8mlc1USeI1X2YEZDfMurOlTf92xQwA=="],
 
     "@dimforge/rapier3d-compat": ["@dimforge/rapier3d-compat@0.12.0", "", {}, "sha512-uekIGetywIgopfD97oDL5PfeezkFpNhwlzlaEYNOA0N6ghdsOvh/HYjSMek5Q2O1PYvRSDFcqFVJl4r4ZBwOow=="],
 
