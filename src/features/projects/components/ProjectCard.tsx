@@ -56,16 +56,20 @@ export const ProjectCard: FC<ProjectCardProps> = (props) => {
                         {project.description}
                     </motion.p>
                     {project.tags.length > 0 && (
-                        <ul className="mt-4 flex flex-wrap justify-center gap-2 md:justify-start">
+                        <motion.ul
+                            layoutId={`tags-${project.id}`}
+                            className="mt-4 flex flex-wrap justify-center gap-2 md:justify-start"
+                        >
                             {project.tags.map((tag) => (
-                                <li
+                                <motion.li
+                                    layoutId={`tag-${project.id}-${tag}`}
                                     key={tag}
                                     className="rounded-full bg-neutral-100 px-3 py-1 font-medium text-neutral-600 text-xs dark:bg-neutral-800 dark:text-neutral-300"
                                 >
                                     {tag}
-                                </li>
+                                </motion.li>
                             ))}
-                        </ul>
+                        </motion.ul>
                     )}
                 </motion.div>
             </div>

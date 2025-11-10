@@ -178,19 +178,22 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                             {active.tags.length > 0 && (
                                                 <motion.ul
                                                     layout
+                                                    layoutId={`tags-${active.id}`}
                                                     className={cn(
                                                         'mt-3 flex flex-wrap gap-2',
                                                     )}
                                                 >
                                                     {active.tags.map((tag) => (
-                                                        <li
+                                                        <motion.li
+                                                            layout
+                                                            layoutId={`tag-${active.id}-${tag}`}
                                                             key={tag}
                                                             className={cn(
                                                                 'rounded-full bg-neutral-100 px-3 py-1 font-medium text-neutral-600 text-xs dark:bg-neutral-800 dark:text-neutral-300',
                                                             )}
                                                         >
                                                             {tag}
-                                                        </li>
+                                                        </motion.li>
                                                     ))}
                                                 </motion.ul>
                                             )}
