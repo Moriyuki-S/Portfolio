@@ -1,5 +1,6 @@
 ---
-import { Test } from 'src/components/Test';
+import SectionContainer from 'src/components/layout/sectionContainer.astro';
+import { ContactSection } from 'src/sections/contact';
 import Hero from 'src/sections/hero.astro';
 import Profile from 'src/sections/profile.astro';
 import Project from 'src/sections/project.astro';
@@ -15,7 +16,9 @@ import Layout from '../layouts/Layout.astro';
 		<div class="py-8 dark:bg-slate-950">
 			<Profile />
 			<Project />
-			<Test />
+			<SectionContainer sectionID='contact'>
+				<ContactSection client:load />
+			</SectionContainer>
 		</div>
 	</div>
 </Layout>
