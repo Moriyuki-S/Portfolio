@@ -35,31 +35,26 @@ export const ContactSection: FC = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
 
+    const sendForm = useCallback(async (payload: FormData) => {
+        try {
+            setIsSubmitting(true);
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                body: payload,
+            });
 
-    const sendForm = useCallback(
-        async (payload: FormData) => {
-            try {
-                setIsSubmitting(true);
-                const response = await fetch('/api/contact', {
-                    method: 'POST',
-                    body: payload,
-                });
-
-                if (!response.ok) {
-                    throw new Error('Failed to submit');
-                }
-
-            } catch (error) {
-                console.error(error);
-                setSubmitError(
-                    '送信に失敗しました。時間をおいて再度お試しください。',
-                );
-            } finally {
-                setIsSubmitting(false);
+            if (!response.ok) {
+                throw new Error('Failed to submit');
             }
-        },
-        [],
-    );
+        } catch (error) {
+            console.error(error);
+            setSubmitError(
+                '送信に失敗しました。時間をおいて再度お試しください。',
+            );
+        } finally {
+            setIsSubmitting(false);
+        }
+    }, []);
 
     const [form, fields] = useForm({
         constraint: getZodConstraint(schema),
