@@ -1,4 +1,5 @@
 import { cn } from '$lib/utils';
+import { navigate } from 'astro:transitions/client';
 import {
     FormProvider,
     FormStateInput,
@@ -9,27 +10,7 @@ import {
 } from '@conform-to/react';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import { type FC, useCallback, useState } from 'react';
-import { z } from 'zod';
-
-const schema = z.object({
-    email: z.preprocess(
-        (val) => (typeof val === 'string' ? val.toLowerCase() : val),
-        z
-            .string({ required_error: 'メールアドレスを入力してください' })
-            .email('有効なメールアドレスを入力してください'),
-    ),
-    name: z.preprocess(
-        (val) => (typeof val === 'string' ? val.trim() : val),
-        z.string({ required_error: 'お名前を入力してください' }),
-    ),
-    message: z.preprocess(
-        (val) => (typeof val === 'string' ? val.trim() : val),
-        z
-            .string({ required_error: 'お問い合わせ内容を入力してください' })
-            .min(10, 'メッセージは少なくとも10文字である必要があります')
-            .max(1000, 'メッセージは最大1000文字までです'),
-    ),
-});
+import { schema } from 'src/features/contact/type';
 
 export const ContactSection: FC = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -43,14 +24,27 @@ export const ContactSection: FC = () => {
                 body: payload,
             });
 
-            if (!response.ok) {
-                throw new Error('Failed to submit');
+            const data = (await response.json().catch(() => null)) as {
+                success?: boolean;
+                error?: string;
+            } | null;
+
+            if (!response.ok || !data?.success) {
+                throw new Error(
+                    data?.error ??
+                        '送信に失敗しました。時間をおいて再度お試しください。',
+                );
             }
+
+            return true;
         } catch (error) {
             console.error(error);
-            setSubmitError(
-                '送信に失敗しました。時間をおいて再度お試しください。',
-            );
+            const fallbackMessage =
+                error instanceof Error && error.message
+                    ? error.message
+                    : '送信に失敗しました。時間をおいて再度お試しください。';
+            setSubmitError(fallbackMessage);
+            return false;
         } finally {
             setIsSubmitting(false);
         }
@@ -75,7 +69,11 @@ export const ContactSection: FC = () => {
 
             setSubmitError(null);
             const payload = new FormData(event.currentTarget);
-            void sendForm(payload);
+            void sendForm(payload).then((wasSuccessful) => {
+                if (wasSuccessful) {
+                    navigate('/thank-you');
+                }
+            });
         },
     });
 

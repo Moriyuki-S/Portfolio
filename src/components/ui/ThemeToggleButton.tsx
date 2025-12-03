@@ -44,6 +44,7 @@ export const ThemeToggleButton: FC = () => {
         <Dropdown backdrop="blur">
             <DropdownTrigger>
                 <Button
+                    data-astro-transition-persist="theme-toggle-button"
                     size="lg"
                     isIconOnly
                     className="flex justify-center p-2"

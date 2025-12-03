@@ -1,0 +1,10 @@
+---
+import Layout from 'src/layouts/Layout.astro';
+import { ContactSection } from 'src/sections/contact';
+---
+
+<Layout>
+	<main class="flex min-h-[70vh] items-center justify-center px-6 py-24 text-center sm:px-8">
+		<ContactSection client:load />
+	</main>
+</Layout>

@@ -1,4 +1,5 @@
 import { cn } from '$lib/utils';
+import { navigate } from 'astro:transitions/client';
 import {
     Link,
     Navbar,
@@ -13,11 +14,20 @@ import {
     LucideHome,
     LucideSend,
 } from 'lucide-react';
-import { type FC, useState } from 'react';
+import { type FC, type MouseEvent, useState } from 'react';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 
 export const Header: FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+
+    const navigateWithAnimation = (e: MouseEvent, href: string) => {
+        e.preventDefault();
+        const currentPath = window.location.pathname;
+        if (currentPath === href) {
+            return;
+        }
+        navigate(href);
+    };
 
     return (
         <>
@@ -101,25 +111,33 @@ export const Header: FC = () => {
                     justify="center"
                 >
                     <NavbarItem isActive>
-                        <Link className="flex items-center " href="#">
+                        <Link
+                            className="flex items-center "
+                            onClick={(e) => navigateWithAnimation(e, '/')}
+                        >
                             <LucideHome className="me-2" />
                             ホーム
                         </Link>
                     </NavbarItem>
                     <NavbarItem>
-                        <Link className="flex items-center" href="#profile">
+                        <Link className="flex items-center" href="/#profile">
                             <LucideCircleUser className="me-2" />
                             プロフィール
                         </Link>
                     </NavbarItem>
                     <NavbarItem>
-                        <Link className="flex items-center" href="#works">
+                        <Link className="flex items-center" href="/#project">
                             <LucideCode className="me-2" />
                             プロジェクト
                         </Link>
                     </NavbarItem>
                     <NavbarItem>
-                        <Link className="flex items-center" href="#contact">
+                        <Link
+                            onClick={(e) =>
+                                navigateWithAnimation(e, '/contact')
+                            }
+                            className="flex items-center"
+                        >
                             <LucideSend className="me-2" />
                             お問い合わせ
                         </Link>
