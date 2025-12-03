@@ -136,7 +136,7 @@ export const Header: FC = () => {
                             onClick={(e) =>
                                 navigateWithAnimation(e, '/contact')
                             }
-                            className="flex items-center"
+                            className="flex cursor-pointer items-center"
                         >
                             <LucideSend className="me-2" />
                             お問い合わせ

@@ -77,55 +77,144 @@ export const ContactSection: FC = () => {
         },
     });
 
-    const baseFieldClasses =
-        'w-full rounded-2xl border bg-white/80 px-4 py-3 text-sm transition focus-visible:outline-none focus-visible:ring-4 dark:bg-slate-900/80';
+    const baseFieldClasses = [
+        'w-full',
+        'rounded-2xl',
+        'border',
+        'bg-white/80',
+        'px-4',
+        'py-3',
+        'text-sm',
+        'transition',
+        'focus-visible:outline-none',
+        'focus-visible:ring-4',
+        'dark:bg-slate-900/80',
+    ];
 
-    const getFieldClasses = (hasError?: boolean) =>
-        cn(
-            baseFieldClasses,
-            hasError
-                ? 'border-red-400 focus-visible:ring-red-400/30 dark:border-red-500'
-                : 'border-slate-200 focus-visible:ring-indigo-400/20 dark:border-slate-800',
-        );
+    const getFieldClasses = (hasError?: boolean) => [
+        ...baseFieldClasses,
+        ...(hasError
+            ? [
+                  'border-red-400',
+                  'focus-visible:ring-red-400/30',
+                  'dark:border-red-500',
+              ]
+            : [
+                  'border-slate-200',
+                  'focus-visible:ring-indigo-400/20',
+                  'dark:border-slate-800',
+              ]),
+    ];
 
     const renderError = (errorId?: string, errors?: string[]) =>
         errors ? (
             <p
                 id={errorId}
-                className="mt-1 text-red-500 text-sm dark:text-red-400"
+                className={cn([
+                    'mt-1',
+                    'text-red-500',
+                    'text-sm',
+                    'dark:text-red-400',
+                ])}
             >
                 {errors[0]}
             </p>
         ) : null;
 
     return (
-        <section className="relative">
-            <div className="-z-10 pointer-events-none absolute inset-0">
-                <div className="-translate-x-1/2 absolute top-0 left-1/2 h-64 w-64 rounded-full bg-indigo-500/30 blur-[120px] dark:bg-indigo-500/10" />
+        <section className={cn(['relative'])}>
+            <div
+                className={cn([
+                    '-z-10',
+                    'pointer-events-none',
+                    'absolute',
+                    'inset-0',
+                ])}
+            >
+                <div
+                    className={cn([
+                        '-translate-x-1/2',
+                        'absolute',
+                        'top-0',
+                        'left-1/2',
+                        'h-64',
+                        'w-64',
+                        'rounded-full',
+                        'bg-indigo-500/30',
+                        'blur-[120px]',
+                        'dark:bg-indigo-500/10',
+                    ])}
+                />
             </div>
-            <div className="mx-auto w-full max-w-3xl">
+            <div className={cn(['mx-auto', 'w-full', 'max-w-3xl'])}>
                 <FormProvider context={form.context}>
                     <form
                         {...getFormProps(form)}
                         method="post"
-                        className="rounded-[32px] border border-slate-200/60 bg-white/90 p-6 shadow-2xl backdrop-blur-md sm:p-8 dark:border-slate-800/80 dark:bg-slate-900/80"
+                        className={cn([
+                            'rounded-[32px]',
+                            'border',
+                            'border-slate-200/60',
+                            'bg-white/90',
+                            'p-6',
+                            'shadow-2xl',
+                            'backdrop-blur-md',
+                            'sm:p-8',
+                            'dark:border-slate-800/80',
+                            'dark:bg-slate-900/80',
+                        ])}
                     >
                         <FormStateInput formId={form.id} />
-                        <div className="space-y-2">
-                            <p className="font-semibold text-slate-500 text-sm uppercase tracking-[0.3em] dark:text-slate-400">
+                        <div className={cn(['space-y-2'])}>
+                            <p
+                                className={cn([
+                                    'font-semibold',
+                                    'text-slate-500',
+                                    'text-sm',
+                                    'uppercase',
+                                    'tracking-[0.3em]',
+                                    'dark:text-slate-400',
+                                ])}
+                            >
                                 Get in touch
                             </p>
-                            <h3 className="font-bold text-2xl text-slate-900 dark:text-white">
+                            <h3
+                                className={cn([
+                                    'font-bold',
+                                    'text-2xl',
+                                    'text-slate-900',
+                                    'dark:text-white',
+                                ])}
+                            >
                                 お問い合わせ
                             </h3>
-                            <p className="text-slate-500 text-sm dark:text-slate-400">
+                            <p
+                                className={cn([
+                                    'text-slate-500',
+                                    'text-sm',
+                                    'dark:text-slate-400',
+                                ])}
+                            >
                                 * は必須項目です。
                             </p>
                         </div>
 
                         {form.errors && (
                             <div
-                                className="mt-6 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-red-700 text-sm dark:border-red-500/40 dark:bg-red-500/10 dark:text-red-200"
+                                className={cn([
+                                    'mt-6',
+                                    'rounded-2xl',
+                                    'border',
+                                    'border-red-200',
+                                    'bg-red-50',
+                                    'px-4',
+                                    'py-3',
+                                    'text-red-700',
+                                    'text-sm',
+                                    'dark:border-red-500/40',
+                                    'dark:bg-red-500/10',
+                                    'dark:text-red-200',
+                                ])}
                                 role="alert"
                                 id={form.errorId}
                             >
@@ -135,7 +224,20 @@ export const ContactSection: FC = () => {
 
                         {submitError && (
                             <div
-                                className="mt-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-amber-800 text-sm dark:border-amber-500/40 dark:bg-amber-500/10 dark:text-amber-200"
+                                className={cn([
+                                    'mt-4',
+                                    'rounded-2xl',
+                                    'border',
+                                    'border-amber-200',
+                                    'bg-amber-50',
+                                    'px-4',
+                                    'py-3',
+                                    'text-amber-800',
+                                    'text-sm',
+                                    'dark:border-amber-500/40',
+                                    'dark:bg-amber-500/10',
+                                    'dark:text-amber-200',
+                                ])}
                                 role="alert"
                                 aria-live="assertive"
                             >
@@ -143,11 +245,18 @@ export const ContactSection: FC = () => {
                             </div>
                         )}
 
-                        <div className="mt-6 space-y-6">
+                        <div className={cn(['mt-6', 'space-y-6'])}>
                             <div>
                                 <label
                                     htmlFor={fields.name.id}
-                                    className="font-medium text-slate-700 text-sm dark:text-slate-100"
+                                    className={cn([
+                                        'mb-2',
+                                        'block',
+                                        'font-medium',
+                                        'text-slate-700',
+                                        'text-sm',
+                                        'dark:text-slate-100',
+                                    ])}
                                 >
                                     お名前 *
                                 </label>
@@ -155,9 +264,11 @@ export const ContactSection: FC = () => {
                                     {...getInputProps(fields.name, {
                                         type: 'text',
                                     })}
-                                    className={getFieldClasses(
-                                        Boolean(fields.name.errors),
-                                    )}
+                                    className={cn([
+                                        ...getFieldClasses(
+                                            Boolean(fields.name.errors),
+                                        ),
+                                    ])}
                                     placeholder="山田 太郎"
                                 />
                                 {renderError(
@@ -169,7 +280,14 @@ export const ContactSection: FC = () => {
                             <div>
                                 <label
                                     htmlFor={fields.email.id}
-                                    className="font-medium text-slate-700 text-sm dark:text-slate-100"
+                                    className={cn([
+                                        'mb-2',
+                                        'block',
+                                        'font-medium',
+                                        'text-slate-700',
+                                        'text-sm',
+                                        'dark:text-slate-100',
+                                    ])}
                                 >
                                     メールアドレス *
                                 </label>
@@ -177,9 +295,11 @@ export const ContactSection: FC = () => {
                                     {...getInputProps(fields.email, {
                                         type: 'email',
                                     })}
-                                    className={getFieldClasses(
-                                        Boolean(fields.email.errors),
-                                    )}
+                                    className={cn([
+                                        ...getFieldClasses(
+                                            Boolean(fields.email.errors),
+                                        ),
+                                    ])}
                                     placeholder="you@example.com"
                                 />
                                 {renderError(
@@ -191,19 +311,26 @@ export const ContactSection: FC = () => {
                             <div>
                                 <label
                                     htmlFor={fields.message.id}
-                                    className="font-medium text-slate-700 text-sm dark:text-slate-100"
+                                    className={cn([
+                                        'mb-2',
+                                        'block',
+                                        'font-medium',
+                                        'text-slate-700',
+                                        'text-sm',
+                                        'dark:text-slate-100',
+                                    ])}
                                 >
                                     お問い合わせ内容 *
                                 </label>
                                 <textarea
                                     {...getTextareaProps(fields.message)}
                                     rows={6}
-                                    className={cn(
-                                        getFieldClasses(
+                                    className={cn([
+                                        ...getFieldClasses(
                                             Boolean(fields.message.errors),
                                         ),
                                         'resize-none',
-                                    )}
+                                    ])}
                                     placeholder="ご希望の内容や現在の課題などをご記入ください。"
                                 />
                                 {renderError(
@@ -213,14 +340,51 @@ export const ContactSection: FC = () => {
                             </div>
                         </div>
 
-                        <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                            <p className="text-slate-500 text-xs dark:text-slate-400">
+                        <div
+                            className={cn([
+                                'mt-8',
+                                'flex',
+                                'flex-col',
+                                'gap-4',
+                                'sm:flex-row',
+                                'sm:items-center',
+                                'sm:justify-between',
+                            ])}
+                        >
+                            <p
+                                className={cn([
+                                    'text-slate-500',
+                                    'text-xs',
+                                    'dark:text-slate-400',
+                                ])}
+                            >
                                 送信ボタンを押すことで、プライバシーポリシーに同意したとみなされます。
                             </p>
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="inline-flex items-center justify-center rounded-full bg-slate-900 px-8 py-3 font-semibold text-sm text-white transition hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-indigo-400/40 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
+                                className={cn([
+                                    'inline-flex',
+                                    'items-center',
+                                    'justify-center',
+                                    'rounded-full',
+                                    'bg-slate-900',
+                                    'px-8',
+                                    'py-3',
+                                    'font-semibold',
+                                    'text-sm',
+                                    'text-white',
+                                    'transition',
+                                    'hover:bg-slate-800',
+                                    'focus-visible:outline-none',
+                                    'focus-visible:ring-4',
+                                    'focus-visible:ring-indigo-400/40',
+                                    'disabled:cursor-not-allowed',
+                                    'disabled:opacity-60',
+                                    'dark:bg-white',
+                                    'dark:text-slate-900',
+                                    'dark:hover:bg-slate-200',
+                                ])}
                             >
                                 {isSubmitting ? '送信中…' : '送信する'}
                             </button>
