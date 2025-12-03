@@ -1,4 +1,5 @@
 import { cn } from '$lib/utils';
+import { navigate } from 'astro:transitions/client';
 import {
     Button,
     Link,
@@ -14,7 +15,7 @@ import {
     LucideHome,
     LucideSend,
 } from 'lucide-react';
-import { type FC, useState } from 'react';
+import { type FC, type MouseEvent, useState } from 'react';
 import { LuMenu } from 'react-icons/lu';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 
@@ -23,6 +24,15 @@ export const FooterNav: FC = () => {
 
     const handleMenuToggle = () => {
         setIsMenuOpen((prev) => !prev);
+    };
+
+    const navigateWithAnimation = (e: MouseEvent, href: string) => {
+        e.preventDefault();
+        const currentPath = window.location.pathname;
+        if (currentPath === href) {
+            return;
+        }
+        navigate(href);
     };
 
     return (
@@ -104,19 +114,30 @@ export const FooterNav: FC = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#" onClick={handleMenuToggle}>
+                                <Link
+                                    href="/#profile"
+                                    onClick={handleMenuToggle}
+                                >
                                     <LucideCircleUser className="me-3" />
                                     プロフィール
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#" onClick={handleMenuToggle}>
+                                <Link
+                                    href="/#project"
+                                    onClick={handleMenuToggle}
+                                >
                                     <LucideCode className="me-3" />
                                     プロジェクト
                                 </Link>
                             </li>
                             <li>
-                                <Link href="#" onClick={handleMenuToggle}>
+                                <Link
+                                    href="/contact"
+                                    onClick={(e) =>
+                                        navigateWithAnimation(e, '/contact')
+                                    }
+                                >
                                     <LucideSend className="me-3" />
                                     お問い合わせ
                                 </Link>
