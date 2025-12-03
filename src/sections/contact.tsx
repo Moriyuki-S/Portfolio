@@ -9,7 +9,7 @@ import {
     useForm,
 } from '@conform-to/react';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
-import { type FC, useCallback, useState } from 'react';
+import { type FC, useCallback, useEffect, useState } from 'react';
 import { schema } from 'src/features/contact/type';
 import { FaEnvelope, FaLinkedin } from 'react-icons/fa';
 import {
@@ -24,6 +24,7 @@ export const ContactSection: FC = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState<'form' | 'linkedin'>('form');
+    const [hasEdited, setHasEdited] = useState(false);
 
     const sendForm = useCallback(async (payload: FormData) => {
         try {
@@ -84,11 +85,24 @@ export const ContactSection: FC = () => {
             const payload = new FormData(event.currentTarget);
             void sendForm(payload).then((wasSuccessful) => {
                 if (wasSuccessful) {
+                    setHasEdited(false);
                     navigate('/thank-you');
                 }
             });
         },
     });
+
+    useEffect(() => {
+        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+            if (hasEdited && !isSubmitting) {
+                event.preventDefault();
+                event.returnValue = '';
+            }
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+    }, [hasEdited, isSubmitting]);
 
     const baseFieldClasses = [
         'w-full',
@@ -150,6 +164,7 @@ export const ContactSection: FC = () => {
                     <form
                         {...getFormProps(form)}
                         method="post"
+                        onInput={() => setHasEdited(true)}
                         className={cn([
                             'rounded-[32px]',
                             'border',
