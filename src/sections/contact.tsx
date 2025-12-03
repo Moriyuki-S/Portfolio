@@ -11,10 +11,19 @@ import {
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import { type FC, useCallback, useState } from 'react';
 import { schema } from 'src/features/contact/type';
+import { FaEnvelope, FaLinkedin } from 'react-icons/fa';
+import {
+    ContactTabs,
+    type ContactTabMeta,
+} from 'src/components/ui/contact-tabs';
+
+const LINKEDIN_URL =
+    import.meta.env.PUBLIC_LINKEDIN_URL ?? 'https://www.linkedin.com/';
 
 export const ContactSection: FC = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
+    const [activeTab, setActiveTab] = useState<'form' | 'linkedin'>('form');
 
     const sendForm = useCallback(async (payload: FormData) => {
         try {
@@ -49,6 +58,10 @@ export const ContactSection: FC = () => {
             setIsSubmitting(false);
         }
     }, []);
+
+    const handleTabChange = (tab: 'form' | 'linkedin') => {
+        setActiveTab(tab);
+    };
 
     const [form, fields] = useForm({
         constraint: getZodConstraint(schema),
@@ -121,32 +134,18 @@ export const ContactSection: FC = () => {
             </p>
         ) : null;
 
-    return (
-        <section className={cn(['relative'])}>
-            <div
-                className={cn([
-                    '-z-10',
-                    'pointer-events-none',
-                    'absolute',
-                    'inset-0',
-                ])}
-            >
-                <div
-                    className={cn([
-                        '-translate-x-1/2',
-                        'absolute',
-                        'top-0',
-                        'left-1/2',
-                        'h-64',
-                        'w-64',
-                        'rounded-full',
-                        'bg-indigo-500/30',
-                        'blur-[120px]',
-                        'dark:bg-indigo-500/10',
-                    ])}
-                />
-            </div>
-            <div className={cn(['mx-auto', 'w-full', 'max-w-3xl'])}>
+    const tabs: ContactTabMeta<'form' | 'linkedin'>[] = [
+        {
+            id: 'form',
+            label: (
+                <>
+                    <FaEnvelope className={cn(['text-base'])} />
+                    フォーム
+                </>
+            ),
+            panelId: 'contact-panel-form',
+            tabId: 'contact-tab-form',
+            content: (
                 <FormProvider context={form.context}>
                     <form
                         {...getFormProps(form)}
@@ -391,6 +390,148 @@ export const ContactSection: FC = () => {
                         </div>
                     </form>
                 </FormProvider>
+            ),
+        },
+        {
+            id: 'linkedin',
+            label: (
+                <>
+                    <FaLinkedin className={cn(['text-base'])} />
+                    LinkedIn
+                </>
+            ),
+            panelId: 'contact-panel-linkedin',
+            tabId: 'contact-tab-linkedin',
+            content: (
+                <div
+                    className={cn([
+                        'rounded-[32px]',
+                        'border',
+                        'border-slate-200/60',
+                        'bg-white/90',
+                        'p-6',
+                        'shadow-2xl',
+                        'backdrop-blur-md',
+                        'sm:p-8',
+                        'dark:border-slate-800/80',
+                        'dark:bg-slate-900/70',
+                    ])}
+                >
+                    <div
+                        className={cn([
+                            'flex',
+                            'flex-col',
+                            'gap-4',
+                            'text-slate-700',
+                            'dark:text-slate-100',
+                        ])}
+                    >
+                        <p
+                            className={cn([
+                                'text-xs',
+                                'uppercase',
+                                'tracking-[0.3em]',
+                                'text-slate-500',
+                                'dark:text-slate-400',
+                            ])}
+                        >
+                            Get in touch
+                        </p>
+                        <div
+                            className={cn([
+                                'flex',
+                                'items-center',
+                                'gap-2',
+                                'text-2xl',
+                                'justify-center',
+                                'font-semibold',
+                            ])}
+                        >
+                            <FaLinkedin
+                                className={cn(['text-2xl', 'text-[#0A66C2]'])}
+                            />
+                            <span>LinkedIn でお問い合わせ</span>
+                        </div>
+                        <p
+                            className={cn([
+                                'text-sm',
+                                'text-slate-500',
+                                'dark:text-slate-400',
+                            ])}
+                        >
+                            プロフィールや実績を確認しながら相談したい方はこちら
+                        </p>
+
+                        <p className={cn(['text-sm', 'leading-relaxed'])}>
+                            迅速な連絡やキャリアの相談、コラボレーションのお話など、LinkedInでのメッセージを歓迎しています。まずはお気軽にメッセージをお送りください。
+                        </p>
+
+                        <a
+                            href={LINKEDIN_URL}
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            className={cn([
+                                'inline-flex',
+                                'items-center',
+                                'justify-center',
+                                'gap-2',
+                                'rounded-full',
+                                'bg-[#0A66C2]',
+                                'px-6',
+                                'py-3',
+                                'text-sm',
+                                'font-semibold',
+                                'text-white',
+                                'transition',
+                                'hover:bg-[#094c91]',
+                                'focus-visible:outline-none',
+                                'focus-visible:ring-4',
+                                'focus-visible:ring-[#0A66C2]/30',
+                            ])}
+                        >
+                            <FaLinkedin
+                                className={cn(['text-lg', 'text-white'])}
+                            />
+                            LinkedIn でメッセージする
+                        </a>
+                    </div>
+                </div>
+            ),
+        },
+    ];
+
+    return (
+        <section className={cn(['relative'])}>
+            <div
+                className={cn([
+                    '-z-10',
+                    'pointer-events-none',
+                    'absolute',
+                    'inset-0',
+                ])}
+            >
+                <div
+                    className={cn([
+                        '-translate-x-1/2',
+                        'absolute',
+                        'top-0',
+                        'left-1/2',
+                        'h-64',
+                        'w-64',
+                        'rounded-full',
+                        'bg-indigo-500/30',
+                        'blur-[120px]',
+                        'dark:bg-indigo-500/10',
+                    ])}
+                />
+            </div>
+            <div className={cn(['mx-auto', 'w-full', 'max-w-3xl'])}>
+                <ContactTabs
+                    tabs={tabs}
+                    activeTab={activeTab}
+                    onSelect={handleTabChange}
+                    tabListLabel="お問い合わせ or LinkedIn を選択"
+                />
             </div>
         </section>
     );

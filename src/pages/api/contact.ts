@@ -35,12 +35,16 @@ export const POST: APIRoute = async ({ request }) => {
         const channelId = import.meta.env.DISCORD_CHANNEL_ID;
         if (!botToken || !channelId) {
             console.error('Discord bot configuration is missing.');
-            throw new Error('DISCORD_BOT_TOKEN or DISCORD_CHANNEL_ID is not configured.');
+            throw new Error(
+                'DISCORD_BOT_TOKEN or DISCORD_CHANNEL_ID is not configured.',
+            );
         }
 
-        const discordClient = createDiscordService(botToken, channelId)
-        const contactRepository = createDiscordContactRepository(discordClient)
-        const contactService = createContactService({repository: contactRepository})
+        const discordClient = createDiscordService(botToken, channelId);
+        const contactRepository = createDiscordContactRepository(discordClient);
+        const contactService = createContactService({
+            repository: contactRepository,
+        });
         await contactService.submit(result.data);
     } catch (error) {
         console.error('Error sending Discord notification:', error);
