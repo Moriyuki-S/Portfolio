@@ -1,4 +1,4 @@
-import type { ContactDiscordNotifier } from 'src/features/contact/discord-notifier';
+import type { ContactRepository } from 'src/features/contact/repository';
 import type { ContactFormData } from 'src/features/contact/type';
 
 export interface ContactService {
@@ -6,11 +6,11 @@ export interface ContactService {
 }
 
 type Dependencies = {
-    notifier: ContactDiscordNotifier;
+    repository: ContactRepository;
 };
 
 export const createContactService = ({
-    notifier,
+    repository,
 }: Dependencies): ContactService => ({
-    submit: (payload) => notifier.send(payload),
+    submit: (payload) => repository.notify(payload),
 });

@@ -5,17 +5,13 @@ import {
     ButtonStyle,
     EmbedBuilder,
 } from 'discord.js';
-import type { ContactFormData } from './type';
+import type { ContactRepository } from './repository';
 
-export interface ContactDiscordNotifier {
-    send(payload: ContactFormData): Promise<void>;
-}
-
-export const createDiscordContactNotifier = (
+export const createDiscordContactRepository = (
     discord: DiscordMessageClient,
-): ContactDiscordNotifier => {
+): ContactRepository => {
     return {
-        async send(payload) {
+        async notify(payload) {
             const embed = new EmbedBuilder()
                 .setTitle('新しいお問い合わせ')
                 .setColor(0x6366f1)

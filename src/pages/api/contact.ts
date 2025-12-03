@@ -1,6 +1,6 @@
 import { createDiscordService } from '$lib/services/discord';
 import type { APIRoute } from 'astro';
-import { createDiscordContactNotifier } from 'src/features/contact/discord-notifier';
+import { createDiscordContactRepository } from 'src/features/contact/discord-repository';
 import { schema } from 'src/features/contact/type';
 import { createContactService } from 'src/services/contact';
 
@@ -39,8 +39,8 @@ export const POST: APIRoute = async ({ request }) => {
         }
 
         const discordClient = createDiscordService(botToken, channelId)
-        const contactDiscordNotifier = createDiscordContactNotifier(discordClient)
-        const contactService = createContactService({notifier: contactDiscordNotifier})
+        const contactRepository = createDiscordContactRepository(discordClient)
+        const contactService = createContactService({repository: contactRepository})
         await contactService.submit(result.data);
     } catch (error) {
         console.error('Error sending Discord notification:', error);
