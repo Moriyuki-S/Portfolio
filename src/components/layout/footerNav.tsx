@@ -1,4 +1,5 @@
 import { cn } from '$lib/utils';
+import { navigate } from 'astro:transitions/client';
 import {
     Button,
     Link,
@@ -14,7 +15,6 @@ import {
     LucideHome,
     LucideSend,
 } from 'lucide-react';
-import { navigate } from 'astro:transitions/client';
 import { type FC, type MouseEvent, useState } from 'react';
 import { LuMenu } from 'react-icons/lu';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';

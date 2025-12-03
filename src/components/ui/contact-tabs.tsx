@@ -77,8 +77,8 @@ export const ContactTabs = <T extends string>({
                             : [
                                   'text-slate-500',
                                   'hover:text-slate-800',
-                                'dark:text-slate-400',
-                            ],
+                                  'dark:text-slate-400',
+                              ],
                     ])}
                 >
                     <span

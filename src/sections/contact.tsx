@@ -10,12 +10,12 @@ import {
 } from '@conform-to/react';
 import { getZodConstraint, parseWithZod } from '@conform-to/zod';
 import { type FC, useCallback, useEffect, useState } from 'react';
-import { schema } from 'src/features/contact/type';
 import { FaEnvelope, FaLinkedin } from 'react-icons/fa';
 import {
-    ContactTabs,
     type ContactTabMeta,
+    ContactTabs,
 } from 'src/components/ui/contact-tabs';
+import { schema } from 'src/features/contact/type';
 
 const LINKEDIN_URL =
     import.meta.env.PUBLIC_LINKEDIN_URL ?? 'https://www.linkedin.com/';
@@ -101,7 +101,8 @@ export const ContactSection: FC = () => {
         };
 
         window.addEventListener('beforeunload', handleBeforeUnload);
-        return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+        return () =>
+            window.removeEventListener('beforeunload', handleBeforeUnload);
     }, [hasEdited, isSubmitting]);
 
     const baseFieldClasses = [
