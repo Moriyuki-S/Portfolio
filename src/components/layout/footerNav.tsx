@@ -26,10 +26,7 @@ export const FooterNav: FC = () => {
         setIsMenuOpen((prev) => !prev);
     };
 
-    const navigateWithAnimation = (
-        e: MouseEvent,
-        href: string,
-    ) => {
+    const navigateWithAnimation = (e: MouseEvent, href: string) => {
         e.preventDefault();
         const currentPath = window.location.pathname;
         if (currentPath === href) {
@@ -117,22 +114,30 @@ export const FooterNav: FC = () => {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/#profile" onClick={handleMenuToggle}>
+                                <Link
+                                    href="/#profile"
+                                    onClick={handleMenuToggle}
+                                >
                                     <LucideCircleUser className="me-3" />
                                     プロフィール
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/#project" onClick={handleMenuToggle}>
+                                <Link
+                                    href="/#project"
+                                    onClick={handleMenuToggle}
+                                >
                                     <LucideCode className="me-3" />
                                     プロジェクト
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/contact" 
-                                onClick={(e) =>
-                                navigateWithAnimation(e, '/contact')
-                            }>
+                                <Link
+                                    href="/contact"
+                                    onClick={(e) =>
+                                        navigateWithAnimation(e, '/contact')
+                                    }
+                                >
                                     <LucideSend className="me-3" />
                                     お問い合わせ
                                 </Link>
