@@ -30,7 +30,8 @@
 				"biomejs.biome",
 				"astro-build.astro-vscode",
 				"Gruntfuggly.todo-tree",
-				"oderwat.indent-rainbow"
+				"oderwat.indent-rainbow",
+				"GitHub.vscode-github-actions"
 			]
 		}
 	}
