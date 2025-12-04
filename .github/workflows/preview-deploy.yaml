@@ -47,12 +47,6 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: versions upload --preview-alias ${{ steps.preview-meta.outputs.alias }}
-          secrets: |
-            DISCORD_BOT_TOKEN
-            DISCORD_CHANNEL_ID
-        env:
-            DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
-            DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
 
       - name: Create comment file
         if: ${{ github.event_name == 'pull_request' && steps.deploy-worker.outputs.deployment-url }}
