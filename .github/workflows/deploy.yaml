@@ -1,9 +1,11 @@
 name: Deploy Worker
+
 on:
   push:
     branches:
       - main
   pull_request:
+
 permissions:
   contents: read
   pull-requests: write
@@ -17,7 +19,7 @@ jobs:
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
         with:
-            bun-version: 'latest'
+          bun-version: 'latest'
 
       - name: Install dependencies
         run: bun install --frozen-lockfile
@@ -36,7 +38,8 @@ jobs:
         if: ${{ steps.deploy-worker.outputs.deployment-url }}
         env:
           DEPLOYMENT_URL: ${{ steps.deploy-worker.outputs.deployment-url }}
-        run: echo "Deployment URL: $DEPLOYMENT_URL"
+        run: |
+          echo "Deployment URL: $DEPLOYMENT_URL"
 
       - name: Create comment file
         if: ${{ github.event_name == 'pull_request' && steps.deploy-worker.outputs.deployment-url }}
