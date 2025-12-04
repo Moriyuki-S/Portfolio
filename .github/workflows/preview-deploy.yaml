@@ -16,6 +16,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Compute preview alias
+        id: preview-meta
+        env:
+          PR_REF: ${{ github.head_ref }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          ref="${PR_REF:-$REF_NAME}"
+          slug=$(printf '%s' "$ref" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g' | sed -E 's/^-+//; s/-+$//')
+          if [ -z "$slug" ]; then
+            slug="preview"
+          fi
+          echo "alias=$slug" >> "$GITHUB_OUTPUT"
+
       - name: Set up Bun
         uses: oven-sh/setup-bun@v2
         with:
@@ -33,7 +46,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: versions upload --preview-alias ${{github.head_ref }}
+          command: versions upload --preview-alias ${{ steps.preview-meta.outputs.alias }}
 
       - name: Create comment file
         if: ${{ github.event_name == 'pull_request' && steps.deploy-worker.outputs.deployment-url }}
