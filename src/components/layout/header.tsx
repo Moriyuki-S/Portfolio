@@ -15,7 +15,11 @@ import {
     LucideSend,
 } from 'lucide-react';
 import { type FC, type MouseEvent, useState } from 'react';
+import { LuGithub, LuLinkedin } from 'react-icons/lu';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
+
+const socialButtonClasses = cn('social-button');
+const socialIconClasses = 'relative z-10 h-5 w-5';
 
 export const Header: FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -74,13 +78,13 @@ export const Header: FC = () => {
                             className={cn(
                                 [
                                     'font-bold',
-                                    'text-2xl',
+                                    'text-3xl',
                                     'text-gradient',
                                     'animate-text-gradient',
                                 ],
-                                ['sm:text-3xl'],
-                                ['md:text-3xl'],
-                                ['lg:text-4xl'],
+                                ['sm:text-4xl'],
+                                ['md:text-4xl'],
+                                ['lg:text-5xl'],
                             )}
                         >
                             Portfolio
@@ -144,9 +148,36 @@ export const Header: FC = () => {
                     </NavbarItem>
                 </NavbarContent>
                 <NavbarContent
-                    className={cn(['hidden', 'md:flex'])}
+                    className={cn([
+                        'hidden',
+                        'items-center',
+                        'gap-6',
+                        'md:flex',
+                    ])}
                     justify="end"
                 >
+                    <NavbarItem>
+                        <a
+                            href="https://github.com/"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            aria-label="GitHub"
+                            className={socialButtonClasses}
+                        >
+                            <LuGithub className={socialIconClasses} />
+                        </a>
+                    </NavbarItem>
+                    <NavbarItem>
+                        <a
+                            href="https://www.linkedin.com/"
+                            target="_blank"
+                            rel="noreferrer noopener"
+                            aria-label="LinkedIn"
+                            className={socialButtonClasses}
+                        >
+                            <LuLinkedin className={socialIconClasses} />
+                        </a>
+                    </NavbarItem>
                     <NavbarItem>
                         <ThemeToggleButton />
                     </NavbarItem>

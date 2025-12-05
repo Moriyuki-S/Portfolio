@@ -16,7 +16,7 @@ import {
     LucideSend,
 } from 'lucide-react';
 import { type FC, type MouseEvent, useState } from 'react';
-import { LuMenu } from 'react-icons/lu';
+import { LuMenu, LuLinkedin, LuGithub } from 'react-icons/lu';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 
 export const FooterNav: FC = () => {
@@ -78,7 +78,33 @@ export const FooterNav: FC = () => {
                             Portfolio
                         </span>
                     </div>
-                    <div className={cn(['flex', 'items-center', 'gap-x-8'])}>
+                    <div
+                        className={cn([
+                            'flex',
+                            'items-center',
+                            'gap-5',
+                        ])}
+                    >
+                        <div className="flex items-center gap-5">
+                            <a
+                                href="https://github.com/"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                                aria-label="GitHub"
+                                className="text-slate-700 transition hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
+                            >
+                                <LuGithub className="h-5 w-5" />
+                            </a>
+                            <a
+                                href="https://www.linkedin.com/"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                                aria-label="LinkedIn"
+                                className="text-slate-700 transition hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
+                            >
+                                <LuLinkedin className="h-5 w-5" />
+                            </a>
+                        </div>
                         <ThemeToggleButton />
                         <button type="button" onClick={handleMenuToggle}>
                             <LuMenu size={24} />

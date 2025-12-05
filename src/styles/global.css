@@ -159,3 +159,115 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+@property --glow-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+.social-button {
+  --glow-angle: 0deg;
+  --glow-origin: 180deg;
+}
+
+.social-button {
+  --glow-angle: 180deg;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  overflow: hidden;
+  color: rgb(71 85 105);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.15);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.35s ease;
+}
+
+.dark .social-button {
+  color: rgb(226 232 240);
+  background: rgba(15, 23, 42, 0.75);
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.65);
+}
+
+.social-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+      circle at 30% 30%,
+      rgba(255, 255, 255, 0.3),
+      transparent 60%
+    ),
+    radial-gradient(circle at 70% 70%, rgba(129, 140, 248, 0.35), transparent 70%);
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.social-button::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background:
+    conic-gradient(
+      from 180deg,
+      rgba(129, 140, 248, 0.28) 0deg var(--glow-angle),
+      transparent var(--glow-angle) 360deg
+    ),
+    conic-gradient(
+      from 180deg,
+      transparent 0deg calc(360deg - var(--glow-angle)),
+      rgba(45, 212, 191, 0.28) calc(360deg - var(--glow-angle)) 360deg
+    );
+  opacity: 0;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+.social-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 35px rgba(99, 102, 241, 0.35);
+  color: rgb(99 102 241, 0.36);
+}
+
+.dark .social-button:hover {
+  color: rgb(248 250 252);
+  box-shadow: 0 18px 40px rgba(99, 102, 241, 0.45);
+}
+
+.social-button:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.social-button:hover::after {
+  opacity: 1;
+  animation: dual-glow 1s ease forwards;
+}
+
+@keyframes dual-glow {
+  0% {
+    --glow-angle: 0deg;
+  }
+  80% {
+    --glow-angle: 165deg;
+  }
+  100% {
+    --glow-angle: 180deg;
+  }
+}
