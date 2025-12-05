@@ -104,11 +104,11 @@ export const FooterNav: FC = () => {
                                     'gap-4',
                                     'justify-center',
                                 ],
-                                ['[&>li]:w-40'],
+                                ['[&>li]:w-40', '[&>li]:leading-7'],
                             )}
                         >
                             <li>
-                                <Link href="#" onClick={handleMenuToggle}>
+                                <Link href="/" className={cn(['h-full', 'flex'])} onClick={handleMenuToggle}>
                                     <LucideHome className="me-3" />
                                     ホーム
                                 </Link>
@@ -117,6 +117,7 @@ export const FooterNav: FC = () => {
                                 <Link
                                     href="/#profile"
                                     onClick={handleMenuToggle}
+                                    className={cn(['h-full', 'flex'])}
                                 >
                                     <LucideCircleUser className="me-3" />
                                     プロフィール
@@ -126,6 +127,7 @@ export const FooterNav: FC = () => {
                                 <Link
                                     href="/#project"
                                     onClick={handleMenuToggle}
+                                    className={cn(['h-full', 'flex'])}
                                 >
                                     <LucideCode className="me-3" />
                                     プロジェクト
@@ -137,6 +139,7 @@ export const FooterNav: FC = () => {
                                     onClick={(e) =>
                                         navigateWithAnimation(e, '/contact')
                                     }
+                                    className={cn(['h-full', 'flex'])}
                                 >
                                     <LucideSend className="me-3" />
                                     お問い合わせ
