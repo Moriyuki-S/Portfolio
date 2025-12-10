@@ -17,8 +17,8 @@ import {
 } from 'lucide-react';
 import { type FC, type MouseEvent, useEffect, useRef, useState } from 'react';
 import { LuGithub, LuLinkedin, LuMenu } from 'react-icons/lu';
-import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 import { AnimatedLogo } from '../ui/AnimatedLogo';
+import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 
 export const FooterNav: FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);

@@ -18,9 +18,9 @@ import {
     LuSend,
     LuX,
 } from 'react-icons/lu';
+import { AnimatedLogo } from '../ui/AnimatedLogo';
 import { SocialIconButton } from '../ui/SocialIconButton';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
-import { AnimatedLogo } from '../ui/AnimatedLogo';
 
 const socialIconClasses = cn(['relative', 'z-10', 'h-5', 'w-5']);
 const navButtonClasses = ['nav-link'];
