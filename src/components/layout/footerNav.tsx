@@ -16,7 +16,7 @@ import {
     LucideSend,
 } from 'lucide-react';
 import { type FC, type MouseEvent, useState } from 'react';
-import { LuMenu, LuLinkedin, LuGithub } from 'react-icons/lu';
+import { LuGithub, LuLinkedin, LuMenu } from 'react-icons/lu';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 
 export const FooterNav: FC = () => {
@@ -78,13 +78,7 @@ export const FooterNav: FC = () => {
                             Portfolio
                         </span>
                     </div>
-                    <div
-                        className={cn([
-                            'flex',
-                            'items-center',
-                            'gap-5',
-                        ])}
-                    >
+                    <div className={cn(['flex', 'items-center', 'gap-5'])}>
                         <div className="flex items-center gap-5">
                             <a
                                 href="https://github.com/"
@@ -134,7 +128,11 @@ export const FooterNav: FC = () => {
                             )}
                         >
                             <li>
-                                <Link href="/" className={cn(['h-full', 'flex'])} onClick={handleMenuToggle}>
+                                <Link
+                                    href="/"
+                                    className={cn(['h-full', 'flex'])}
+                                    onClick={handleMenuToggle}
+                                >
                                     <LucideHome className="me-3" />
                                     ホーム
                                 </Link>

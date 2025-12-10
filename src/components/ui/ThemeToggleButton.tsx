@@ -13,7 +13,10 @@ export const ThemeToggleButton: FC = () => {
         'theme-light',
     );
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [menuCoords, setMenuCoords] = useState<{ top: number; left: number } | null>(null);
+    const [menuCoords, setMenuCoords] = useState<{
+        top: number;
+        left: number;
+    } | null>(null);
     const [menuPlacement, setMenuPlacement] = useState<'up' | 'down'>('down');
     const containerRef = useRef<HTMLDivElement>(null);
     const menuContentRef = useRef<HTMLDivElement | null>(null);
@@ -76,10 +79,7 @@ export const ThemeToggleButton: FC = () => {
         const handlePointerDown = (event: MouseEvent) => {
             const target = event.target as Node;
             if (
-                (containerRef.current &&
-                    containerRef.current.contains(target)) ||
-                (menuContentRef.current &&
-                    menuContentRef.current.contains(target))
+                (menuContentRef.current?.contains(target))
             ) {
                 return;
             }
@@ -142,7 +142,9 @@ export const ThemeToggleButton: FC = () => {
                     onPress={() => setIsMenuOpen((open) => !open)}
                 >
                     {loading ? (
-                        <Skeleton className={cn(['h-6', 'w-6', 'rounded-sm'])} />
+                        <Skeleton
+                            className={cn(['h-6', 'w-6', 'rounded-sm'])}
+                        />
                     ) : theme === 'dark' ? (
                         <LuMoon className={cn(['h-6', 'w-6'])} />
                     ) : theme === 'system' ? (
@@ -192,7 +194,9 @@ export const ThemeToggleButton: FC = () => {
                                     key={option.key}
                                     type="button"
                                     role="menuitem"
-                                    onClick={() => handleThemeChange(option.key)}
+                                    onClick={() =>
+                                        handleThemeChange(option.key)
+                                    }
                                     className={cn(
                                         [
                                             'flex',
@@ -206,17 +210,20 @@ export const ThemeToggleButton: FC = () => {
                                             'transition',
                                         ],
                                         isSelected
-                                            ? ['bg-default-100', 'text-default-900']
+                                            ? [
+                                                'bg-default-100',
+                                                'text-default-900',
+                                            ]
                                             : [
-                                                  'text-slate-600',
-                                                  'hover:bg-default',
-                                                  'hover:text-default-foreground',
-                                              ],
+                                                'text-slate-600',
+                                                'hover:bg-default',
+                                                'hover:text-default-foreground',
+                                            ],
                                         isSelected
                                             ? [
-                                                  'dark:bg-default-50/80',
-                                                  'dark:text-white',
-                                              ]
+                                                'dark:bg-default-50/80',
+                                                'dark:text-white',
+                                            ]
                                             : ['dark:text-slate-200'],
                                     )}
                                 >

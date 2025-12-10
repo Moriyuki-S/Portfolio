@@ -9,17 +9,17 @@ import {
     useState,
 } from 'react';
 import {
-    LuGithub,
-    LuLinkedin,
-    LuMenu,
-    LuX,
     LuCircle,
     LuCode,
+    LuGithub,
     LuHouse,
+    LuLinkedin,
+    LuMenu,
     LuSend,
+    LuX,
 } from 'react-icons/lu';
-import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 import { SocialIconButton } from '../ui/SocialIconButton';
+import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 
 const socialIconClasses = cn(['relative', 'z-10', 'h-5', 'w-5']);
 const navButtonClasses = ['nav-link'];
@@ -33,7 +33,13 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
-    { id: 'home', label: 'ホーム', href: '/', icon: <LuHouse />, useNavigate: true },
+    {
+        id: 'home',
+        label: 'ホーム',
+        href: '/',
+        icon: <LuHouse />,
+        useNavigate: true,
+    },
     {
         id: 'profile',
         label: 'プロフィール',
@@ -107,7 +113,9 @@ export const Header: FC = () => {
 
     useEffect(() => {
         if (currentPath !== '/') {
-            setActiveSection(currentPath.startsWith('/contact') ? 'contact' : 'home');
+            setActiveSection(
+                currentPath.startsWith('/contact') ? 'contact' : 'home',
+            );
             return;
         }
 
@@ -123,7 +131,8 @@ export const Header: FC = () => {
             for (const section of sectionSelectors) {
                 const element = document.querySelector(section.selector);
                 if (!element) continue;
-                const top = element.getBoundingClientRect().top + window.scrollY;
+                const top =
+                    element.getBoundingClientRect().top + window.scrollY;
                 if (scrollY >= top) {
                     nextSection = section.id;
                 }
@@ -148,7 +157,10 @@ export const Header: FC = () => {
         setCurrentPath(href);
     };
 
-    const handleNavClick = (item: NavItem, event: MouseEvent<HTMLAnchorElement>) => {
+    const handleNavClick = (
+        item: NavItem,
+        event: MouseEvent<HTMLAnchorElement>,
+    ) => {
         if (item.id === 'home') {
             event.preventDefault();
             if (window.location.pathname === '/') {
@@ -291,7 +303,10 @@ export const Header: FC = () => {
                 </nav>
 
                 <div
-                    className={cn(['hidden', 'items-center', 'gap-4'], ['md:flex'])}
+                    className={cn(
+                        ['hidden', 'items-center', 'gap-4'],
+                        ['md:flex'],
+                    )}
                 >
                     <SocialIconButton
                         href="https://github.com/"
@@ -331,7 +346,9 @@ export const Header: FC = () => {
                         ],
                         ['md:hidden'],
                     )}
-                    aria-label={isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'}
+                    aria-label={
+                        isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'
+                    }
                     onClick={() => setIsMenuOpen((prev) => !prev)}
                 >
                     {isMenuOpen ? <LuX size={24} /> : <LuMenu size={24} />}
@@ -368,18 +385,26 @@ export const Header: FC = () => {
                         {navList}
                     </ul>
                     <div
-                        className={cn(['flex', 'items-center', 'justify-between'])}
+                        className={cn([
+                            'flex',
+                            'items-center',
+                            'justify-between',
+                        ])}
                     >
                         <div className={cn(['flex', 'items-center', 'gap-3'])}>
                             <SocialIconButton
                                 href="https://github.com/"
                                 ariaLabel="GitHub"
-                                icon={<LuGithub className={socialIconClasses} />}
+                                icon={
+                                    <LuGithub className={socialIconClasses} />
+                                }
                             />
                             <SocialIconButton
                                 href="https://www.linkedin.com/"
                                 ariaLabel="LinkedIn"
-                                icon={<LuLinkedin className={socialIconClasses} />}
+                                icon={
+                                    <LuLinkedin className={socialIconClasses} />
+                                }
                             />
                         </div>
                         <ThemeToggleButton />
@@ -389,14 +414,13 @@ export const Header: FC = () => {
         </header>
     );
 };
-    const scrollToSection = (hash: string) => {
-        const element = document.querySelector(hash);
-        if (!element) return;
-        const offset = window.innerWidth < 768 ? 100 : 140;
-        const top =
-            element.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({
-            top: top < 0 ? 0 : top,
-            behavior: 'smooth',
-        });
-    };
+const scrollToSection = (hash: string) => {
+    const element = document.querySelector(hash);
+    if (!element) return;
+    const offset = window.innerWidth < 768 ? 100 : 140;
+    const top = element.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({
+        top: top < 0 ? 0 : top,
+        behavior: 'smooth',
+    });
+};
