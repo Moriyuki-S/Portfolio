@@ -239,23 +239,27 @@
   mask-composite: exclude;
 }
 
-.social-button:hover {
+.social-button:hover,
+.social-button:focus-within {
   transform: translateY(-2px);
   box-shadow: 0 16px 35px rgba(99, 102, 241, 0.35);
   color: rgb(99 102 241, 0.36);
 }
 
-.dark .social-button:hover {
+.dark .social-button:hover,
+.dark .social-button:focus-within {
   color: rgb(248 250 252);
   box-shadow: 0 18px 40px rgba(99, 102, 241, 0.45);
 }
 
-.social-button:hover::before {
+.social-button:hover::before,
+.social-button:focus-within::before {
   opacity: 1;
   transform: scale(1);
 }
 
-.social-button:hover::after {
+.social-button:hover::after,
+.social-button:focus-within::after {
   opacity: 1;
   animation: dual-glow 1s ease forwards;
 }
@@ -270,4 +274,73 @@
   100% {
     --glow-angle: 180deg;
   }
+}
+
+.nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  color: rgb(71 85 105);
+  transition: color 0.3s ease;
+  isolation: isolate;
+}
+
+.dark .nav-link {
+  color: rgb(203 213 225);
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(79, 70, 229, 0.15), rgba(14, 165, 233, 0.15));
+  opacity: 0;
+  transform: scaleX(0.4);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  z-index: -1;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0.35rem;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 55%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(79, 70, 229, 0.85), rgba(14, 165, 233, 0.85));
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-link__icon {
+  font-size: 1.15rem;
+}
+
+.nav-link:hover,
+.nav-link--active {
+  color: rgb(79 70 229);
+}
+
+.dark .nav-link:hover,
+.dark .nav-link--active {
+  color: rgb(165 243 252);
+}
+
+.nav-link:hover::before,
+.nav-link--active::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.nav-link:hover::after,
+.nav-link--active::after {
+  transform: translateX(-50%) scaleX(1);
 }
