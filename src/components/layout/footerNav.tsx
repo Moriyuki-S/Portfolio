@@ -18,6 +18,7 @@ import {
 import { type FC, type MouseEvent, useEffect, useRef, useState } from 'react';
 import { LuGithub, LuLinkedin, LuMenu } from 'react-icons/lu';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
+import { AnimatedLogo } from '../ui/AnimatedLogo';
 
 export const FooterNav: FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
@@ -99,21 +100,8 @@ export const FooterNav: FC = () => {
                         'gap-2',
                     ])}
                 >
-                    <div>
-                        <span
-                            className={cn(
-                                [
-                                    'font-bold',
-                                    'text-2xl',
-                                    'text-gradient',
-                                    'animate-text-gradient',
-                                ],
-                                ['sm:text-3xl'],
-                                ['md:text-4xl'],
-                            )}
-                        >
-                            Portfolio
-                        </span>
+                    <div className={cn(['flex'])}>
+                        <AnimatedLogo />
                     </div>
                     <div className={cn(['flex', 'items-center', 'gap-5'])}>
                         <div className="flex items-center gap-5">

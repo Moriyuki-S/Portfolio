@@ -20,6 +20,7 @@ import {
 } from 'react-icons/lu';
 import { SocialIconButton } from '../ui/SocialIconButton';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
+import { AnimatedLogo } from '../ui/AnimatedLogo';
 
 const socialIconClasses = cn(['relative', 'z-10', 'h-5', 'w-5']);
 const navButtonClasses = ['nav-link'];
@@ -250,32 +251,11 @@ export const Header: FC = () => {
             >
                 <a
                     href="/"
-                    className={cn(
-                        [
-                            'rounded-full',
-                            'border',
-                            'border-white/50',
-                            'bg-gradient-to-r',
-                            'from-indigo-500/30',
-                            'via-sky-500/30',
-                            'to-purple-500/30',
-                            'px-6',
-                            'py-3',
-                            'text-lg',
-                            'font-bold',
-                            'uppercase',
-                            'tracking-[0.3em]',
-                            'text-slate-900',
-                            'shadow-inner',
-                            'transition',
-                            'hover:scale-[1.01]',
-                        ],
-                        ['dark:text-white'],
-                    )}
+                    className={cn(['inline-flex'])}
                     aria-label="Scroll to top"
                     onClick={handleLogoClick}
                 >
-                    Portfolio
+                    <AnimatedLogo className={cn(['cursor-pointer'])} />
                 </a>
 
                 <nav
