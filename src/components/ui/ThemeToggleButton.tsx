@@ -78,9 +78,7 @@ export const ThemeToggleButton: FC = () => {
 
         const handlePointerDown = (event: MouseEvent) => {
             const target = event.target as Node;
-            if (
-                (menuContentRef.current?.contains(target))
-            ) {
+            if (menuContentRef.current?.contains(target)) {
                 return;
             }
             setIsMenuOpen(false);
@@ -211,19 +209,19 @@ export const ThemeToggleButton: FC = () => {
                                         ],
                                         isSelected
                                             ? [
-                                                'bg-default-100',
-                                                'text-default-900',
-                                            ]
+                                                  'bg-default-100',
+                                                  'text-default-900',
+                                              ]
                                             : [
-                                                'text-slate-600',
-                                                'hover:bg-default',
-                                                'hover:text-default-foreground',
-                                            ],
+                                                  'text-slate-600',
+                                                  'hover:bg-default',
+                                                  'hover:text-default-foreground',
+                                              ],
                                         isSelected
                                             ? [
-                                                'dark:bg-default-50/80',
-                                                'dark:text-white',
-                                            ]
+                                                  'dark:bg-default-50/80',
+                                                  'dark:text-white',
+                                              ]
                                             : ['dark:text-slate-200'],
                                     )}
                                 >
