@@ -1,6 +1,13 @@
 import { cn } from '$lib/utils';
 import { navigate } from 'astro:transitions/client';
 import {
+    Button,
+    Drawer,
+    DrawerBody,
+    DrawerContent,
+    DrawerHeader,
+} from '@heroui/react';
+import {
     type FC,
     type MouseEvent,
     type ReactElement,
@@ -63,10 +70,11 @@ const navItems: NavItem[] = [
 ];
 
 export const Header: FC = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
     const [currentPath, setCurrentPath] = useState<string>('/');
     const [activeSection, setActiveSection] = useState<string>('home');
     const [isHidden, setIsHidden] = useState(false);
+    const [isDesktop, setIsDesktop] = useState<boolean>(false);
     const scrollRef = useRef({
         lastY: 0,
         ticking: false,
@@ -89,7 +97,7 @@ export const Header: FC = () => {
             window.requestAnimationFrame(() => {
                 const last = scrollRef.current.lastY;
                 const delta = current - last;
-                if (!isMenuOpen) {
+                if (!isDrawerOpen) {
                     if (current > 120 && delta > 6) {
                         setIsHidden(true);
                     } else if (delta < -6 || current <= 120) {
@@ -110,7 +118,7 @@ export const Header: FC = () => {
 
         window.addEventListener('scroll', onScroll, { passive: true });
         return () => window.removeEventListener('scroll', onScroll);
-    }, [isMenuOpen]);
+    }, [isDrawerOpen]);
 
     useEffect(() => {
         if (currentPath !== '/') {
@@ -148,6 +156,39 @@ export const Header: FC = () => {
         return () => window.removeEventListener('scroll', detectSection);
     }, [currentPath]);
 
+    useEffect(() => {
+        const mediaQuery = window.matchMedia('(min-width: 1270px)');
+        const handleChange = (event: MediaQueryListEvent) => {
+            setIsDesktop(event.matches);
+            if (event.matches) {
+                setIsDrawerOpen(false);
+            }
+        };
+
+        setIsDesktop(mediaQuery.matches);
+        if (mediaQuery.matches) {
+            setIsDrawerOpen(false);
+        }
+
+        if (mediaQuery.addEventListener) {
+            mediaQuery.addEventListener('change', handleChange);
+        } else {
+            (mediaQuery as unknown as { addListener: (cb: unknown) => void }).addListener(
+                handleChange,
+            );
+        }
+
+        return () => {
+            if (mediaQuery.removeEventListener) {
+                mediaQuery.removeEventListener('change', handleChange);
+            } else {
+                (
+                    mediaQuery as unknown as { removeListener: (cb: unknown) => void }
+                ).removeListener(handleChange);
+            }
+        };
+    }, []);
+
     const navigateWithAnimation = (e: MouseEvent, href: string) => {
         e.preventDefault();
         const currentPath = window.location.pathname;
@@ -183,7 +224,7 @@ export const Header: FC = () => {
                 scrollToSection(url.hash);
             }
         }
-        setIsMenuOpen(false);
+        setIsDrawerOpen(false);
     };
 
     const handleLogoClick = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -213,27 +254,28 @@ export const Header: FC = () => {
     ));
 
     return (
-        <header
-            className={cn(
-                [
-                    'hidden',
-                    'sticky',
-                    'top-0',
-                    'z-50',
-                    'w-full',
-                    'bg-white/80',
-                    'backdrop-blur-2xl',
-                    'shadow-[0_10px_40px_rgba(15,23,42,0.08)]',
-                    'transition-transform',
-                    'duration-500',
-                    'ease-[cubic-bezier(0.4,0,0.2,1)]',
-                    isHidden ? '-translate-y-full' : 'translate-y-0',
-                ],
-                ['md:block'],
-                ['dark:bg-slate-950/70'],
-            )}
-            style={{ transformOrigin: 'top' }}
-        >
+        <>
+            <header
+                className={cn(
+                    [
+                        'hidden',
+                        'sticky',
+                        'top-0',
+                        'z-50',
+                        'w-full',
+                        'bg-white/80',
+                        'backdrop-blur-2xl',
+                        'shadow-[0_10px_40px_rgba(15,23,42,0.08)]',
+                        'transition-transform',
+                        'duration-500',
+                        'ease-[cubic-bezier(0.4,0,0.2,1)]',
+                        isHidden ? '-translate-y-full' : 'translate-y-0',
+                    ],
+                    ['md:block'],
+                    ['dark:bg-slate-950/70'],
+                )}
+                style={{ transformOrigin: 'top' }}
+            >
             <div
                 className={cn(
                     [
@@ -246,23 +288,64 @@ export const Header: FC = () => {
                         'px-4',
                         'py-3',
                     ],
-                    ['md:px-24'],
+                    ['md:px-8', 'lg:px-24'],
                 )}
             >
-                <a
-                    href="/"
-                    className={cn(['inline-flex'])}
-                    aria-label="Scroll to top"
-                    onClick={handleLogoClick}
-                >
-                    <AnimatedLogo className={cn(['cursor-pointer'])} />
-                </a>
+                <div className={cn(['flex', 'items-center', 'gap-3'])}>
+                    {!isDesktop && (
+                        <button
+                            type="button"
+                            className={cn(
+                                [
+                                    'hidden',
+                                    'h-12',
+                                    'w-12',
+                                    'items-center',
+                                    'justify-center',
+                                    'rounded-full',
+                                    'border',
+                                    'border-slate-200',
+                                    'bg-white',
+                                    'text-slate-900',
+                                    'transition',
+                                    'hover:bg-slate-100',
+                                ],
+                                [
+                                    'dark:border-slate-700',
+                                    'dark:bg-slate-900',
+                                    'dark:text-white',
+                                    'dark:hover:bg-slate-800',
+                                ],
+                                ['md:flex'],
+                            )}
+                            aria-label={
+                                isDrawerOpen ? 'メニューを閉じる' : 'メニューを開く'
+                            }
+                            aria-expanded={isDrawerOpen}
+                            onClick={() => setIsDrawerOpen((prev) => !prev)}
+                        >
+                            {isDrawerOpen ? (
+                                <LuX size={24} />
+                            ) : (
+                                <LuMenu size={24} />
+                            )}
+                        </button>
+                    )}
+                    <a
+                        href="/"
+                        className={cn(['inline-flex'])}
+                        aria-label="Scroll to top"
+                        onClick={handleLogoClick}
+                    >
+                        <AnimatedLogo className={cn(['cursor-pointer'])} />
+                    </a>
+                </div>
 
                 <nav
                     className={cn(
                         ['hidden', 'items-center', 'gap-3'],
-                        ['md:flex'],
-                        ['lg:gap-4'],
+                        ['min-[1270px]:flex'],
+                        ['min-[1270px]:gap-4'],
                     )}
                 >
                     <ul
@@ -300,98 +383,65 @@ export const Header: FC = () => {
                     />
                     <ThemeToggleButton />
                 </div>
-
-                <button
-                    type="button"
-                    className={cn(
-                        [
-                            'flex',
-                            'h-12',
-                            'w-12',
-                            'items-center',
-                            'justify-center',
-                            'rounded-full',
-                            'border',
-                            'border-slate-200',
-                            'bg-white',
-                            'text-slate-900',
-                            'transition',
-                            'hover:bg-slate-100',
-                        ],
-                        [
-                            'dark:border-slate-700',
-                            'dark:bg-slate-900',
-                            'dark:text-white',
-                            'dark:hover:bg-slate-800',
-                        ],
-                        ['md:hidden'],
-                    )}
-                    aria-label={
-                        isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'
-                    }
-                    onClick={() => setIsMenuOpen((prev) => !prev)}
+            </div>
+            </header>
+            {!isDesktop && (
+                <Drawer
+                    isOpen={isDrawerOpen}
+                    onOpenChange={setIsDrawerOpen}
+                    placement="left"
+                    size='xs'
+                    backdrop='blur'
                 >
-                    {isMenuOpen ? <LuX size={24} /> : <LuMenu size={24} />}
-                </button>
-            </div>
-
-            <div
-                className={cn(
-                    [
-                        'transition-[max-height]',
-                        'duration-500',
-                        'ease-[cubic-bezier(0.4,0,0.2,1)]',
-                        isMenuOpen ? 'max-h-[400px]' : 'max-h-0',
-                        'overflow-hidden',
-                        'border-t',
-                        'border-white/30',
-                    ],
-                    ['md:hidden'],
-                    ['dark:border-slate-800'],
-                )}
-            >
-                <div className={cn(['space-y-6', 'px-6', 'py-6'])}>
-                    <ul
-                        className={cn(
-                            [
-                                'space-y-4',
-                                'text-base',
+                    <DrawerContent>
+                        <DrawerHeader
+                            className={cn([
+                                'relative',
+                                'pr-16',
+                                'text-lg',
                                 'font-semibold',
-                                'text-slate-700',
-                            ],
-                            ['dark:text-slate-200'],
-                        )}
-                    >
-                        {navList}
-                    </ul>
-                    <div
-                        className={cn([
-                            'flex',
-                            'items-center',
-                            'justify-between',
-                        ])}
-                    >
-                        <div className={cn(['flex', 'items-center', 'gap-3'])}>
-                            <SocialIconButton
-                                href="https://github.com/"
-                                ariaLabel="GitHub"
-                                icon={
-                                    <LuGithub className={socialIconClasses} />
-                                }
-                            />
-                            <SocialIconButton
-                                href="https://www.linkedin.com/"
-                                ariaLabel="LinkedIn"
-                                icon={
-                                    <LuLinkedin className={socialIconClasses} />
-                                }
-                            />
-                        </div>
-                        <ThemeToggleButton />
-                    </div>
-                </div>
-            </div>
-        </header>
+                            ])}
+                        >
+                            <span>メニュー</span>
+                        </DrawerHeader>
+                        <DrawerBody
+                            className={cn([
+                                'flex',
+                                'flex-col',
+                                'h-full',
+                                'gap-6',
+                                'py-6',
+                            ])}
+                        >
+                            <ul
+                                className={cn(
+                                    [
+                                        'space-y-4',
+                                        'flex',
+                                        'flex-col',
+                                        'justify-start',
+                                        'pt-5',
+                                        'gap-y-4',
+                                        'text-base',
+                                        'font-semibold',
+                                        'text-slate-700',
+                                        'flex-1',
+                                    ],
+                                    ['dark:text-slate-200'],
+                                )}
+                            >
+                                {navList}
+                            </ul>
+                            <div className={cn(['mt-auto', 'flex', 'w-full', 'justify-end'])}>
+                                <Button color='danger' startContent={<LuX />}>
+                                    閉じる
+                                </Button>
+                            </div>
+                        </DrawerBody>
+                    </DrawerContent>
+                </Drawer>
+            )}
+        </>
     );
 };
 const scrollToSection = (hash: string) => {
