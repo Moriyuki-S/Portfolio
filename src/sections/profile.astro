@@ -52,14 +52,45 @@ import TimelineList from 'src/components/ui/timelineList.astro';
             ['md:mb-32'],
         )}
     >
-        <h3
-            class={cn(
-                ['text-3xl', 'font-bold', 'mt-10', 'mb-12'],
-                ['md:text-5xl'],
-            )}
-        >
-            Work Experience
-        </h3>
+        <hgroup class={cn(['mt-10', 'mb-12'])}>
+            <p
+                class={cn([
+                    'text-sm',
+                    'font-semibold',
+                    'uppercase',
+                    'tracking-[0.35em]',
+                    'text-blue-500',
+                    'dark:text-blue-300',
+                ])}
+            >
+                Career
+            </p>
+            <h3
+                id="work-experience"
+                class={cn(
+                    [
+                        'mt-4',
+                        'text-3xl',
+                        'font-bold',
+                        'bg-gradient-to-r',
+                        'from-blue-400',
+                        'via-sky-500',
+                        'to-blue-700',
+                        'bg-clip-text',
+                        'text-transparent',
+                        'leading-tight',
+                    ],
+                    [
+                        'md:text-5xl',
+                        'dark:from-blue-300',
+                        'dark:via-sky-400',
+                        'dark:to-blue-600',
+                    ],
+                )}
+            >
+                Work
+            </h3>
+        </hgroup>
         <TimelineList
             timelines={[
                 {
@@ -97,14 +128,45 @@ import TimelineList from 'src/components/ui/timelineList.astro';
         aria-labelledby="education"
         class={cn(['mt-10', 'max-w-3xl', 'mx-auto', 'mb-18'])}
     >
-        <h3
-            class={cn(
-                ['text-3xl', 'font-bold', 'mt-10', 'mb-12'],
-                ['md:text-5xl'],
-            )}
-        >
-            Education
-        </h3>
+        <hgroup class={cn(['mt-10', 'mb-12'])}>
+            <p
+                class={cn([
+                    'text-sm',
+                    'font-semibold',
+                    'uppercase',
+                    'tracking-[0.35em]',
+                    'text-amber-500',
+                    'dark:text-amber-300',
+                ])}
+            >
+                Background
+            </p>
+            <h3
+                id="education"
+                class={cn(
+                    [
+                        'mt-4',
+                        'text-3xl',
+                        'font-bold',
+                        'bg-gradient-to-r',
+                        'from-amber-400',
+                        'via-orange-400',
+                        'to-amber-600',
+                        'bg-clip-text',
+                        'text-transparent',
+                        'leading-tight',
+                    ],
+                    [
+                        'md:text-5xl',
+                        'dark:from-amber-300',
+                        'dark:via-orange-300',
+                        'dark:to-amber-500',
+                    ],
+                )}
+            >
+                Education
+            </h3>
+        </hgroup>
         <TimelineList
             timelines={[
                 {
@@ -113,8 +175,8 @@ import TimelineList from 'src/components/ui/timelineList.astro';
                     description:
                         'Studied computer science with a focus on software development.',
                     date: {
-                        start: new Date('2018-04-01'),
-                        end: new Date('2022-03-31'),
+                        start: new Date('2022-04-01'),
+                        end: new Date('2026-03-31'),
                     },
                     type: 'education',
                     location: {
@@ -122,6 +184,20 @@ import TimelineList from 'src/components/ui/timelineList.astro';
                         url: 'https://www.kyoto-u.ac.jp/',
                     },
                 },
+                {
+                    id: 2,
+                    title: '京都大学大学院情報学研究科（進学予定）',
+                    description: '',
+                    date: {
+                        start: new Date('2026-04-01'),
+                        end: new Date('2028-03-29'),
+                    },
+                    type: 'education',
+                    location: {
+                        text: '京都大学',
+                        url: 'https://www.kyoto-u.ac.jp/'
+                    }
+                }
             ]}
         />
     </section>

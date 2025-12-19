@@ -15,6 +15,13 @@ type TimelineProps = {
     timeline: TimelineType;
 };
 
+const formatDate = (date: Date) =>
+    date.toLocaleDateString('ja-JP', {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+    });
+
 export const Timeline: FC<TimelineProps> = (props) => {
     const { timeline } = props;
 
@@ -134,12 +141,12 @@ export const Timeline: FC<TimelineProps> = (props) => {
                         <div className={cn(['flex', 'items-center'])}>
                             <LuClock className={cn(['me-2'])} />
                             <span className={cn(['text-sm'])}>
-                                {timeline.date.start.toLocaleDateString()}
+                                {formatDate(timeline.date.start)}
                             </span>
                             ~
                             {timeline.date.end && (
                                 <span className={cn(['text-sm'])}>
-                                    {timeline.date.end.toLocaleDateString()}
+                                    {formatDate(timeline.date.end)}
                                 </span>
                             )}
                         </div>
