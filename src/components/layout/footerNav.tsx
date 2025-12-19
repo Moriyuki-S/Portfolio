@@ -1,5 +1,4 @@
 import { cn } from '$lib/utils';
-import { navigate } from 'astro:transitions/client';
 import {
     Button,
     Link,
@@ -13,9 +12,8 @@ import {
     LucideCircleUser,
     LucideCode,
     LucideHome,
-    LucideSend,
 } from 'lucide-react';
-import { type FC, type MouseEvent, useEffect, useRef, useState } from 'react';
+import { type FC, useEffect, useRef, useState } from 'react';
 import { LuGithub, LuLinkedin, LuMenu } from 'react-icons/lu';
 import { AnimatedLogo } from '../ui/AnimatedLogo';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
@@ -28,15 +26,6 @@ export const FooterNav: FC = () => {
     const handleMenuToggle = () => {
         setIsMenuOpen((prev) => !prev);
         setIsHidden(false);
-    };
-
-    const navigateWithAnimation = (e: MouseEvent, href: string) => {
-        e.preventDefault();
-        const currentPath = window.location.pathname;
-        if (currentPath === href) {
-            return;
-        }
-        navigate(href);
     };
 
     useEffect(() => {
@@ -180,18 +169,6 @@ export const FooterNav: FC = () => {
                                 >
                                     <LucideCode className="me-3" />
                                     プロジェクト
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    href="/contact"
-                                    onClick={(e) =>
-                                        navigateWithAnimation(e, '/contact')
-                                    }
-                                    className={cn(['h-full', 'flex'])}
-                                >
-                                    <LucideSend className="me-3" />
-                                    お問い合わせ
                                 </Link>
                             </li>
                         </ul>
