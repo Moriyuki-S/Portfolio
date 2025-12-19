@@ -96,7 +96,6 @@ export const ContactSection: FC = () => {
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
             if (hasEdited && !isSubmitting) {
                 event.preventDefault();
-                event.returnValue = '';
             }
         };
 

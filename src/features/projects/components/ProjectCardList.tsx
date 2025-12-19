@@ -45,7 +45,6 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
     useOutsideClick(ref, () => setActive(null));
 
     const handleClose = (event?: MouseEvent<HTMLButtonElement>) => {
-        console.log('実行');
         event?.stopPropagation();
         setActive(null);
     };
@@ -105,60 +104,65 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                     <div
                         className={cn('fixed inset-0 z-[100] overflow-y-auto')}
                     >
-                        <div className="flex min-h-full items-center justify-center p-4 lg:p-6">
+                        <div className="flex min-h-full items-center justify-center p-3 sm:p-4 lg:p-6">
                             <motion.div
                                 layoutId={`project-${active.title}-${active.id}`}
                                 ref={ref}
                                 className={cn(
-                                    'relative flex w-full max-w-[960px] flex-col gap-6 overflow-hidden rounded-3xl bg-white p-4 shadow-xl sm:p-6 md:p-8 lg:p-10 dark:bg-neutral-900',
-                                    'max-h-[90vh]',
+                                    'relative flex w-full max-w-[960px] flex-col rounded-3xl bg-white shadow-xl dark:bg-neutral-900',
+                                    // スマホではカード全体をスクロール可能に (overflow-y-auto)
+                                    // PCではカードを固定し、内部でスクロール (overflow-hidden)
+                                    'max-h-[85vh] overflow-y-auto md:max-h-[85vh] md:overflow-hidden md:p-8 lg:p-10',
                                 )}
                             >
-                                <div className="relative flex min-h-0 flex-1 flex-col gap-6 md:flex-row md:gap-10">
+                                {/* 修正点: バツボタンの配置
+                                    スマホ: sticky top-0 でスクロールに追従させる
+                                    PC: absolute で右上に固定
+                                */}
+                                <div className="pointer-events-none sticky top-0 z-50 flex w-full justify-end p-4 md:absolute md:top-0 md:right-0 md:p-0">
                                     <motion.button
                                         key={`button-${active.title}-${id}-desktop`}
                                         type="button"
                                         layout
-                                        initial={{
-                                            opacity: 0,
-                                        }}
-                                        animate={{
-                                            opacity: 1,
-                                        }}
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
                                         exit={{
                                             opacity: 0,
-                                            transition: {
-                                                duration: 0.05,
-                                            },
+                                            transition: { duration: 0.05 },
                                         }}
                                         className={cn(
-                                            'md:-right-2 lg:-right-2 lg:-top-3 pointer-events-auto absolute top-2 right-2 z-20 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-red-400 md:flex dark:hover:bg-red-500',
+                                            'pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-red-400 dark:hover:bg-red-500',
+                                            // PC用の位置調整
+                                            'md:absolute md:top-6 md:right-6 lg:top-8 lg:right-8',
                                         )}
                                         onClick={handleClose}
                                         aria-label="Close project details"
                                     >
                                         <CloseIcon />
                                     </motion.button>
-                                    <div className="flex min-h-0 flex-col gap-6 md:w-1/2">
+                                </div>
+
+                                <div className="relative flex flex-col gap-6 md:h-full md:flex-row md:gap-10">
+                                    {/* 左カラム: 画像など */}
+                                    <div className="flex flex-col gap-5 [-ms-overflow-style:none] [scrollbar-width:none] md:w-1/2 md:overflow-y-auto md:pr-2">
                                         <motion.div
                                             layoutId={`image-${active.title}-${active.id}`}
-                                            className="overflow-hidden rounded-2xl"
-                                        >
-                                            <img
-                                                width={200}
-                                                height={200}
-                                                src={active.src}
-                                                alt={active.title}
-                                                className={cn(
-                                                    'h-80 w-full object-cover object-top md:h-[420px]',
-                                                )}
-                                            />
-                                        </motion.div>
-                                        <div
                                             className={cn(
-                                                'flex flex-col gap-4',
+                                                'relative w-full overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-800',
+                                                'aspect-[440/420] sm:aspect-[16/10] md:aspect-[16/9]',
+                                                // 修正点: スマホ時にstickyヘッダーの分だけ画像を上に引き上げ、ボタンの下に潜り込ませる
+                                                '-mt-16 p-4 md:mt-0 md:p-0',
                                             )}
                                         >
+                                            <img
+                                                src={active.src}
+                                                alt={active.title}
+                                                className="absolute inset-0 h-full w-full object-cover"
+                                            />
+                                        </motion.div>
+
+                                        {/* 画像の下のテキスト情報（PCの場合は左カラムに配置） */}
+                                        <div className="flex flex-col gap-4 px-4 pb-4 md:px-0 md:pb-0">
                                             <motion.h3
                                                 layoutId={`title-${active.title}-${active.id}`}
                                                 className={cn(
@@ -264,13 +268,15 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                                 )}
                                         </div>
                                     </div>
-                                    <div className="relative min-h-0 flex-1 overflow-y-scroll md:overflow-hidden md:pl-4 lg:pl-8">
+
+                                    {/* 右カラム: コンテンツ (PCではスクロール) */}
+                                    <div className="relative flex-1 px-4 pb-10 md:min-h-0 md:overflow-hidden md:px-0 md:pb-0 md:pl-4 lg:pl-8">
                                         <motion.div
                                             layout
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
                                             exit={{ opacity: 0 }}
-                                            className="flex h-full min-h-0 flex-col items-start gap-4 overflow-y-auto pr-1 pb-10 text-neutral-600 text-xs [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [mask:linear-gradient(to_bottom,white,white,transparent)] [scrollbar-width:none] md:text-sm lg:text-base dark:text-neutral-400"
+                                            className="flex flex-col items-start gap-4 text-neutral-600 text-xs md:h-full md:overflow-y-auto md:pr-1 md:text-sm lg:text-base dark:text-neutral-400"
                                         >
                                             {active.content.map(
                                                 renderContentBlock,

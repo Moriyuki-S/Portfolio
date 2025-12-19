@@ -15,15 +15,19 @@ import {
     LucideHome,
     LucideSend,
 } from 'lucide-react';
-import { type FC, type MouseEvent, useState } from 'react';
-import { LuMenu } from 'react-icons/lu';
+import { type FC, type MouseEvent, useEffect, useRef, useState } from 'react';
+import { LuGithub, LuLinkedin, LuMenu } from 'react-icons/lu';
+import { AnimatedLogo } from '../ui/AnimatedLogo';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 
 export const FooterNav: FC = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+    const [isHidden, setIsHidden] = useState<boolean>(false);
+    const scrollRef = useRef({ lastY: 0, ticking: false });
 
     const handleMenuToggle = () => {
         setIsMenuOpen((prev) => !prev);
+        setIsHidden(false);
     };
 
     const navigateWithAnimation = (e: MouseEvent, href: string) => {
@@ -34,6 +38,36 @@ export const FooterNav: FC = () => {
         }
         navigate(href);
     };
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!scrollRef.current || scrollRef.current.ticking) {
+                return;
+            }
+            scrollRef.current.ticking = true;
+            const current = window.scrollY;
+            window.requestAnimationFrame(() => {
+                const last = scrollRef.current.lastY;
+                const delta = current - last;
+
+                if (!isMenuOpen) {
+                    if (delta > 6) {
+                        setIsHidden(true);
+                    } else if (delta < -6) {
+                        setIsHidden(false);
+                    }
+                } else {
+                    setIsHidden(false);
+                }
+
+                scrollRef.current.lastY = current < 0 ? 0 : current;
+                scrollRef.current.ticking = false;
+            });
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, [isMenuOpen]);
 
     return (
         <>
@@ -47,6 +81,10 @@ export const FooterNav: FC = () => {
                         'z-40',
                         'px-5',
                         'py-4',
+                        'transition-transform',
+                        'duration-500',
+                        'ease-[cubic-bezier(0.4,0,0.2,1)]',
+                        isHidden ? 'translate-y-full' : 'translate-y-0',
                     ],
                     ['border-t', 'bg-white'],
                     ['dark:bg-black'],
@@ -62,23 +100,30 @@ export const FooterNav: FC = () => {
                         'gap-2',
                     ])}
                 >
-                    <div>
-                        <span
-                            className={cn(
-                                [
-                                    'font-bold',
-                                    'text-2xl',
-                                    'text-gradient',
-                                    'animate-text-gradient',
-                                ],
-                                ['sm:text-3xl'],
-                                ['md:text-4xl'],
-                            )}
-                        >
-                            Portfolio
-                        </span>
+                    <div className={cn(['flex'])}>
+                        <AnimatedLogo />
                     </div>
-                    <div className={cn(['flex', 'items-center', 'gap-x-8'])}>
+                    <div className={cn(['flex', 'items-center', 'gap-5'])}>
+                        <div className="flex items-center gap-5">
+                            <a
+                                href="https://github.com/"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                                aria-label="GitHub"
+                                className="text-slate-700 transition hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
+                            >
+                                <LuGithub className="h-5 w-5" />
+                            </a>
+                            <a
+                                href="https://www.linkedin.com/"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                                aria-label="LinkedIn"
+                                className="text-slate-700 transition hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
+                            >
+                                <LuLinkedin className="h-5 w-5" />
+                            </a>
+                        </div>
                         <ThemeToggleButton />
                         <button type="button" onClick={handleMenuToggle}>
                             <LuMenu size={24} />
@@ -104,11 +149,15 @@ export const FooterNav: FC = () => {
                                     'gap-4',
                                     'justify-center',
                                 ],
-                                ['[&>li]:w-40'],
+                                ['[&>li]:w-40', '[&>li]:leading-7'],
                             )}
                         >
                             <li>
-                                <Link href="#" onClick={handleMenuToggle}>
+                                <Link
+                                    href="/"
+                                    className={cn(['h-full', 'flex'])}
+                                    onClick={handleMenuToggle}
+                                >
                                     <LucideHome className="me-3" />
                                     ホーム
                                 </Link>
@@ -117,6 +166,7 @@ export const FooterNav: FC = () => {
                                 <Link
                                     href="/#profile"
                                     onClick={handleMenuToggle}
+                                    className={cn(['h-full', 'flex'])}
                                 >
                                     <LucideCircleUser className="me-3" />
                                     プロフィール
@@ -126,6 +176,7 @@ export const FooterNav: FC = () => {
                                 <Link
                                     href="/#project"
                                     onClick={handleMenuToggle}
+                                    className={cn(['h-full', 'flex'])}
                                 >
                                     <LucideCode className="me-3" />
                                     プロジェクト
@@ -137,6 +188,7 @@ export const FooterNav: FC = () => {
                                     onClick={(e) =>
                                         navigateWithAnimation(e, '/contact')
                                     }
+                                    className={cn(['h-full', 'flex'])}
                                 >
                                     <LucideSend className="me-3" />
                                     お問い合わせ
