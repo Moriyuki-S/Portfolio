@@ -36,7 +36,7 @@ export const ProjectCard: FC<ProjectCardProps> = (props) => {
                         height={100}
                         src={project.src}
                         alt={project.title}
-                        className="h-52 w-full rounded-xl object-cover object-top sm:h-56 md:h-60"
+                        className="h-52 w-full rounded-xl object-cover object-top sm:h-auto sm:aspect-[4/3] md:aspect-[16/10]"
                     />
                 </motion.div>
                 <motion.div

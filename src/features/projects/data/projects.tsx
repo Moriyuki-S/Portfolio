@@ -4,7 +4,7 @@ export const projects: Project[] = [
     {
         id: 1,
         title: 'Portfolio Website',
-        src: '/images/projects/portfolio.jpg',
+        src: 'https://placehold.jp/440x420.png',
         description:
             'React + Astroで構築した個人ポートフォリオサイト。Three.jsによる3Dアニメーションとダークモード対応。',
         tags: ['React', 'Astro', 'TypeScript', 'Three.js', 'Tailwind CSS'],
@@ -33,7 +33,7 @@ export const projects: Project[] = [
     {
         id: 2,
         title: 'E-Commerce Dashboard',
-        src: '/images/projects/dashboard.jpg',
+        src: 'https://placehold.jp/440x420.png',
         description:
             'Next.js 14とPrismaを使用した管理ダッシュボード。リアルタイム分析とグラフ表示機能。',
         tags: ['Next.js', 'Prisma', 'PostgreSQL', 'Chart.js', 'shadcn/ui'],
@@ -61,7 +61,7 @@ export const projects: Project[] = [
     {
         id: 3,
         title: 'AI Chat Application',
-        src: '/images/projects/chat.jpg',
+        src: 'https://placehold.jp/440x420.png',
         description:
             'OpenAI APIを統合したリアルタイムチャットアプリ。ストリーミングレスポンスとマークダウン対応。',
         tags: ['React', 'TypeScript', 'OpenAI', 'WebSocket', 'Tailwind CSS'],
@@ -90,7 +90,7 @@ export const projects: Project[] = [
     {
         id: 4,
         title: 'Task Management App',
-        src: '/images/projects/task.jpg',
+        src: 'https://placehold.jp/440x420.png',
         description:
             'ドラッグ&ドロップ対応のタスク管理アプリ。認証機能とリアルタイム同期。',
         tags: ['Vue 3', 'Supabase', 'Pinia', 'dnd-kit', 'Vite'],
@@ -118,7 +118,7 @@ export const projects: Project[] = [
     {
         id: 5,
         title: 'Weather Forecast PWA',
-        src: '/images/projects/weather.jpg',
+        src: 'https://placehold.jp/440x420.png',
         description:
             'Progressive Web Appとして動作する天気予報アプリ。オフライン対応とプッシュ通知。',
         tags: ['React', 'PWA', 'Service Worker', 'IndexedDB', 'Weather API'],
