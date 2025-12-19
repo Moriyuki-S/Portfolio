@@ -6,6 +6,7 @@ import {
     DrawerBody,
     DrawerContent,
     DrawerHeader,
+    useDisclosure,
 } from '@heroui/react';
 import {
     type FC,
@@ -70,7 +71,12 @@ const navItems: NavItem[] = [
 ];
 
 export const Header: FC = () => {
-    const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+    const {
+        isOpen: isDrawerOpen,
+        onOpen,
+        onClose,
+        onOpenChange,
+    } = useDisclosure();
     const [currentPath, setCurrentPath] = useState<string>('/');
     const [activeSection, setActiveSection] = useState<string>('home');
     const [isHidden, setIsHidden] = useState(false);
@@ -161,13 +167,13 @@ export const Header: FC = () => {
         const handleChange = (event: MediaQueryListEvent) => {
             setIsDesktop(event.matches);
             if (event.matches) {
-                setIsDrawerOpen(false);
+                onClose();
             }
         };
 
         setIsDesktop(mediaQuery.matches);
         if (mediaQuery.matches) {
-            setIsDrawerOpen(false);
+            onClose();
         }
 
         if (mediaQuery.addEventListener) {
@@ -187,7 +193,7 @@ export const Header: FC = () => {
                 ).removeListener(handleChange);
             }
         };
-    }, []);
+    }, [onClose]);
 
     const navigateWithAnimation = (e: MouseEvent, href: string) => {
         e.preventDefault();
@@ -224,7 +230,7 @@ export const Header: FC = () => {
                 scrollToSection(url.hash);
             }
         }
-        setIsDrawerOpen(false);
+        onClose();
     };
 
     const handleLogoClick = (event: MouseEvent<HTMLAnchorElement>) => {
@@ -322,7 +328,9 @@ export const Header: FC = () => {
                                 isDrawerOpen ? 'メニューを閉じる' : 'メニューを開く'
                             }
                             aria-expanded={isDrawerOpen}
-                            onClick={() => setIsDrawerOpen((prev) => !prev)}
+                            onClick={() =>
+                                isDrawerOpen ? onClose() : onOpen()
+                            }
                         >
                             {isDrawerOpen ? (
                                 <LuX size={24} />
@@ -388,7 +396,8 @@ export const Header: FC = () => {
             {!isDesktop && (
                 <Drawer
                     isOpen={isDrawerOpen}
-                    onOpenChange={setIsDrawerOpen}
+                    onOpenChange={onOpenChange}
+                    onClose={onClose}
                     placement="left"
                     size='xs'
                     backdrop='blur'
@@ -433,7 +442,7 @@ export const Header: FC = () => {
                                 {navList}
                             </ul>
                             <div className={cn(['mt-auto', 'flex', 'w-full', 'justify-end'])}>
-                                <Button color='danger' startContent={<LuX />}>
+                                <Button color='danger' startContent={<LuX />} onClick={onClose}>
                                     閉じる
                                 </Button>
                             </div>
