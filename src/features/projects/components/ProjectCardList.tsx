@@ -160,7 +160,7 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                                 className="absolute inset-0 h-full w-full object-cover"
                                             />
                                         </motion.div>
-                                        
+
                                         {/* 画像の下のテキスト情報（PCの場合は左カラムに配置） */}
                                         <div className="flex flex-col gap-4 px-4 pb-4 md:px-0 md:pb-0">
                                             <motion.h3

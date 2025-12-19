@@ -179,9 +179,9 @@ export const Header: FC = () => {
         if (mediaQuery.addEventListener) {
             mediaQuery.addEventListener('change', handleChange);
         } else {
-            (mediaQuery as unknown as { addListener: (cb: unknown) => void }).addListener(
-                handleChange,
-            );
+            (
+                mediaQuery as unknown as { addListener: (cb: unknown) => void }
+            ).addListener(handleChange);
         }
 
         return () => {
@@ -189,7 +189,9 @@ export const Header: FC = () => {
                 mediaQuery.removeEventListener('change', handleChange);
             } else {
                 (
-                    mediaQuery as unknown as { removeListener: (cb: unknown) => void }
+                    mediaQuery as unknown as {
+                        removeListener: (cb: unknown) => void;
+                    }
                 ).removeListener(handleChange);
             }
         };
@@ -282,116 +284,118 @@ export const Header: FC = () => {
                 )}
                 style={{ transformOrigin: 'top' }}
             >
-            <div
-                className={cn(
-                    [
-                        'relative',
-                        'mx-auto',
-                        'flex',
-                        'w-full',
-                        'items-center',
-                        'justify-between',
-                        'px-4',
-                        'py-3',
-                    ],
-                    ['md:px-8', 'lg:px-24'],
-                )}
-            >
-                <div className={cn(['flex', 'items-center', 'gap-3'])}>
-                    {!isDesktop && (
-                        <button
-                            type="button"
-                            className={cn(
-                                [
-                                    'hidden',
-                                    'h-12',
-                                    'w-12',
-                                    'items-center',
-                                    'justify-center',
-                                    'rounded-full',
-                                    'border',
-                                    'border-slate-200',
-                                    'bg-white',
-                                    'text-slate-900',
-                                    'transition',
-                                    'hover:bg-slate-100',
-                                ],
-                                [
-                                    'dark:border-slate-700',
-                                    'dark:bg-slate-900',
-                                    'dark:text-white',
-                                    'dark:hover:bg-slate-800',
-                                ],
-                                ['md:flex'],
-                            )}
-                            aria-label={
-                                isDrawerOpen ? 'メニューを閉じる' : 'メニューを開く'
-                            }
-                            aria-expanded={isDrawerOpen}
-                            onClick={() =>
-                                isDrawerOpen ? onClose() : onOpen()
-                            }
-                        >
-                            {isDrawerOpen ? (
-                                <LuX size={24} />
-                            ) : (
-                                <LuMenu size={24} />
-                            )}
-                        </button>
-                    )}
-                    <a
-                        href="/"
-                        className={cn(['inline-flex'])}
-                        aria-label="Scroll to top"
-                        onClick={handleLogoClick}
-                    >
-                        <AnimatedLogo className={cn(['cursor-pointer'])} />
-                    </a>
-                </div>
-
-                <nav
-                    className={cn(
-                        ['hidden', 'items-center', 'gap-3'],
-                        ['min-[1270px]:flex'],
-                        ['min-[1270px]:gap-4'],
-                    )}
-                >
-                    <ul
-                        className={cn(
-                            [
-                                'flex',
-                                'items-center',
-                                'gap-2',
-                                'text-sm',
-                                'font-semibold',
-                                'text-slate-600',
-                            ],
-                            ['dark:text-slate-200'],
-                        )}
-                    >
-                        {navList}
-                    </ul>
-                </nav>
-
                 <div
                     className={cn(
-                        ['hidden', 'items-center', 'gap-4'],
-                        ['md:flex'],
+                        [
+                            'relative',
+                            'mx-auto',
+                            'flex',
+                            'w-full',
+                            'items-center',
+                            'justify-between',
+                            'px-4',
+                            'py-3',
+                        ],
+                        ['md:px-8', 'lg:px-24'],
                     )}
                 >
-                    <SocialIconButton
-                        href="https://github.com/"
-                        ariaLabel="GitHub"
-                        icon={<LuGithub className={socialIconClasses} />}
-                    />
-                    <SocialIconButton
-                        href="https://www.linkedin.com/"
-                        ariaLabel="LinkedIn"
-                        icon={<LuLinkedin className={socialIconClasses} />}
-                    />
-                    <ThemeToggleButton />
+                    <div className={cn(['flex', 'items-center', 'gap-3'])}>
+                        {!isDesktop && (
+                            <button
+                                type="button"
+                                className={cn(
+                                    [
+                                        'hidden',
+                                        'h-12',
+                                        'w-12',
+                                        'items-center',
+                                        'justify-center',
+                                        'rounded-full',
+                                        'border',
+                                        'border-slate-200',
+                                        'bg-white',
+                                        'text-slate-900',
+                                        'transition',
+                                        'hover:bg-slate-100',
+                                    ],
+                                    [
+                                        'dark:border-slate-700',
+                                        'dark:bg-slate-900',
+                                        'dark:text-white',
+                                        'dark:hover:bg-slate-800',
+                                    ],
+                                    ['md:flex'],
+                                )}
+                                aria-label={
+                                    isDrawerOpen
+                                        ? 'メニューを閉じる'
+                                        : 'メニューを開く'
+                                }
+                                aria-expanded={isDrawerOpen}
+                                onClick={() =>
+                                    isDrawerOpen ? onClose() : onOpen()
+                                }
+                            >
+                                {isDrawerOpen ? (
+                                    <LuX size={24} />
+                                ) : (
+                                    <LuMenu size={24} />
+                                )}
+                            </button>
+                        )}
+                        <a
+                            href="/"
+                            className={cn(['inline-flex'])}
+                            aria-label="Scroll to top"
+                            onClick={handleLogoClick}
+                        >
+                            <AnimatedLogo className={cn(['cursor-pointer'])} />
+                        </a>
+                    </div>
+
+                    <nav
+                        className={cn(
+                            ['hidden', 'items-center', 'gap-3'],
+                            ['min-[1270px]:flex'],
+                            ['min-[1270px]:gap-4'],
+                        )}
+                    >
+                        <ul
+                            className={cn(
+                                [
+                                    'flex',
+                                    'items-center',
+                                    'gap-2',
+                                    'text-sm',
+                                    'font-semibold',
+                                    'text-slate-600',
+                                ],
+                                ['dark:text-slate-200'],
+                            )}
+                        >
+                            {navList}
+                        </ul>
+                    </nav>
+
+                    <div
+                        className={cn(
+                            ['hidden', 'items-center', 'gap-4'],
+                            ['md:flex'],
+                        )}
+                    >
+                        <SocialIconButton
+                            href="https://github.com/"
+                            ariaLabel="GitHub"
+                            icon={<LuGithub className={socialIconClasses} />}
+                        />
+                        <SocialIconButton
+                            href="https://www.linkedin.com/"
+                            ariaLabel="LinkedIn"
+                            icon={<LuLinkedin className={socialIconClasses} />}
+                        />
+                        <ThemeToggleButton />
+                    </div>
                 </div>
-            </div>
             </header>
             {!isDesktop && (
                 <Drawer
@@ -399,8 +403,8 @@ export const Header: FC = () => {
                     onOpenChange={onOpenChange}
                     onClose={onClose}
                     placement="left"
-                    size='xs'
-                    backdrop='blur'
+                    size="xs"
+                    backdrop="blur"
                 >
                     <DrawerContent>
                         <DrawerHeader
@@ -441,8 +445,19 @@ export const Header: FC = () => {
                             >
                                 {navList}
                             </ul>
-                            <div className={cn(['mt-auto', 'flex', 'w-full', 'justify-end'])}>
-                                <Button color='danger' startContent={<LuX />} onClick={onClose}>
+                            <div
+                                className={cn([
+                                    'mt-auto',
+                                    'flex',
+                                    'w-full',
+                                    'justify-end',
+                                ])}
+                            >
+                                <Button
+                                    color="danger"
+                                    startContent={<LuX />}
+                                    onClick={onClose}
+                                >
                                     閉じる
                                 </Button>
                             </div>
