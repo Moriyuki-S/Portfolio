@@ -294,7 +294,7 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                 {/* Right Column: Title, Tags, Links, AND Content (Scrollable) */}
                                 <div
                                     className={cn([
-                                        'flex flex-1 flex-col p-6 pt-0 md:p-10 md:pt-6 md:pl-0',
+                                        'flex flex-1 flex-col p-6 pt-0 md:p-10 md:pl-0',
                                     ])}
                                 >
                                     {/* Main Content Body */}
