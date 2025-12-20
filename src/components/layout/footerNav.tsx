@@ -8,11 +8,7 @@ import {
     ModalFooter,
     ModalHeader,
 } from '@heroui/react';
-import {
-    LucideCircleUser,
-    LucideCode,
-    LucideHome,
-} from 'lucide-react';
+import { LucideCircleUser, LucideCode, LucideHome } from 'lucide-react';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { LuGithub, LuLinkedin, LuMenu } from 'react-icons/lu';
 import { AnimatedLogo } from '../ui/AnimatedLogo';

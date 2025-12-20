@@ -33,9 +33,7 @@ export const ProjectCard: FC<ProjectCardProps> = (props) => {
                 mass: 0.8,
             }}
         >
-            <div
-                className={cn(['flex w-full flex-1 flex-col gap-4'])}
-            >
+            <div className={cn(['flex w-full flex-1 flex-col gap-4'])}>
                 <motion.div layoutId={`image-${project.title}-${project.id}`}>
                     <img
                         width={100}
@@ -55,9 +53,7 @@ export const ProjectCard: FC<ProjectCardProps> = (props) => {
                 >
                     <motion.h3
                         layoutId={`title-${project.title}-${project.id}`}
-                        className={cn([
-                            'font-semibold text-xl md:text-2xl',
-                        ])}
+                        className={cn(['font-semibold text-xl md:text-2xl'])}
                     >
                         {project.title}
                     </motion.h3>

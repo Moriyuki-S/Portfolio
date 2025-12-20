@@ -113,12 +113,10 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                         <motion.div
                             layoutId={`project-${active.title}-${active.id}`}
                             ref={ref}
-                            className={cn(
-                                [
-                                    'relative flex w-full max-w-[960px] flex-col overflow-y-auto rounded-3xl bg-white shadow-2xl dark:bg-neutral-900',
-                                    'h-[85vh] md:h-auto md:max-h-[90vh]',
-                                ]
-                            )}
+                            className={cn([
+                                'relative flex w-full max-w-[960px] flex-col overflow-y-auto rounded-3xl bg-white shadow-2xl dark:bg-neutral-900',
+                                'h-[85vh] md:h-auto md:max-h-[90vh]',
+                            ])}
                         >
                             <div
                                 className={cn([
@@ -130,7 +128,10 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                     layout
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0, transition: { duration: 0.05 } }}
+                                    exit={{
+                                        opacity: 0,
+                                        transition: { duration: 0.05 },
+                                    }}
                                     className={cn([
                                         'pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-md backdrop-blur-sm transition-colors hover:bg-red-100',
                                         'dark:bg-neutral-800/90 dark:hover:bg-red-900/30',
@@ -146,17 +147,22 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                 className={cn([
                                     '-mt-10 md:-mt-14 flex flex-col md:flex-row',
                                 ])}
-                            > {/* ボタン分のネガティブマージンでレイアウト調整 */}
-                                
+                            >
+                                {' '}
+                                {/* ボタン分のネガティブマージンでレイアウト調整 */}
                                 {/* Left Column: Image ONLY (Sticky on Desktop) */}
                                 <div
-                                    className={cn(['w-full p-6 md:w-1/2 md:p-10'])}
+                                    className={cn([
+                                        'w-full p-6 md:w-1/2 md:p-10',
+                                    ])}
                                 >
                                     <div
                                         className={cn([
                                             'flex flex-col gap-6 md:sticky md:top-10',
                                         ])}
-                                    > {/* ここで画像を固定 */}
+                                    >
+                                        {' '}
+                                        {/* ここで画像を固定 */}
                                         <motion.div
                                             layoutId={`image-${active.title}-${active.id}`}
                                             className={cn([
@@ -173,7 +179,6 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                                 ])}
                                             />
                                         </motion.div>
-
                                         {/* Title / Description / Tags / Links (Desktop shows under image, mobile also stacked first) */}
                                         <div
                                             className={cn([
@@ -222,55 +227,70 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                             )}
 
                                             {/* Links */}
-                                            {active.link && (active.link.demo || active.link.github) && (
-                                                <motion.div
-                                                    layout
-                                                    className={cn([
-                                                        'flex flex-wrap gap-3 pt-2',
-                                                    ])}
-                                                >
-                                                    {active.link.demo && (
-                                                        <a
-                                                            href={active.link.demo}
-                                                            target="_blank"
-                                                            rel="noreferrer"
-                                                            className={cn([
-                                                                'inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 font-medium text-neutral-700 text-sm hover:bg-neutral-100',
-                                                                'dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800',
-                                                            ])}
-                                                        >
-                                                            <LuExternalLink
+                                            {active.link &&
+                                                (active.link.demo ||
+                                                    active.link.github) && (
+                                                    <motion.div
+                                                        layout
+                                                        className={cn([
+                                                            'flex flex-wrap gap-3 pt-2',
+                                                        ])}
+                                                    >
+                                                        {active.link.demo && (
+                                                            <a
+                                                                href={
+                                                                    active.link
+                                                                        .demo
+                                                                }
+                                                                target="_blank"
+                                                                rel="noreferrer"
                                                                 className={cn([
-                                                                    'h-4 w-4',
+                                                                    'inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 font-medium text-neutral-700 text-sm hover:bg-neutral-100',
+                                                                    'dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800',
                                                                 ])}
-                                                            />
-                                                            <span>Live Demo</span>
-                                                        </a>
-                                                    )}
-                                                    {active.link.github && (
-                                                        <a
-                                                            href={active.link.github}
-                                                            target="_blank"
-                                                            rel="noreferrer"
-                                                            className={cn([
-                                                                'inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 font-medium text-neutral-700 text-sm hover:bg-neutral-100',
-                                                                'dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800',
-                                                            ])}
-                                                        >
-                                                            <LuGithub
+                                                            >
+                                                                <LuExternalLink
+                                                                    className={cn(
+                                                                        [
+                                                                            'h-4 w-4',
+                                                                        ],
+                                                                    )}
+                                                                />
+                                                                <span>
+                                                                    Live Demo
+                                                                </span>
+                                                            </a>
+                                                        )}
+                                                        {active.link.github && (
+                                                            <a
+                                                                href={
+                                                                    active.link
+                                                                        .github
+                                                                }
+                                                                target="_blank"
+                                                                rel="noreferrer"
                                                                 className={cn([
-                                                                    'h-4 w-4',
+                                                                    'inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 font-medium text-neutral-700 text-sm hover:bg-neutral-100',
+                                                                    'dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800',
                                                                 ])}
-                                                            />
-                                                            <span>GitHub</span>
-                                                        </a>
-                                                    )}
-                                                </motion.div>
-                                            )}
+                                                            >
+                                                                <LuGithub
+                                                                    className={cn(
+                                                                        [
+                                                                            'h-4 w-4',
+                                                                        ],
+                                                                    )}
+                                                                />
+                                                                <span>
+                                                                    GitHub
+                                                                </span>
+                                                            </a>
+                                                        )}
+                                                    </motion.div>
+                                                )}
                                         </div>
                                     </div>
                                 </div>
-
                                 {/* Right Column: Title, Tags, Links, AND Content (Scrollable) */}
                                 <div
                                     className={cn([
@@ -295,17 +315,14 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                     </div>
                 ) : null}
             </AnimatePresence>
-            
+
             <ul
                 className={cn([
                     'grid w-full auto-rows-fr grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-10',
                 ])}
             >
                 {projects.map((project) => (
-                    <li
-                        key={project.id}
-                        className={cn(['flex h-full w-full'])}
-                    >
+                    <li key={project.id} className={cn(['flex h-full w-full'])}>
                         <ProjectCard project={project} setActive={setActive} />
                     </li>
                 ))}
@@ -329,9 +346,7 @@ export const CloseIcon = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={cn([
-                'h-4 w-4 text-neutral-500 dark:text-neutral-400',
-            ])}
+            className={cn(['h-4 w-4 text-neutral-500 dark:text-neutral-400'])}
         >
             <title>Close</title>
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
