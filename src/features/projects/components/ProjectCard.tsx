@@ -4,7 +4,7 @@ import type { Project } from '../types';
 
 interface ProjectCardProps {
     project: Project;
-    setActive: Dispatch<SetStateAction<boolean | Project | null>>;
+    setActive: Dispatch<SetStateAction<Project | null>>;
 }
 
 export const ProjectCard: FC<ProjectCardProps> = (props) => {
@@ -36,7 +36,7 @@ export const ProjectCard: FC<ProjectCardProps> = (props) => {
                         height={100}
                         src={project.src}
                         alt={project.title}
-                        className="h-52 w-full rounded-xl object-cover object-top sm:aspect-[4/3] sm:h-auto md:aspect-[16/10]"
+                        className="w-full rounded-xl object-cover object-center aspect-[440/420]"
                     />
                 </motion.div>
                 <motion.div
