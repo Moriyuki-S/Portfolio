@@ -1,10 +1,46 @@
 ---
 import Layout from 'src/layouts/Layout.astro';
-import { ContactSection } from 'src/sections/contact';
 ---
 
 <Layout>
-	<main class="px-6 pt-16 mb-28 text-center sm:px-8 md:pt-20 md:pb-10">
-		<ContactSection client:idle />
-	</main>
+    <main class="px-6 pt-16 mb-28 text-center sm:px-8 md:pt-20 md:pb-10">
+        <section class="mx-auto max-w-3xl rounded-2xl border border-slate-200 bg-white px-8 py-12 shadow-[0_20px_60px_rgba(15,23,42,0.06)] dark:border-slate-800 dark:bg-slate-900">
+            <div class="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-200">
+                <span class="text-2xl" aria-hidden="true">🚧</span>
+            </div>
+            <h1 class="mb-4 text-3xl font-bold text-slate-900 dark:text-white">お問い合わせページは整備中です</h1>
+            <p class="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-slate-600 dark:text-slate-200">
+                ただいまフォームを準備中です。お急ぎの場合は各種SNSからご連絡ください。ご不便をおかけしますが、公開まで今しばらくお待ちください。
+            </p>
+            <div class="flex flex-wrap items-center justify-center gap-4">
+                <a
+                    href="/"
+                    class="inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:-translate-y-0.5 hover:shadow-lg dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100 dark:hover:border-slate-500"
+                >
+                    トップへ戻る
+                </a>
+                <div class="flex items-center gap-3">
+                    <a
+                        href="https://github.com/"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="text-slate-600 transition hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
+                        aria-label="GitHub"
+                    >
+                        GitHub
+                    </a>
+                    <span class="text-slate-300 dark:text-slate-600">|</span>
+                    <a
+                        href="https://www.linkedin.com/"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        class="text-slate-600 transition hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
+                        aria-label="LinkedIn"
+                    >
+                        LinkedIn
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
 </Layout>

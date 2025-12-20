@@ -21,21 +21,21 @@ interface ProjectCardListProps {
 export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
     const { projects } = props;
 
-    const [active, setActive] = useState<Project | boolean | null>(null);
+    const [active, setActive] = useState<Project | null>(null);
     const id = useId();
     const ref = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
 
     useEffect(() => {
         function onKeyDown(event: KeyboardEvent) {
             if (event.key === 'Escape') {
-                setActive(false);
+                setActive(null);
             }
         }
 
-        if (active && typeof active === 'object') {
+        if (active) {
             document.body.style.overflow = 'hidden';
         } else {
-            document.body.style.overflow = 'auto';
+            document.body.style.overflow = '';
         }
 
         window.addEventListener('keydown', onKeyDown);
@@ -55,7 +55,7 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                 return (
                     <h3
                         key={`heading-${index}`}
-                        className="mb-4 font-bold text-xl md:text-2xl"
+                        className={cn(['mb-4 font-bold text-xl md:text-2xl'])}
                     >
                         {block.text}
                     </h3>
@@ -64,7 +64,9 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                 return (
                     <p
                         key={`paragraph-${index}`}
-                        className="mb-6 text-gray-600 dark:text-gray-300"
+                        className={cn([
+                            'mb-6 text-gray-600 dark:text-gray-300',
+                        ])}
                     >
                         {block.text}
                     </p>
@@ -73,7 +75,9 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                 return (
                     <ul
                         key={`list-${index}`}
-                        className="mb-6 list-inside list-disc space-y-2 text-gray-600 dark:text-gray-300"
+                        className={cn([
+                            'mb-6 list-inside list-disc space-y-2 text-gray-600 dark:text-gray-300',
+                        ])}
                     >
                         {block.items.map((item) => (
                             <li key={item}>{item}</li>
@@ -88,210 +92,237 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
     return (
         <>
             <AnimatePresence>
-                {active && typeof active === 'object' && (
+                {active && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         className={cn([
-                            'fixed inset-0 z-10 h-full w-full bg-black/20',
+                            'fixed inset-0 z-10 h-full w-full bg-black/20 backdrop-blur-sm',
                         ])}
                     />
                 )}
             </AnimatePresence>
             <AnimatePresence>
-                {active && typeof active === 'object' ? (
+                {active ? (
                     <div
-                        className={cn('fixed inset-0 z-[100] overflow-y-auto')}
+                        className={cn([
+                            'fixed inset-0 z-[100] flex items-center justify-center overflow-hidden p-4 sm:p-6',
+                        ])}
                     >
-                        <div className="flex min-h-full items-center justify-center p-3 sm:p-4 lg:p-6">
-                            <motion.div
-                                layoutId={`project-${active.title}-${active.id}`}
-                                ref={ref}
-                                className={cn(
-                                    'relative flex w-full max-w-[960px] flex-col rounded-3xl bg-white shadow-xl dark:bg-neutral-900',
-                                    // スマホではカード全体をスクロール可能に (overflow-y-auto)
-                                    // PCではカードを固定し、内部でスクロール (overflow-hidden)
-                                    'max-h-[85vh] overflow-y-auto md:max-h-[85vh] md:overflow-hidden md:p-8 lg:p-10',
-                                )}
+                        <motion.div
+                            layoutId={`project-${active.title}-${active.id}`}
+                            ref={ref}
+                            className={cn([
+                                'relative flex w-full max-w-[960px] flex-col overflow-y-auto rounded-3xl bg-white shadow-2xl dark:bg-neutral-900',
+                                'h-[85vh] md:h-auto md:max-h-[90vh]',
+                            ])}
+                        >
+                            <div
+                                className={cn([
+                                    'pointer-events-none sticky top-0 right-0 z-50 flex justify-end p-4 pb-0',
+                                ])}
                             >
-                                {/* 修正点: バツボタンの配置
-                                    スマホ: sticky top-0 でスクロールに追従させる
-                                    PC: absolute で右上に固定
-                                */}
-                                <div className="pointer-events-none sticky top-0 z-50 flex w-full justify-end p-4 md:absolute md:top-0 md:right-0 md:p-0">
-                                    <motion.button
-                                        key={`button-${active.title}-${id}-desktop`}
-                                        type="button"
-                                        layout
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        exit={{
-                                            opacity: 0,
-                                            transition: { duration: 0.05 },
-                                        }}
-                                        className={cn(
-                                            'pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-red-400 dark:hover:bg-red-500',
-                                            // PC用の位置調整
-                                            'md:absolute md:top-6 md:right-6 lg:top-8 lg:right-8',
-                                        )}
-                                        onClick={handleClose}
-                                        aria-label="Close project details"
-                                    >
-                                        <CloseIcon />
-                                    </motion.button>
-                                </div>
+                                <motion.button
+                                    key={`button-${active.title}-${id}-desktop`}
+                                    layout
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{
+                                        opacity: 0,
+                                        transition: { duration: 0.05 },
+                                    }}
+                                    className={cn([
+                                        'pointer-events-auto flex h-10 w-10 items-center justify-center rounded-full bg-white/90 shadow-md backdrop-blur-sm transition-colors hover:bg-red-100',
+                                        'dark:bg-neutral-800/90 dark:hover:bg-red-900/30',
+                                    ])}
+                                    onClick={handleClose}
+                                    aria-label="Close project details"
+                                >
+                                    <CloseIcon />
+                                </motion.button>
+                            </div>
 
-                                <div className="relative flex flex-col gap-6 md:h-full md:flex-row md:gap-10">
-                                    {/* 左カラム: 画像など */}
-                                    <div className="flex flex-col gap-5 [-ms-overflow-style:none] [scrollbar-width:none] md:w-1/2 md:overflow-y-auto md:pr-2">
+                            <div
+                                className={cn([
+                                    '-mt-10 md:-mt-14 flex flex-col md:flex-row',
+                                ])}
+                            >
+                                {' '}
+                                {/* ボタン分のネガティブマージンでレイアウト調整 */}
+                                {/* Left Column: Image ONLY (Sticky on Desktop) */}
+                                <div
+                                    className={cn([
+                                        'w-full p-6 md:w-1/2 md:p-10',
+                                    ])}
+                                >
+                                    <div
+                                        className={cn([
+                                            'flex flex-col gap-6 md:sticky md:top-10',
+                                        ])}
+                                    >
+                                        {' '}
+                                        {/* ここで画像を固定 */}
                                         <motion.div
                                             layoutId={`image-${active.title}-${active.id}`}
-                                            className={cn(
-                                                'relative w-full overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-800',
-                                                'aspect-[440/420] sm:aspect-[16/10] md:aspect-[16/9]',
-                                                // 修正点: スマホ時にstickyヘッダーの分だけ画像を上に引き上げ、ボタンの下に潜り込ませる
-                                                '-mt-16 p-4 md:mt-0 md:p-0',
-                                            )}
+                                            className={cn([
+                                                'relative overflow-hidden rounded-2xl',
+                                            ])}
                                         >
                                             <img
+                                                width={200}
+                                                height={200}
                                                 src={active.src}
                                                 alt={active.title}
-                                                className="absolute inset-0 h-full w-full object-cover"
+                                                className={cn([
+                                                    'block aspect-[440/420] w-full object-cover object-center',
+                                                ])}
                                             />
                                         </motion.div>
-
-                                        {/* 画像の下のテキスト情報（PCの場合は左カラムに配置） */}
-                                        <div className="flex flex-col gap-4 px-4 pb-4 md:px-0 md:pb-0">
+                                        {/* Title / Description / Tags / Links (Desktop shows under image, mobile also stacked first) */}
+                                        <div
+                                            className={cn([
+                                                'flex flex-col gap-4',
+                                            ])}
+                                        >
                                             <motion.h3
                                                 layoutId={`title-${active.title}-${active.id}`}
-                                                className={cn(
-                                                    'font-bold text-3xl md:text-4xl',
-                                                )}
+                                                className={cn([
+                                                    'font-bold text-2xl md:text-4xl',
+                                                ])}
                                             >
                                                 {active.title}
                                             </motion.h3>
                                             <motion.p
                                                 layoutId={`description-${active.description}-${active.id}`}
-                                                className={cn(
-                                                    'mt-2 text-neutral-600 text-sm leading-relaxed md:text-base dark:text-neutral-300',
-                                                )}
+                                                className={cn([
+                                                    'text-neutral-600 text-sm leading-relaxed md:text-base dark:text-neutral-300',
+                                                ])}
                                             >
                                                 {active.description}
                                             </motion.p>
+
+                                            {/* Tags */}
                                             {active.tags.length > 0 && (
                                                 <motion.ul
                                                     layout
                                                     layoutId={`tags-${active.id}`}
-                                                    className={cn(
-                                                        'mt-3 flex flex-wrap gap-2',
-                                                    )}
+                                                    className={cn([
+                                                        'flex flex-wrap gap-2',
+                                                    ])}
                                                 >
                                                     {active.tags.map((tag) => (
                                                         <motion.li
                                                             layout
                                                             layoutId={`tag-${active.id}-${tag}`}
                                                             key={tag}
-                                                            className={cn(
+                                                            className={cn([
                                                                 'rounded-full bg-neutral-100 px-3 py-1 font-medium text-neutral-600 text-xs dark:bg-neutral-800 dark:text-neutral-300',
-                                                            )}
+                                                            ])}
                                                         >
                                                             {tag}
                                                         </motion.li>
                                                     ))}
                                                 </motion.ul>
                                             )}
+
+                                            {/* Links */}
                                             {active.link &&
                                                 (active.link.demo ||
                                                     active.link.github) && (
                                                     <motion.div
                                                         layout
-                                                        className={cn(
-                                                            'flex flex-wrap gap-3',
-                                                        )}
+                                                        className={cn([
+                                                            'flex flex-wrap gap-3 pt-2',
+                                                        ])}
                                                     >
                                                         {active.link.demo && (
-                                                            <motion.a
-                                                                layout
-                                                                initial={{
-                                                                    opacity: 0,
-                                                                }}
-                                                                animate={{
-                                                                    opacity: 1,
-                                                                }}
-                                                                exit={{
-                                                                    opacity: 0,
-                                                                }}
+                                                            <a
                                                                 href={
                                                                     active.link
                                                                         .demo
                                                                 }
                                                                 target="_blank"
                                                                 rel="noreferrer"
-                                                                className={cn(
-                                                                    'inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 font-medium text-neutral-700 text-sm hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800',
-                                                                )}
+                                                                className={cn([
+                                                                    'inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 font-medium text-neutral-700 text-sm hover:bg-neutral-100',
+                                                                    'dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800',
+                                                                ])}
                                                             >
-                                                                <LuExternalLink className="h-4 w-4" />
+                                                                <LuExternalLink
+                                                                    className={cn(
+                                                                        [
+                                                                            'h-4 w-4',
+                                                                        ],
+                                                                    )}
+                                                                />
                                                                 <span>
                                                                     Live Demo
                                                                 </span>
-                                                            </motion.a>
+                                                            </a>
                                                         )}
                                                         {active.link.github && (
-                                                            <motion.a
-                                                                layout
-                                                                initial={{
-                                                                    opacity: 0,
-                                                                }}
-                                                                animate={{
-                                                                    opacity: 1,
-                                                                }}
-                                                                exit={{
-                                                                    opacity: 0,
-                                                                }}
+                                                            <a
                                                                 href={
                                                                     active.link
                                                                         .github
                                                                 }
                                                                 target="_blank"
                                                                 rel="noreferrer"
-                                                                className="inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 font-medium text-neutral-700 text-sm hover:bg-neutral-100 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
+                                                                className={cn([
+                                                                    'inline-flex items-center gap-2 rounded-full border border-neutral-200 px-4 py-2 font-medium text-neutral-700 text-sm hover:bg-neutral-100',
+                                                                    'dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800',
+                                                                ])}
                                                             >
-                                                                <LuGithub className="h-4 w-4" />
+                                                                <LuGithub
+                                                                    className={cn(
+                                                                        [
+                                                                            'h-4 w-4',
+                                                                        ],
+                                                                    )}
+                                                                />
                                                                 <span>
                                                                     GitHub
                                                                 </span>
-                                                            </motion.a>
+                                                            </a>
                                                         )}
                                                     </motion.div>
                                                 )}
                                         </div>
                                     </div>
-
-                                    {/* 右カラム: コンテンツ (PCではスクロール) */}
-                                    <div className="relative flex-1 px-4 pb-10 md:min-h-0 md:overflow-hidden md:px-0 md:pb-0 md:pl-4 lg:pl-8">
-                                        <motion.div
-                                            layout
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            className="flex flex-col items-start gap-4 text-neutral-600 text-xs md:h-full md:overflow-y-auto md:pr-1 md:text-sm lg:text-base dark:text-neutral-400"
-                                        >
-                                            {active.content.map(
-                                                renderContentBlock,
-                                            )}
-                                        </motion.div>
-                                    </div>
                                 </div>
-                            </motion.div>
-                        </div>
+                                {/* Right Column: Title, Tags, Links, AND Content (Scrollable) */}
+                                <div
+                                    className={cn([
+                                        'flex flex-1 flex-col p-6 pt-0 md:p-10 md:pl-0',
+                                    ])}
+                                >
+                                    {/* Main Content Body */}
+                                    <motion.div
+                                        layout
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        exit={{ opacity: 0 }}
+                                        className={cn([
+                                            'text-neutral-600 text-sm md:text-base dark:text-neutral-400',
+                                        ])}
+                                    >
+                                        {active.content.map(renderContentBlock)}
+                                    </motion.div>
+                                </div>
+                            </div>
+                        </motion.div>
                     </div>
                 ) : null}
             </AnimatePresence>
-            <ul className="grid w-full auto-rows-fr grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-10">
+
+            <ul
+                className={cn([
+                    'grid w-full auto-rows-fr grid-cols-1 gap-6 md:grid-cols-2 md:gap-8 lg:grid-cols-3 lg:gap-10',
+                ])}
+            >
                 {projects.map((project) => (
-                    <li key={project.id} className="flex h-full w-full">
+                    <li key={project.id} className={cn(['flex h-full w-full'])}>
                         <ProjectCard project={project} setActive={setActive} />
                     </li>
                 ))}
@@ -303,20 +334,9 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
 export const CloseIcon = () => {
     return (
         <motion.svg
-            role="img"
-            aria-label="Close"
-            initial={{
-                opacity: 0,
-            }}
-            animate={{
-                opacity: 1,
-            }}
-            exit={{
-                opacity: 0,
-                transition: {
-                    duration: 0.05,
-                },
-            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             xmlns="http://www.w3.org/2000/svg"
             width="24"
             height="24"
@@ -326,7 +346,7 @@ export const CloseIcon = () => {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="h-4 w-4 text-black"
+            className={cn(['h-4 w-4 text-neutral-500 dark:text-neutral-400'])}
         >
             <title>Close</title>
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />

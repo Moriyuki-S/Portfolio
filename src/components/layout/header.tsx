@@ -23,7 +23,6 @@ import {
     LuHouse,
     LuLinkedin,
     LuMenu,
-    LuSend,
     LuX,
 } from 'react-icons/lu';
 import { AnimatedLogo } from '../ui/AnimatedLogo';
@@ -60,13 +59,6 @@ const navItems: NavItem[] = [
         label: 'プロジェクト',
         href: '/#project',
         icon: <LuCode />,
-    },
-    {
-        id: 'contact',
-        label: 'お問い合わせ',
-        href: '/contact',
-        icon: <LuSend />,
-        useNavigate: true,
     },
 ];
 
@@ -128,9 +120,7 @@ export const Header: FC = () => {
 
     useEffect(() => {
         if (currentPath !== '/') {
-            setActiveSection(
-                currentPath.startsWith('/contact') ? 'contact' : 'home',
-            );
+            setActiveSection('home');
             return;
         }
 
