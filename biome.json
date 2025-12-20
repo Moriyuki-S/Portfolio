@@ -7,7 +7,11 @@
     },
     "files": {
         "ignoreUnknown": true,
-        "includes": ["src/**/*.{astro,ts,js,tsx,jsx,md,mdx}", "!src/lib/**"]
+        "includes": [
+            "src/**/*.{astro,ts,js,tsx,jsx,md,mdx}",
+            "!src/lib/**",
+            "!src/env.d.ts"
+        ]
     },
     "formatter": {
         "enabled": true,

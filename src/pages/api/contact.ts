@@ -6,7 +6,7 @@ import { createContactService } from 'src/services/contact';
 
 export const prerender = false;
 
-export const POST: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request, locals }) => {
     const formData = await request.formData();
 
     const result = schema.safeParse({
@@ -31,10 +31,11 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     try {
-        const botToken = import.meta.env.DISCORD_BOT_TOKEN;
-        const channelId = import.meta.env.DISCORD_CHANNEL_ID;
+        const { env } = locals.runtime;
+        const botToken = env.DISCORD_BOT_TOKEN;
+        const channelId = env.DISCORD_CHANNEL_ID;
+
         if (!botToken || !channelId) {
-            console.error('Discord bot configuration is missing.');
             throw new Error(
                 'DISCORD_BOT_TOKEN or DISCORD_CHANNEL_ID is not configured.',
             );
