@@ -41,7 +41,7 @@ export const ProjectCard: FC<ProjectCardProps> = (props) => {
                         src={project.src}
                         alt={project.title}
                         className={cn([
-                            'aspect-[440/420] w-full rounded-xl object-cover object-center',
+                            'aspect-[440/420] w-full rounded-xl object-cover object-left',
                         ])}
                     />
                 </motion.div>

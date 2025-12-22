@@ -74,7 +74,7 @@ export default function ExpandableCardDemo() {
                   height={200}
                   src={active.src}
                   alt={active.title}
-                  className="w-full h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-center"
+                  className="w-full h-80 lg:h-80 sm:rounded-tr-lg sm:rounded-tl-lg object-cover object-left"
                 />
               </motion.div>
 
@@ -137,7 +137,7 @@ export default function ExpandableCardDemo() {
                   height={100}
                   src={card.src}
                   alt={card.title}
-                  className="h-40 w-40 md:h-14 md:w-14 rounded-lg object-cover object-center"
+                  className="h-40 w-40 md:h-14 md:w-14 rounded-lg object-cover object-left"
                 />
               </motion.div>
               <div className="">
