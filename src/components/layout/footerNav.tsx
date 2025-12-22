@@ -91,7 +91,7 @@ export const FooterNav: FC = () => {
                     <div className={cn(['flex', 'items-center', 'gap-5'])}>
                         <div className="flex items-center gap-5">
                             <a
-                                href="https://github.com/"
+                                href="https://github.com/Moriyuki-S"
                                 target="_blank"
                                 rel="noreferrer noopener"
                                 aria-label="GitHub"
@@ -100,7 +100,7 @@ export const FooterNav: FC = () => {
                                 <LuGithub className="h-5 w-5" />
                             </a>
                             <a
-                                href="https://www.linkedin.com/"
+                                href="https://www.linkedin.com/in/moriyuki-suzuki/"
                                 target="_blank"
                                 rel="noreferrer noopener"
                                 aria-label="LinkedIn"

@@ -374,12 +374,12 @@ export const Header: FC = () => {
                         )}
                     >
                         <SocialIconButton
-                            href="https://github.com/"
+                            href="https://github.com/Moriyuki-S"
                             ariaLabel="GitHub"
                             icon={<LuGithub className={socialIconClasses} />}
                         />
                         <SocialIconButton
-                            href="https://www.linkedin.com/"
+                            href="https://www.linkedin.com/in/moriyuki-suzuki/"
                             ariaLabel="LinkedIn"
                             icon={<LuLinkedin className={socialIconClasses} />}
                         />
