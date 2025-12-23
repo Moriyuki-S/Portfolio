@@ -23,7 +23,7 @@ import TimelineList from 'src/components/ui/timelineList.astro';
         </h2>
         <div
             class={cn(
-                ['flex', 'flex-col', 'items-center', 'gap-y-4'],
+                ['flex', 'flex-col', 'items-center', 'justify-center', 'gap-y-4'],
                 ['md:flex-row', 'md:gap-x-8'],
             )}
         >
@@ -35,9 +35,11 @@ import TimelineList from 'src/components/ui/timelineList.astro';
                         'box-border',
                         'rounded-full',
                     ])}
+                    client:visible
+                    src='images/me.jpg'
                 />
             </div>
-            <p class={cn(['leading-relaxed'])}>
+            <p class={cn(['leading-relaxed', 'max-w-3xl'])}>
                 京都大学工学部物理工学科の4回生です。
                 大学の制御研究室では、深層学習を応用した多自由度ロボットの制御手法について研究しています。
                 また学業と並行し、実務面ではバックエンド開発や画像認識AIの実装にも従事してきました。
