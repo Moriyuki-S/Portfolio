@@ -17,7 +17,7 @@ export const projects: Project[] = [
             { type: 'heading', text: '使用している技術' },
             {
                 type: 'paragraph',
-                text: '主に以下の技術を使用しています。'
+                text: '主に以下の技術を使用しています。',
             },
             {
                 type: 'list',
@@ -26,15 +26,16 @@ export const projects: Project[] = [
                     'Python: 研究開発の主要言語として使用。',
                     'PyTorch: 深層学習モデルの構築とトレーニングに使用。',
                     'MuJoCo: ロボットの物理シミュレーション環境として利用。',
-                ]
-            }
+                ],
+            },
         ],
     },
     {
         id: 2,
         title: 'Debug Master',
         src: '/images/debug-master-thumb.png',
-        description: 'プログラミング初心者の「1から書く」ハードルを下げるため、AI生成の不具合コードを修正する新感覚学習アプリ「Debug Master」を開発。間違い探し感覚で楽しく学べる体験設計により、従来より気軽にコーディングスキルを習得できる学習環境を実現しています。',
+        description:
+            'プログラミング初心者の「1から書く」ハードルを下げるため、AI生成の不具合コードを修正する新感覚学習アプリ「Debug Master」を開発。間違い探し感覚で楽しく学べる体験設計により、従来より気軽にコーディングスキルを習得できる学習環境を実現しています。',
         tags: ['AI', 'TypeScript', 'React', 'FastAPI', 'チーム開発'],
         content: [
             { type: 'heading', text: '概要' },
@@ -42,7 +43,7 @@ export const projects: Project[] = [
                 type: 'paragraph',
                 text: 'AIコーディングの普及によりコード生成は容易になりましたが、生成されたコードの正誤を判断し、修正する「デバッグ力」の重要性はむしろ高まっています。本アプリは、AIが生成した「意図的なバグを含むコード」をユーザーが修正する学習プラットフォームです。 ゼロからコードを書く必要がないため、初心者でもハードルを感じずに取り組むことができ、実践的なトラブルシューティング能力を養うことができます。つまずきを最小化するためのヒント機能も搭載しています。',
             },
-            { type: 'heading', text: '開発ついて'},
+            { type: 'heading', text: '開発ついて' },
             {
                 type: 'paragraph',
                 text: 'ハッカソンをきっかけに結成した3名チームで開発しています。特定の役割に縛られず、メンバー全員が課題発見から実装までを能動的に行うスタイル(スクラム開発)を採用しています。 現在は、某中学校のプログラミング部にて実証実験を実施中です。実際の生徒(ユーザー)からのフィードバックを基に、UI/UXの改善や機能追加をアジャイルに進めています。',
@@ -56,7 +57,6 @@ export const projects: Project[] = [
                     'AIモデル: Gemini API',
                 ],
             },
-            
         ],
         link: {
             github: 'https://github.com/matsuda-tkm/debug-master',
@@ -113,8 +113,8 @@ export const projects: Project[] = [
                     'OpenCV: 動画像の前処理と解析に利用。',
                     'NVIDIA Jetson: エッジデバイスとしてリアルタイム推論を実現。',
                     'TensorRT: モデルの最適化と高速推論に使用。',
-                ]
-            }
+                ],
+            },
         ],
     },
 ];
