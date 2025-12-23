@@ -38,10 +38,10 @@ import TimelineList from 'src/components/ui/timelineList.astro';
                 />
             </div>
             <p class={cn(['leading-relaxed'])}>
-                私はフロントエンドエンジニアで、
-                ReactやNext.jsを使った開発が得意です。
-                特に、ユーザーエクスペリエンスを重視したインターフェースの設計と実装に情熱を持っています。
-                現在は、最新のウェブ技術を活用して、より良いウェブ体験を提供することに取り組んでいます。
+                京都大学工学部物理工学科の4回生です。
+                大学の制御研究室では、深層学習を応用した多自由度ロボットの制御手法について研究しています。
+                また学業と並行し、実務面ではバックエンド開発や画像認識AIの実装にも従事してきました。
+                制御理論の基礎と実システムへの実装経験、双方で培った知見を活かし、現在はより自律的な動作を実現する強化学習や模倣学習を活用したロボット開発に挑戦したいと考えています。
             </p>
         </div>
     </hgroup>
@@ -88,37 +88,36 @@ import TimelineList from 'src/components/ui/timelineList.astro';
                     ],
                 )}
             >
-                Work
+                Internships
             </h3>
         </hgroup>
         <TimelineList
             timelines={[
                 {
                     id: 1,
-                    title: 'バックエンド',
-                    description: 'バックエンドの実装など',
+                    title: 'mui Lab, Inc.',
+                    description: 'TypeScriptとAWSを用いたバックエンド開発を行いました。現在はRaspberry Piを使用したIoTプロジェクトにも取り組んでいます。',
                     date: {
                         start: new Date('2024-04'),
                     },
                     type: 'work',
                     location: {
-                        text: 'Mui Lab Inc',
-                        url: 'https://example.com',
+                        text: 'mui Lab, Inc.',
+                        url: 'https://muilab.com/',
                     },
                 },
                 {
                     id: 2,
-                    title: 'Back-end Developer at ABC Inc',
+                    title: '株式会社STAR UP',
                     description:
-                        'Worked on building RESTful APIs using Node.js and Express.',
+                        '工場内の異常を検知する画像認識AIの開発に携わっています。NVIDIA Jetsonを使用したエッジデバイスでの実装経験もあります。',
                     date: {
-                        start: new Date('2021-01-01'),
-                        end: new Date('2022-01-01'),
+                        start: new Date('2024-09-01'),
                     },
                     type: 'work',
                     location: {
-                        text: 'Star Up',
-                        url: 'https://example.com',
+                        text: 'STAR UP',
+                        url: 'https://www.starup01.jp/',
                     },
                 },
             ]}
@@ -173,7 +172,7 @@ import TimelineList from 'src/components/ui/timelineList.astro';
                     id: 1,
                     title: '京都大学工学部物理工学科',
                     description:
-                        'Studied computer science with a focus on software development.',
+                        '4大力学(機械力学、熱力学、材料力学、流体力学)や制御工学を中心に学びました。現在は制御研究室に所属し、深層学習とモデル予測制御(MPC)を組み合わせた多自由度ロボットの制御手法について研究しています。',
                     date: {
                         start: new Date('2022-04-01'),
                         end: new Date('2026-03-31'),
@@ -187,10 +186,9 @@ import TimelineList from 'src/components/ui/timelineList.astro';
                 {
                     id: 2,
                     title: '京都大学大学院情報学研究科（進学予定）',
-                    description: '',
+                    description: '2026年4月からの進学を予定しています。学習機械分野の研究室に所属し、強化学習などを用いた自律型ロボットの研究に取り組みたいと考えています。',
                     date: {
                         start: new Date('2026-04-01'),
-                        end: new Date('2028-03-29'),
                     },
                     type: 'education',
                     location: {

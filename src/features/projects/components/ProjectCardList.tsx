@@ -175,7 +175,7 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                                 src={active.src}
                                                 alt={active.title}
                                                 className={cn([
-                                                    'block aspect-[440/420] w-full object-cover object-center',
+                                                    'block aspect-[440/420] w-full object-cover object-left',
                                                 ])}
                                             />
                                         </motion.div>
