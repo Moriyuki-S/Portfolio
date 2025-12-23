@@ -1,48 +1,15 @@
-# Astro Starter Kit: Basics
+# Moriyuki Suzuki
 
-```sh
-bun create astro@latest -- --template basics
-```
+京都大学工学部物理工学科の4回生です。
+大学の制御研究室では、深層学習を応用した多自由度ロボットの制御手法について研究しています。
+また、学業と並行して実務面ではバックエンド開発や画像認識AIの実装にも従事してきました。
+制御理論の基礎と実システムへの実装経験、双方で培った知見を活かし、現在はより自律的な動作を実現する強化学習や模倣学習を活用したロボット開発に挑戦したいと考えています。
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+## このサイトの技術スタック
 
-## 🚀 Project Structure
+<p align="left">
+  <img src="https://skillicons.dev/icons?i=astro,react,tailwind,threejs,bun,ts,cloudflare,discord" alt="Tech stack icons" />
+</p>
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
-
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
