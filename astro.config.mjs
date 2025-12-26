@@ -10,6 +10,8 @@ import cloudflare from '@astrojs/cloudflare';
 // https://astro.build/config
 export default defineConfig({
   integrations: [react()],
+  site: 'https://Moriyuki-S.github.io',
+  base: 'portfolio/',
 
   vite: {
     plugins: [tailwindcss()],
