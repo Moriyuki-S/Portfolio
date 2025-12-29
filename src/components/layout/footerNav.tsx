@@ -12,6 +12,7 @@ import { LucideCircleUser, LucideCode, LucideHome } from 'lucide-react';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { LuGithub, LuLinkedin, LuMenu } from 'react-icons/lu';
 import { AnimatedLogo } from '../ui/AnimatedLogo';
+import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 
 export const FooterNav: FC = () => {
@@ -88,7 +89,15 @@ export const FooterNav: FC = () => {
                     <div className={cn(['flex'])}>
                         <AnimatedLogo />
                     </div>
-                    <div className={cn(['flex', 'items-center', 'gap-5'])}>
+                    <div
+                        className={cn([
+                            'flex',
+                            'items-center',
+                            'gap-4',
+                            'flex-wrap',
+                            'justify-end',
+                        ])}
+                    >
                         <div className="flex items-center gap-5">
                             <a
                                 href="https://github.com/Moriyuki-S"
@@ -109,6 +118,7 @@ export const FooterNav: FC = () => {
                                 <LuLinkedin className="h-5 w-5" />
                             </a>
                         </div>
+                        <LanguageSwitcher compact />
                         <ThemeToggleButton />
                         <button type="button" onClick={handleMenuToggle}>
                             <LuMenu size={24} />
@@ -168,6 +178,7 @@ export const FooterNav: FC = () => {
                                 </Link>
                             </li>
                         </ul>
+                        <LanguageSwitcher className="justify-center" />
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" onPress={handleMenuToggle}>

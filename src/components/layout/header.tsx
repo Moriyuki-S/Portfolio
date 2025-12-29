@@ -26,6 +26,7 @@ import {
     LuX,
 } from 'react-icons/lu';
 import { AnimatedLogo } from '../ui/AnimatedLogo';
+import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { SocialIconButton } from '../ui/SocialIconButton';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 
@@ -383,6 +384,7 @@ export const Header: FC = () => {
                             ariaLabel="LinkedIn"
                             icon={<LuLinkedin className={socialIconClasses} />}
                         />
+                        <LanguageSwitcher compact />
                         <ThemeToggleButton />
                     </div>
                 </div>
@@ -435,6 +437,7 @@ export const Header: FC = () => {
                             >
                                 {navList}
                             </ul>
+                            <LanguageSwitcher />
                             <div
                                 className={cn([
                                     'mt-auto',

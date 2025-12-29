@@ -3,10 +3,12 @@ import '../styles/global.css';
 import { ClientRouter, fade } from 'astro:transitions';
 import { FooterNav } from 'src/components/layout/footerNav';
 import { Header } from 'src/components/layout/header';
+
+const lang = Astro.locals.lang ?? 'ja';
 ---
 
 <!doctype html>
-<html lang="ja">
+<html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
