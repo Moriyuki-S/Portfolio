@@ -29,10 +29,10 @@ export function useTranslations(lang: Lang) {
     };
 };
 
-export const useLanguagePreference = () => {
+export const useLanguagePreference = (initialLang?: Lang) => {
     const [currentLang, setCurrentLang] = useState<Lang>(() =>
         typeof window === 'undefined'
-            ? 'ja'
+            ? initialLang ?? 'ja'
             : getLangFromPath(window.location.pathname),
     );
 

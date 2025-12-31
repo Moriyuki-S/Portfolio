@@ -11,11 +11,15 @@ import {
 import { LucideCircleUser, LucideCode, LucideHome } from 'lucide-react';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { LuGithub, LuLinkedin, LuMenu } from 'react-icons/lu';
+import type { Lang } from 'src/lib/i18n/type';
 import { AnimatedLogo } from '../ui/AnimatedLogo';
-import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 
-export const FooterNav: FC = () => {
+type FooterNavProps = {
+    initialLang?: Lang;
+};
+
+export const FooterNav: FC<FooterNavProps> = () => {
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isHidden, setIsHidden] = useState<boolean>(false);
     const scrollRef = useRef({ lastY: 0, ticking: false });
@@ -118,7 +122,6 @@ export const FooterNav: FC = () => {
                                 <LuLinkedin className="h-5 w-5" />
                             </a>
                         </div>
-                        <LanguageSwitcher compact />
                         <ThemeToggleButton />
                         <button type="button" onClick={handleMenuToggle}>
                             <LuMenu size={24} />
@@ -178,7 +181,6 @@ export const FooterNav: FC = () => {
                                 </Link>
                             </li>
                         </ul>
-                        <LanguageSwitcher className="justify-center" />
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" onPress={handleMenuToggle}>

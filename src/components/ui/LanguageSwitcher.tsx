@@ -15,13 +15,15 @@ import type { Lang } from 'src/lib/i18n/type';
 type LanguageSwitcherProps = {
     className?: string;
     compact?: boolean;
+    initialLang?: Lang;
 };
 
 export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({
     className,
     compact = false,
+    initialLang,
 }) => {
-    const { currentLang, switchLanguage } = useLanguagePreference();
+    const { currentLang, switchLanguage } = useLanguagePreference(initialLang);
     const [isOpen, setIsOpen] = useState(false);
 
     const options: Array<{

@@ -25,6 +25,7 @@ import {
     LuMenu,
     LuX,
 } from 'react-icons/lu';
+import type { Lang } from 'src/lib/i18n/type';
 import { AnimatedLogo } from '../ui/AnimatedLogo';
 import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { SocialIconButton } from '../ui/SocialIconButton';
@@ -63,7 +64,11 @@ const navItems: NavItem[] = [
     },
 ];
 
-export const Header: FC = () => {
+type HeaderProps = {
+    initialLang?: Lang;
+};
+
+export const Header: FC<HeaderProps> = ({ initialLang }) => {
     const {
         isOpen: isDrawerOpen,
         onOpen,
@@ -384,8 +389,12 @@ export const Header: FC = () => {
                             ariaLabel="LinkedIn"
                             icon={<LuLinkedin className={socialIconClasses} />}
                         />
-                        <LanguageSwitcher compact />
-                        <ThemeToggleButton />
+                        <LanguageSwitcher
+                            compact
+                            key={`lang-${currentPath}`}
+                            initialLang={initialLang}
+                        />
+                        <ThemeToggleButton key={`theme-${currentPath}`} />
                     </div>
                 </div>
             </header>
@@ -437,7 +446,10 @@ export const Header: FC = () => {
                             >
                                 {navList}
                             </ul>
-                            <LanguageSwitcher />
+                            <LanguageSwitcher
+                                key={`lang-${currentPath}`}
+                                initialLang={initialLang}
+                            />
                             <div
                                 className={cn([
                                     'mt-auto',
