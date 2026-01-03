@@ -1,4 +1,6 @@
 import { useOutsideClick } from '$lib/hooks/use-outside-click';
+import type { Lang, Multilingual } from '$lib/i18n/type';
+import { useLanguagePreference, useTranslations } from '$lib/i18n/utils';
 import { cn } from '$lib/utils';
 import { AnimatePresence, motion } from 'motion/react';
 import {
@@ -10,20 +12,23 @@ import {
     useRef,
     useState,
 } from 'react';
-import { LuExternalLink, LuGithub } from 'react-icons/lu';
 import type { Project, ProjectContentBlock } from '../types';
 import { ProjectCard } from './ProjectCard';
+import { LuExternalLink, LuGithub } from 'react-icons/lu';
 
 interface ProjectCardListProps {
     projects: Project[];
+    initialLang?: Lang;
 }
 
 export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
-    const { projects } = props;
+    const { projects, initialLang } = props;
 
     const [active, setActive] = useState<Project | null>(null);
     const id = useId();
     const ref = useRef<HTMLDivElement>(null) as RefObject<HTMLDivElement>;
+    const { currentLang } = useLanguagePreference(initialLang);
+    const t = useTranslations(currentLang);
 
     useEffect(() => {
         function onKeyDown(event: KeyboardEvent) {
@@ -43,6 +48,12 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
     }, [active]);
 
     useOutsideClick(ref, () => setActive(null));
+    const translate = t;
+    const translatedActiveTitle = active ? translate(active.title) : '';
+    const translatedActiveDescription = active
+        ? translate(active.description)
+        : '';
+    const translatedActiveTags = active ? active.tags.map(translate) : [];
 
     const handleClose = (event?: MouseEvent<HTMLButtonElement>) => {
         event?.stopPropagation();
@@ -50,6 +61,8 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
     };
 
     const renderContentBlock = (block: ProjectContentBlock, index: number) => {
+        const translateText = (text: Multilingual) => translate(text);
+
         switch (block.type) {
             case 'heading':
                 return (
@@ -57,7 +70,7 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                         key={`heading-${index}`}
                         className={cn(['mb-4 font-bold text-xl md:text-2xl'])}
                     >
-                        {block.text}
+                        {translateText(block.text)}
                     </h3>
                 );
             case 'paragraph':
@@ -68,7 +81,7 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                             'mb-6 text-gray-600 dark:text-gray-300',
                         ])}
                     >
-                        {block.text}
+                        {translateText(block.text)}
                     </p>
                 );
             case 'list':
@@ -79,9 +92,10 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                             'mb-6 list-inside list-disc space-y-2 text-gray-600 dark:text-gray-300',
                         ])}
                     >
-                        {block.items.map((item) => (
-                            <li key={item}>{item}</li>
-                        ))}
+                        {block.items.map((item) => {
+                            const itemText = translateText(item);
+                            return <li key={itemText}>{itemText}</li>;
+                        })}
                     </ul>
                 );
             default:
@@ -111,7 +125,7 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                         ])}
                     >
                         <motion.div
-                            layoutId={`project-${active.title}-${active.id}`}
+                            layoutId={`project-${active.id}`}
                             ref={ref}
                             className={cn([
                                 'relative flex w-full max-w-[960px] flex-col overflow-y-auto rounded-3xl bg-white shadow-2xl dark:bg-neutral-900',
@@ -124,7 +138,7 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                 ])}
                             >
                                 <motion.button
-                                    key={`button-${active.title}-${id}-desktop`}
+                                    key={`button-${active.id}-${id}-desktop`}
                                     layout
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
@@ -164,7 +178,7 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                         {' '}
                                         {/* ここで画像を固定 */}
                                         <motion.div
-                                            layoutId={`image-${active.title}-${active.id}`}
+                                            layoutId={`image-${active.id}`}
                                             className={cn([
                                                 'relative overflow-hidden rounded-2xl',
                                             ])}
@@ -173,7 +187,7 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                                 width={200}
                                                 height={200}
                                                 src={active.src}
-                                                alt={active.title}
+                                                alt={translatedActiveTitle}
                                                 className={cn([
                                                     'block aspect-[440/420] w-full object-cover object-left',
                                                 ])}
@@ -186,24 +200,24 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                             ])}
                                         >
                                             <motion.h3
-                                                layoutId={`title-${active.title}-${active.id}`}
+                                                layoutId={`title-${active.id}`}
                                                 className={cn([
                                                     'font-bold text-2xl md:text-4xl',
                                                 ])}
                                             >
-                                                {active.title}
+                                                {translatedActiveTitle}
                                             </motion.h3>
                                             <motion.p
-                                                layoutId={`description-${active.description}-${active.id}`}
+                                                layoutId={`description-${active.id}`}
                                                 className={cn([
                                                     'text-neutral-600 text-sm leading-relaxed md:text-base dark:text-neutral-300',
                                                 ])}
                                             >
-                                                {active.description}
+                                                {translatedActiveDescription}
                                             </motion.p>
 
                                             {/* Tags */}
-                                            {active.tags.length > 0 && (
+                                            {translatedActiveTags.length > 0 && (
                                                 <motion.ul
                                                     layout
                                                     layoutId={`tags-${active.id}`}
@@ -211,18 +225,20 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                                         'flex flex-wrap gap-2',
                                                     ])}
                                                 >
-                                                    {active.tags.map((tag) => (
-                                                        <motion.li
-                                                            layout
-                                                            layoutId={`tag-${active.id}-${tag}`}
-                                                            key={tag}
-                                                            className={cn([
-                                                                'rounded-full bg-neutral-100 px-3 py-1 font-medium text-neutral-600 text-xs dark:bg-neutral-800 dark:text-neutral-300',
-                                                            ])}
-                                                        >
-                                                            {tag}
-                                                        </motion.li>
-                                                    ))}
+                                                    {translatedActiveTags.map(
+                                                        (tag) => (
+                                                            <motion.li
+                                                                layout
+                                                                layoutId={`tag-${active.id}-${tag}`}
+                                                                key={tag}
+                                                                className={cn([
+                                                                    'rounded-full bg-neutral-100 px-3 py-1 font-medium text-neutral-600 text-xs dark:bg-neutral-800 dark:text-neutral-300',
+                                                                ])}
+                                                            >
+                                                                {tag}
+                                                            </motion.li>
+                                                        ),
+                                                    )}
                                                 </motion.ul>
                                             )}
 
@@ -323,7 +339,11 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
             >
                 {projects.map((project) => (
                     <li key={project.id} className={cn(['flex h-full w-full'])}>
-                        <ProjectCard project={project} setActive={setActive} />
+                        <ProjectCard
+                            project={project}
+                            translate={translate}
+                            setActive={setActive}
+                        />
                     </li>
                 ))}
             </ul>

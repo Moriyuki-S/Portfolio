@@ -25,7 +25,8 @@ import {
     LuMenu,
     LuX,
 } from 'react-icons/lu';
-import type { Lang } from 'src/lib/i18n/type';
+import type { Lang, Multilingual } from 'src/lib/i18n/type';
+import { useLanguagePreference, useTranslations } from 'src/lib/i18n/utils';
 import { AnimatedLogo } from '../ui/AnimatedLogo';
 import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { SocialIconButton } from '../ui/SocialIconButton';
@@ -36,7 +37,7 @@ const navButtonClasses = ['nav-link'];
 
 type NavItem = {
     id: string;
-    label: string;
+    label: Multilingual;
     href: string;
     icon: ReactElement;
     useNavigate?: boolean;
@@ -45,30 +46,41 @@ type NavItem = {
 const navItems: NavItem[] = [
     {
         id: 'home',
-        label: 'ホーム',
+        label: { ja: 'ホーム', en: 'Home' },
         href: '/',
         icon: <LuHouse />,
         useNavigate: true,
     },
     {
         id: 'profile',
-        label: 'プロフィール',
+        label: { ja: 'プロフィール', en: 'Profile' },
         href: '/#profile',
         icon: <LuCircle />,
     },
     {
         id: 'project',
-        label: 'プロジェクト',
+        label: { ja: 'プロジェクト', en: 'Projects' },
         href: '/#project',
         icon: <LuCode />,
     },
 ];
+
+const TEXT = {
+    menu: { ja: 'メニュー', en: 'Menu' },
+    close: { ja: '閉じる', en: 'Close' },
+    openMenuAria: { ja: 'メニューを開く', en: 'Open menu' },
+    closeMenuAria: { ja: 'メニューを閉じる', en: 'Close menu' },
+    scrollTopAria: { ja: 'トップにスクロール', en: 'Scroll to top' },
+};
 
 type HeaderProps = {
     initialLang?: Lang;
 };
 
 export const Header: FC<HeaderProps> = ({ initialLang }) => {
+    const { currentLang } = useLanguagePreference(initialLang);
+    const t = useTranslations(currentLang);
+
     const {
         isOpen: isDrawerOpen,
         onOpen,
@@ -252,7 +264,7 @@ export const Header: FC<HeaderProps> = ({ initialLang }) => {
                 onClick={(event) => handleNavClick(item, event)}
             >
                 <span className={cn(['nav-link__icon'])}>{item.icon}</span>
-                <span>{item.label}</span>
+                <span>{t(item.label)}</span>
             </a>
         </li>
     ));
@@ -324,8 +336,8 @@ export const Header: FC<HeaderProps> = ({ initialLang }) => {
                                 )}
                                 aria-label={
                                     isDrawerOpen
-                                        ? 'メニューを閉じる'
-                                        : 'メニューを開く'
+                                        ? t(TEXT.closeMenuAria)
+                                        : t(TEXT.openMenuAria)
                                 }
                                 aria-expanded={isDrawerOpen}
                                 onClick={() =>
@@ -342,7 +354,7 @@ export const Header: FC<HeaderProps> = ({ initialLang }) => {
                         <a
                             href="/"
                             className={cn(['inline-flex'])}
-                            aria-label="Scroll to top"
+                            aria-label={t(TEXT.scrollTopAria)}
                             onClick={handleLogoClick}
                         >
                             <AnimatedLogo className={cn(['cursor-pointer'])} />
@@ -416,7 +428,7 @@ export const Header: FC<HeaderProps> = ({ initialLang }) => {
                                 'font-semibold',
                             ])}
                         >
-                            <span>メニュー</span>
+                            <span>{t(TEXT.menu)}</span>
                         </DrawerHeader>
                         <DrawerBody
                             className={cn([
@@ -463,7 +475,7 @@ export const Header: FC<HeaderProps> = ({ initialLang }) => {
                                     startContent={<LuX />}
                                     onClick={onClose}
                                 >
-                                    閉じる
+                                    {t(TEXT.close)}
                                 </Button>
                             </div>
                         </DrawerBody>

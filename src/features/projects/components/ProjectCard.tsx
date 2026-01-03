@@ -1,20 +1,27 @@
 import { cn } from '$lib/utils';
 import { motion } from 'motion/react';
 import type { Dispatch, FC, SetStateAction } from 'react';
+import type { Multilingual } from '$lib/i18n/type';
 import type { Project } from '../types';
+
+type Translate = (value: Multilingual) => string;
 
 interface ProjectCardProps {
     project: Project;
+    translate: Translate;
     setActive: Dispatch<SetStateAction<Project | null>>;
 }
 
 export const ProjectCard: FC<ProjectCardProps> = (props) => {
-    const { project, setActive } = props;
+    const { project, translate, setActive } = props;
+    const titleText = translate(project.title);
+    const descriptionText = translate(project.description);
+    const tagTexts = project.tags.map(translate);
 
     return (
         <motion.div
-            layoutId={`project-${project.title}-${project.id}`}
-            key={project.title}
+            layoutId={`project-${project.id}`}
+            key={project.id}
             onClick={() => setActive(project)}
             className={cn([
                 'flex h-full w-full cursor-pointer flex-col rounded-2xl border bg-white/60 p-4 transition-colors duration-200 hover:bg-neutral-50 md:p-6',
@@ -34,12 +41,12 @@ export const ProjectCard: FC<ProjectCardProps> = (props) => {
             }}
         >
             <div className={cn(['flex w-full flex-1 flex-col gap-4'])}>
-                <motion.div layoutId={`image-${project.title}-${project.id}`}>
+                <motion.div layoutId={`image-${project.id}`}>
                     <img
                         width={100}
                         height={100}
                         src={project.src}
-                        alt={project.title}
+                        alt={titleText}
                         className={cn([
                             'aspect-[440/420] w-full rounded-xl object-cover object-left',
                         ])}
@@ -52,27 +59,27 @@ export const ProjectCard: FC<ProjectCardProps> = (props) => {
                     ])}
                 >
                     <motion.h3
-                        layoutId={`title-${project.title}-${project.id}`}
+                        layoutId={`title-${project.id}`}
                         className={cn(['font-semibold text-xl md:text-2xl'])}
                     >
-                        {project.title}
+                        {titleText}
                     </motion.h3>
                     <motion.p
-                        layoutId={`description-${project.description}-${project.id}`}
+                        layoutId={`description-${project.id}`}
                         className={cn([
                             'mt-2 text-neutral-600 text-sm leading-relaxed md:text-base dark:text-neutral-400',
                         ])}
                     >
-                        {project.description}
+                        {descriptionText}
                     </motion.p>
-                    {project.tags.length > 0 && (
+                    {tagTexts.length > 0 && (
                         <motion.ul
                             layoutId={`tags-${project.id}`}
                             className={cn([
                                 'mt-4 flex flex-wrap justify-center gap-2 md:justify-start',
                             ])}
                         >
-                            {project.tags.map((tag) => (
+                            {tagTexts.map((tag) => (
                                 <motion.li
                                     layoutId={`tag-${project.id}-${tag}`}
                                     key={tag}

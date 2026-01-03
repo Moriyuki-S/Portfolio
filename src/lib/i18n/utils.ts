@@ -2,6 +2,14 @@ import { navigate } from 'astro:transitions/client';
 import { useEffect, useState } from 'react';
 import type { Lang, Multilingual } from './type';
 
+const LANGUAGE_COOKIE_KEY = 'lang';
+const LANGUAGE_COOKIE_MAX_AGE = 60 * 60 * 24 * 365;
+
+const persistLanguagePreference = (lang: Lang) => {
+    if (typeof document === 'undefined') return;
+    document.cookie = `${LANGUAGE_COOKIE_KEY}=${lang}; path=/; max-age=${LANGUAGE_COOKIE_MAX_AGE}; SameSite=Lax`;
+};
+
 const stripEnPrefix = (pathname: string) =>
     pathname.replace(/^\/en(?=\/|$)/, '') || '/';
 
@@ -39,7 +47,9 @@ export const useLanguagePreference = (initialLang?: Lang) => {
     useEffect(() => {
         if (typeof window === 'undefined') return;
         const updateLanguageFromPath = () => {
-            setCurrentLang(getLangFromPath(window.location.pathname));
+            const lang = getLangFromPath(window.location.pathname);
+            setCurrentLang(lang);
+            persistLanguagePreference(lang);
         };
 
         updateLanguageFromPath();
@@ -58,6 +68,7 @@ export const useLanguagePreference = (initialLang?: Lang) => {
         }
 
         setCurrentLang(target);
+        persistLanguagePreference(target);
         navigate(nextUrl);
     };
 

@@ -1,14 +1,16 @@
+import type { Multilingual } from '$lib/i18n/type';
+
 export type ProjectContentBlock =
-    | { type: 'heading'; text: string }
-    | { type: 'paragraph'; text: string }
-    | { type: 'list'; items: string[] };
+    | { type: 'heading'; text: Multilingual }
+    | { type: 'paragraph'; text: Multilingual }
+    | { type: 'list'; items: Multilingual[] };
 
 export type Project = {
     id: number;
-    title: string;
+    title: Multilingual;
     src: string;
-    description: string;
-    tags: string[];
+    description: Multilingual;
+    tags: Multilingual[];
     content: ProjectContentBlock[];
     link?: {
         demo?: string;

@@ -71,9 +71,9 @@ const lang = Astro.locals.lang ?? 'ja';
 		<ClientRouter />
 	</head>
 	<body transition:animate={fade({ duration: '0.6s' })}  class="min-h-screen bg-white text-slate-900 antialiased text-slate-600 dark:text-slate-300 dark:bg-slate-950">
-		<Header transition:persist client:load initialLang={lang} />
+		<Header client:load initialLang={lang} />
 		<slot />
-		<FooterNav transition:persist client:idle initialLang={lang} />
+		<FooterNav client:load initialLang={lang} />
 	</body>
 </html>
 

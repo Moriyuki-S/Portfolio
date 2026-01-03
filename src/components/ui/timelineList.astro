@@ -1,15 +1,17 @@
 ---
 import { cn } from '$lib/utils';
 import type { TimelineType } from 'src/types/timeline';
+import type { Multilingual } from '$lib/i18n/type';
 import { Timeline } from './timeline';
 
 interface Props {
     timelines: TimelineType[];
     ulClass?: string;
     liClass?: string;
+    translate: (value: Multilingual) => string;
 }
 
-const { timelines, ulClass, liClass } = Astro.props;
+const { timelines, ulClass, liClass, translate } = Astro.props;
 ---
 
 <ul
@@ -22,7 +24,7 @@ const { timelines, ulClass, liClass } = Astro.props;
     {timelines.map((timeline, _) => {
         return (
             <li class={cn(liClass)}>
-                <Timeline timeline={timeline} />
+                <Timeline timeline={timeline} translate={translate} />
             </li>
         );
     })}

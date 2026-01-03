@@ -2,6 +2,10 @@
 import { cn } from '$lib/utils';
 import { LuArrowDown } from 'react-icons/lu';
 import { CubeAnimation } from 'src/components/ui/CubeAnimation';
+import type { Lang } from 'src/lib/i18n/type';
+import { useTranslations as createTranslator } from 'src/lib/i18n/utils';
+
+const t = createTranslator(Astro.currentLocale as Lang);
 ---
 
 
@@ -83,8 +87,7 @@ import { CubeAnimation } from 'src/components/ui/CubeAnimation';
                 'md:text-lg',
             ])}
         >
-            京都大学でロボット制御の研究をしています。<br />
-            AIやWeb技術に興味があり、研究やインターンを通じてスキルを磨いています。
+        {t({ ja: '私は京都大学でロボット制御の研究をしています。AIやWeb技術に興味があり、研究やインターンを通じてスキルを磨いています。', en: 'Researcher at Kyoto University specializing in Robot Control, with a passion for integrating AI and modern web technologies.' })}
         </p>
     </div>
     <div

@@ -10,9 +10,11 @@ import {
     LuUniversity,
 } from 'react-icons/lu';
 import type { TimelineType } from 'src/types/timeline';
+import type { Multilingual } from '$lib/i18n/type';
 
 type TimelineProps = {
     timeline: TimelineType;
+    translate: (value: Multilingual) => string;
 };
 
 const formatDate = (date: Date) =>
@@ -23,7 +25,12 @@ const formatDate = (date: Date) =>
     });
 
 export const Timeline: FC<TimelineProps> = (props) => {
-    const { timeline } = props;
+    const { timeline, translate } = props;
+    const titleText = translate(timeline.title);
+    const descriptionText = translate(timeline.description);
+    const locationText = timeline.location
+        ? translate(timeline.location.text)
+        : null;
 
     const getTimelineIcon = (
         type: TimelineType['type'],
@@ -130,7 +137,7 @@ export const Timeline: FC<TimelineProps> = (props) => {
                             ['md:text-2xl'],
                         )}
                     >
-                        {timeline.title}
+                        {titleText}
                     </h4>
                     <div
                         className={cn(
@@ -181,13 +188,13 @@ export const Timeline: FC<TimelineProps> = (props) => {
                                         'hover:underline',
                                     ])}
                                 >
-                                    {timeline.location.text}
+                                    {locationText}
                                     <IoOpenOutline className="ms-2" />
                                 </Link>
                             </div>
                         )}
                     </div>
-                    <p>{timeline.description}</p>
+                    <p>{descriptionText}</p>
                 </div>
             </div>
         </div>

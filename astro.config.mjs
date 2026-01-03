@@ -11,8 +11,8 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   integrations: [react()],
   i18n: {
-    locales: ['en', 'jp'],
-    defaultLocale: 'jp'
+    locales: ['ja', 'en'],
+    defaultLocale: 'ja'
   },
 
   vite: {

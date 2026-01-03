@@ -12,6 +12,11 @@ const parsePreferredLanguage = (acceptLanguage: string | null): Lang => {
     return prefersJapanese ? 'ja' : 'en';
 };
 
+const parseLanguageFromCookie = (value: string | null): Lang | null => {
+    if (!value) return null;
+    return value === 'ja' || value === 'en' ? value : null;
+};
+
 const isEnglishPath = (pathname: string) =>
     pathname === '/en' || pathname.startsWith('/en/');
 
@@ -32,19 +37,18 @@ const buildRedirectTarget = (
 };
 
 export const onRequest = defineMiddleware(async (context, next) => {
-    const { request, url, redirect, locals } = context;
+    const { request, url, redirect, locals, cookies } = context;
     const { pathname, search } = url;
 
     const currentLang: Lang = isEnglishPath(pathname) ? 'en' : 'ja';
     locals.lang = currentLang;
 
-    const preferredLang = parsePreferredLanguage(
-        request.headers.get('accept-language'),
-    );
-    const isRootLike =
-        pathname === '/' || pathname === '/en' || pathname === '/en/';
+    const preferredLang =
+        parseLanguageFromCookie(cookies.get('lang')?.value ?? null) ??
+        parsePreferredLanguage(request.headers.get('accept-language'));
+    const isRootPath = pathname === '/';
 
-    if (isRootLike && preferredLang !== currentLang) {
+    if (isRootPath && preferredLang !== currentLang) {
         const target = buildRedirectTarget(preferredLang, pathname, search);
         if (target !== `${pathname}${search}`) {
             return redirect(target);

@@ -12,6 +12,7 @@ import { LucideCircleUser, LucideCode, LucideHome } from 'lucide-react';
 import { type FC, useEffect, useRef, useState } from 'react';
 import { LuGithub, LuLinkedin, LuMenu } from 'react-icons/lu';
 import type { Lang } from 'src/lib/i18n/type';
+import { useLanguagePreference, useTranslations } from 'src/lib/i18n/utils';
 import { AnimatedLogo } from '../ui/AnimatedLogo';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 
@@ -19,7 +20,18 @@ type FooterNavProps = {
     initialLang?: Lang;
 };
 
-export const FooterNav: FC<FooterNavProps> = () => {
+const TEXT = {
+    toc: { ja: '目次', en: 'Menu' },
+    close: { ja: '閉じる', en: 'Close' },
+    home: { ja: 'ホーム', en: 'Home' },
+    profile: { ja: 'プロフィール', en: 'Profile' },
+    project: { ja: 'プロジェクト', en: 'Projects' },
+};
+
+export const FooterNav: FC<FooterNavProps> = ({ initialLang }) => {
+    const { currentLang } = useLanguagePreference(initialLang);
+    const t = useTranslations(currentLang);
+
     const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
     const [isHidden, setIsHidden] = useState<boolean>(false);
     const scrollRef = useRef({ lastY: 0, ticking: false });
@@ -136,7 +148,7 @@ export const FooterNav: FC<FooterNavProps> = () => {
                 onClose={handleMenuToggle}
             >
                 <ModalContent>
-                    <ModalHeader>目次</ModalHeader>
+                    <ModalHeader>{t(TEXT.toc)}</ModalHeader>
                     <ModalBody>
                         <ul
                             className={cn(
@@ -157,7 +169,7 @@ export const FooterNav: FC<FooterNavProps> = () => {
                                     onClick={handleMenuToggle}
                                 >
                                     <LucideHome className="me-3" />
-                                    ホーム
+                                    {t(TEXT.home)}
                                 </Link>
                             </li>
                             <li>
@@ -167,7 +179,7 @@ export const FooterNav: FC<FooterNavProps> = () => {
                                     className={cn(['h-full', 'flex'])}
                                 >
                                     <LucideCircleUser className="me-3" />
-                                    プロフィール
+                                    {t(TEXT.profile)}
                                 </Link>
                             </li>
                             <li>
@@ -177,14 +189,14 @@ export const FooterNav: FC<FooterNavProps> = () => {
                                     className={cn(['h-full', 'flex'])}
                                 >
                                     <LucideCode className="me-3" />
-                                    プロジェクト
+                                    {t(TEXT.project)}
                                 </Link>
                             </li>
                         </ul>
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" onPress={handleMenuToggle}>
-                            閉じる
+                            {t(TEXT.close)}
                         </Button>
                     </ModalFooter>
                 </ModalContent>
