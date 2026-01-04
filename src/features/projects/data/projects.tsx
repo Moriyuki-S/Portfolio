@@ -88,7 +88,7 @@ export const projects: Project[] = [
             },
             {
                 type: 'heading',
-                text: { ja: '開発ついて', en: 'About Development' },
+                text: { ja: '開発について', en: 'About Development' },
             },
             {
                 type: 'paragraph',
@@ -189,7 +189,7 @@ export const projects: Project[] = [
             {
                 type: 'paragraph',
                 text: {
-                    ja: '製造業における品質管理のため、動画像からリアルタイムに以上を検知するシステムを開発しました。NVIDIA Jetsonをエッジデバイスとして使用し、現場での即時異常検知を可能にしています。リアルタイム性能を向上させるため、TensorRTを活用し、モデルの推論速度を最適化しました。',
+                    ja: '製造業における品質管理のため、動画像からリアルタイムに異常を検知するシステムを開発しました。NVIDIA Jetsonをエッジデバイスとして使用し、現場での即時異常検知を可能にしています。リアルタイム性能を向上させるため、TensorRTを活用し、モデルの推論速度を最適化しました。',
                     en: 'We developed a system for real-time anomaly detection from video footage for quality control in manufacturing. Using NVIDIA Jetson as an edge device enables immediate anomaly detection on-site. To enhance real-time performance, we utilized TensorRT to optimize model inference speed.',
                 },
             },
