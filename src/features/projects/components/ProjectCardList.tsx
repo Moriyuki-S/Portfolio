@@ -12,9 +12,9 @@ import {
     useRef,
     useState,
 } from 'react';
+import { LuExternalLink, LuGithub } from 'react-icons/lu';
 import type { Project, ProjectContentBlock } from '../types';
 import { ProjectCard } from './ProjectCard';
-import { LuExternalLink, LuGithub } from 'react-icons/lu';
 
 interface ProjectCardListProps {
     projects: Project[];
@@ -217,7 +217,8 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                             </motion.p>
 
                                             {/* Tags */}
-                                            {translatedActiveTags.length > 0 && (
+                                            {translatedActiveTags.length >
+                                                0 && (
                                                 <motion.ul
                                                     layout
                                                     layoutId={`tags-${active.id}`}

@@ -1,7 +1,7 @@
+import type { Multilingual } from '$lib/i18n/type';
 import { cn } from '$lib/utils';
 import { motion } from 'motion/react';
 import type { Dispatch, FC, SetStateAction } from 'react';
-import type { Multilingual } from '$lib/i18n/type';
 import type { Project } from '../types';
 
 type Translate = (value: Multilingual) => string;

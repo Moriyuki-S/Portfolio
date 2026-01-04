@@ -12,25 +12,52 @@ export const projects: Project[] = [
             ja: '運動方程式の記述が困難、かつ非線形性の強い多自由度ロボットについて高精度な手先位置制御を実現するため、深層学習とモデル予測制御(MPC)を組み合わせた制御手法を研究しています。',
             en: 'To achieve high-precision end-effector position control for multi-degree-of-freedom robots with complex dynamics and strong nonlinearity, we are researching control methods that combine deep learning and Model Predictive Control (MPC).',
         },
-        tags: [{ ja: 'Python', en: 'Python' }, { ja: 'PyTorch', en: 'PyTorch' }, { ja: 'MuJoCo', en: 'MuJoCo' }, { ja: 'LeRobot', en: 'LeRobot' }, { ja: '研究', en: 'Research' }],
+        tags: [
+            { ja: 'Python', en: 'Python' },
+            { ja: 'PyTorch', en: 'PyTorch' },
+            { ja: 'MuJoCo', en: 'MuJoCo' },
+            { ja: 'LeRobot', en: 'LeRobot' },
+            { ja: '研究', en: 'Research' },
+        ],
         content: [
             { type: 'heading', text: { ja: '概要', en: 'Overview' } },
             {
                 type: 'paragraph',
-                text: { ja: '多自由度ロボットは動力学モデルが複雑であり、高精度な制御には通常、Motion Capture等の高コストな外部計測システムが必要です。本研究では、深層学習を用いてロボットの複雑な動力学モデルを高精度に近似しました。これにより、外部センサによる手先位置計測に頼ることなく、MPC（モデル予測制御）を用いた高精度な位置制御を実現する手法を開発しています。', en: 'Multi-degree-of-freedom robots have complex dynamic models, and high-precision control usually requires expensive external measurement systems such as Motion Capture. In this research, we used deep learning to accurately approximate the complex dynamic model of the robot. This enables high-precision position control using MPC (Model Predictive Control) without relying on external sensors for end-effector position measurement.' },
+                text: {
+                    ja: '多自由度ロボットは動力学モデルが複雑であり、高精度な制御には通常、Motion Capture等の高コストな外部計測システムが必要です。本研究では、深層学習を用いてロボットの複雑な動力学モデルを高精度に近似しました。これにより、外部センサによる手先位置計測に頼ることなく、MPC（モデル予測制御）を用いた高精度な位置制御を実現する手法を開発しています。',
+                    en: 'Multi-degree-of-freedom robots have complex dynamic models, and high-precision control usually requires expensive external measurement systems such as Motion Capture. In this research, we used deep learning to accurately approximate the complex dynamic model of the robot. This enables high-precision position control using MPC (Model Predictive Control) without relying on external sensors for end-effector position measurement.',
+                },
             },
-            { type: 'heading', text: { ja: '使用している技術', en: 'Technologies Used' } },
+            {
+                type: 'heading',
+                text: { ja: '使用している技術', en: 'Technologies Used' },
+            },
             {
                 type: 'paragraph',
-                text: { ja: '主に以下の技術を使用しています。', en: 'The following technologies are mainly used.' },
+                text: {
+                    ja: '主に以下の技術を使用しています。',
+                    en: 'The following technologies are mainly used.',
+                },
             },
             {
                 type: 'list',
                 items: [
-                    { ja: 'LeRobot 「SO-101」: 6自由度を持つロボットアーム。', en: 'LeRobot "SO-101": A 6-degree-of-freedom robot arm.' },
-                    { ja: 'Python: 研究開発の主要言語として使用。', en: 'Python: Used as the main language for research and development.' },
-                    { ja: 'PyTorch: 深層学習モデルの構築とトレーニングに使用。', en: 'PyTorch: Used for building and training deep learning models.' },
-                    { ja: 'MuJoCo: ロボットの物理シミュレーション環境として利用。', en: 'MuJoCo: Used as the physical simulation environment for the robot.' },
+                    {
+                        ja: 'LeRobot 「SO-101」: 6自由度を持つロボットアーム。',
+                        en: 'LeRobot "SO-101": A 6-degree-of-freedom robot arm.',
+                    },
+                    {
+                        ja: 'Python: 研究開発の主要言語として使用。',
+                        en: 'Python: Used as the main language for research and development.',
+                    },
+                    {
+                        ja: 'PyTorch: 深層学習モデルの構築とトレーニングに使用。',
+                        en: 'PyTorch: Used for building and training deep learning models.',
+                    },
+                    {
+                        ja: 'MuJoCo: ロボットの物理シミュレーション環境として利用。',
+                        en: 'MuJoCo: Used as the physical simulation environment for the robot.',
+                    },
                 ],
             },
         ],
@@ -43,24 +70,48 @@ export const projects: Project[] = [
             ja: 'プログラミング初心者の「1から書く」ハードルを下げるため、AI生成の不具合コードを修正する新感覚学習アプリ「Debug Master」を開発。間違い探し感覚で楽しく学べる体験設計により、従来より気軽にコーディングスキルを習得できる学習環境を実現しています。',
             en: 'To lower the barrier for programming beginners to "write from scratch," we developed "Debug Master," a novel learning app that involves fixing AI-generated buggy code. The experience design allows users to learn in a fun way, similar to finding mistakes, creating a learning environment where coding skills can be acquired more easily than before.',
         },
-        tags: [{ ja: 'AI', en: 'AI' }, { ja: 'TypeScript', en: 'TypeScript' }, { ja: 'React', en: 'React' }, { ja: 'FastAPI', en: 'FastAPI' }, { ja: 'チーム開発', en: 'Team Development' }],
+        tags: [
+            { ja: 'AI', en: 'AI' },
+            { ja: 'TypeScript', en: 'TypeScript' },
+            { ja: 'React', en: 'React' },
+            { ja: 'FastAPI', en: 'FastAPI' },
+            { ja: 'チーム開発', en: 'Team Development' },
+        ],
         content: [
             { type: 'heading', text: { ja: '概要', en: 'Overview' } },
             {
                 type: 'paragraph',
-                text: { ja: 'AIコーディングの普及によりコード生成は容易になりましたが、生成されたコードの正誤を判断し、修正する「デバッグ力」の重要性はむしろ高まっています。本アプリは、AIが生成した「意図的なバグを含むコード」をユーザーが修正する学習プラットフォームです。 ゼロからコードを書く必要がないため、初心者でもハードルを感じずに取り組むことができ、実践的なトラブルシューティング能力を養うことができます。つまずきを最小化するためのヒント機能も搭載しています。', en: 'With the spread of AI coding, code generation has become easier, but the importance of "debugging skills" to judge and fix the correctness of generated code has rather increased. This app is a learning platform where users fix "intentionally buggy code" generated by AI. Since there is no need to write code from scratch, even beginners can tackle it without feeling a hurdle and develop practical troubleshooting skills. It also features a hint function to minimize stumbling.' },
+                text: {
+                    ja: 'AIコーディングの普及によりコード生成は容易になりましたが、生成されたコードの正誤を判断し、修正する「デバッグ力」の重要性はむしろ高まっています。本アプリは、AIが生成した「意図的なバグを含むコード」をユーザーが修正する学習プラットフォームです。 ゼロからコードを書く必要がないため、初心者でもハードルを感じずに取り組むことができ、実践的なトラブルシューティング能力を養うことができます。つまずきを最小化するためのヒント機能も搭載しています。',
+                    en: 'With the spread of AI coding, code generation has become easier, but the importance of "debugging skills" to judge and fix the correctness of generated code has rather increased. This app is a learning platform where users fix "intentionally buggy code" generated by AI. Since there is no need to write code from scratch, even beginners can tackle it without feeling a hurdle and develop practical troubleshooting skills. It also features a hint function to minimize stumbling.',
+                },
             },
-            { type: 'heading', text: { ja: '開発ついて', en: 'About Development' } },
+            {
+                type: 'heading',
+                text: { ja: '開発ついて', en: 'About Development' },
+            },
             {
                 type: 'paragraph',
-                text: { ja: 'ハッカソンをきっかけに結成した3名チームで開発しています。特定の役割に縛られず、メンバー全員が課題発見から実装までを能動的に行うスタイル(スクラム開発)を採用しています。 現在は、某中学校のプログラミング部にて実証実験を実施中です。実際の生徒(ユーザー)からのフィードバックを基に、UI/UXの改善や機能追加をアジャイルに進めています。', en: 'We are developing this app as a team of three formed through a hackathon. We adopt a style (scrum development) where all members actively engage from problem discovery to implementation without being bound to specific roles. Currently, we are conducting a demonstration experiment at a certain junior high school programming club. Based on feedback from actual students (users), we are agilely improving UI/UX and adding features.' },
+                text: {
+                    ja: 'ハッカソンをきっかけに結成した3名チームで開発しています。特定の役割に縛られず、メンバー全員が課題発見から実装までを能動的に行うスタイル(スクラム開発)を採用しています。 現在は、某中学校のプログラミング部にて実証実験を実施中です。実際の生徒(ユーザー)からのフィードバックを基に、UI/UXの改善や機能追加をアジャイルに進めています。',
+                    en: 'We are developing this app as a team of three formed through a hackathon. We adopt a style (scrum development) where all members actively engage from problem discovery to implementation without being bound to specific roles. Currently, we are conducting a demonstration experiment at a certain junior high school programming club. Based on feedback from actual students (users), we are agilely improving UI/UX and adding features.',
+                },
             },
-            { type: 'heading', text: { ja: '技術スタック', en: 'Technology Stack' } },
+            {
+                type: 'heading',
+                text: { ja: '技術スタック', en: 'Technology Stack' },
+            },
             {
                 type: 'list',
                 items: [
-                    { ja: 'フロントエンド: React, TypeScript', en: 'Frontend: React, TypeScript' },
-                    { ja: 'バックエンド: FastAPI, Python', en: 'Backend: FastAPI, Python' },
+                    {
+                        ja: 'フロントエンド: React, TypeScript',
+                        en: 'Frontend: React, TypeScript',
+                    },
+                    {
+                        ja: 'バックエンド: FastAPI, Python',
+                        en: 'Backend: FastAPI, Python',
+                    },
                     { ja: 'AIモデル: Gemini API', en: 'AI Model: Gemini API' },
                 ],
             },
@@ -77,19 +128,37 @@ export const projects: Project[] = [
             ja: 'Debug Masterの姉妹アプリで、ブロックを組み合わせてバグを修正するパズル形式の学習アプリ。コードを書いたことがない方向けに開発しました。プログラミングの基礎概念を楽しく学べるよう設計しました。',
             en: 'A sister app to Debug Master, this puzzle-style learning app allows users to fix bugs by combining blocks. It is designed for those who have never written code before, making it fun to learn the basic concepts of programming.',
         },
-        tags: [{ ja: 'AI', en: 'AI' }, { ja: 'TypeScript', en: 'TypeScript' }, { ja: 'React', en: 'React' }, { ja: 'FastAPI', en: 'FastAPI' }, { ja: 'チーム開発', en: 'Team Development' }],
+        tags: [
+            { ja: 'AI', en: 'AI' },
+            { ja: 'TypeScript', en: 'TypeScript' },
+            { ja: 'React', en: 'React' },
+            { ja: 'FastAPI', en: 'FastAPI' },
+            { ja: 'チーム開発', en: 'Team Development' },
+        ],
         content: [
             { type: 'heading', text: { ja: '概要', en: 'Overview' } },
             {
                 type: 'paragraph',
-                text: { ja: 'コードを書いたことのない方にもプログラミングの面白さを知ってほしいという想いから、Debug Masterの姉妹アプリとして開発しました。Debug Puzzleでは、「〇〇をする」、「もし〜なら」などの書かれたブロックが表示され、ユーザーはそれらをドラッグ&ドロップで組み合わせて正しいコードを完成させます。これにより、プログラミングの基礎概念を直感的に理解することが出来るよう工夫しました。', en: 'We developed this as a sister app to Debug Master with the hope that even those who have never written code can experience the fun of programming. In Debug Puzzle, blocks labeled with phrases like "Do something" or "If ~ then" are displayed, and users drag and drop these blocks to complete the correct code. This design helps users intuitively understand the basic concepts of programming.' },
+                text: {
+                    ja: 'コードを書いたことのない方にもプログラミングの面白さを知ってほしいという想いから、Debug Masterの姉妹アプリとして開発しました。Debug Puzzleでは、「〇〇をする」、「もし〜なら」などの書かれたブロックが表示され、ユーザーはそれらをドラッグ&ドロップで組み合わせて正しいコードを完成させます。これにより、プログラミングの基礎概念を直感的に理解することが出来るよう工夫しました。',
+                    en: 'We developed this as a sister app to Debug Master with the hope that even those who have never written code can experience the fun of programming. In Debug Puzzle, blocks labeled with phrases like "Do something" or "If ~ then" are displayed, and users drag and drop these blocks to complete the correct code. This design helps users intuitively understand the basic concepts of programming.',
+                },
             },
-            { type: 'heading', text: { ja: '実装機能', en: 'Implemented Features' } },
+            {
+                type: 'heading',
+                text: { ja: '実装機能', en: 'Implemented Features' },
+            },
             {
                 type: 'list',
                 items: [
-                    { ja: 'ドラッグ&ドロップでブロックを組み合わせる直感的なUI', en: 'Intuitive UI for combining blocks with drag & drop' },
-                    { ja: 'AIコード生成に含まれるバグの修正', en: 'Bug fixes in AI-generated code' },
+                    {
+                        ja: 'ドラッグ&ドロップでブロックを組み合わせる直感的なUI',
+                        en: 'Intuitive UI for combining blocks with drag & drop',
+                    },
+                    {
+                        ja: 'AIコード生成に含まれるバグの修正',
+                        en: 'Bug fixes in AI-generated code',
+                    },
                 ],
             },
         ],
@@ -99,18 +168,30 @@ export const projects: Project[] = [
     },
     {
         id: 4,
-        title: { ja: '動画像の異常検知システム', en: 'Anomaly Detection System for Video Footage' },
+        title: {
+            ja: '動画像の異常検知システム',
+            en: 'Anomaly Detection System for Video Footage',
+        },
         src: '/images/anomaly-detection.png',
         description: {
             ja: '製造業向けに、動画像から異常を検知するシステムを開発。NVIDIA Jetsonを用いたエッジデバイス上で、リアルタイムに高精度な異常検知を実現しています。これにより、製造ラインの品質管理と効率化に貢献しています。',
             en: 'Developed a system for detecting anomalies from video footage for the manufacturing industry. By utilizing NVIDIA Jetson on edge devices, we achieve real-time, high-precision anomaly detection, contributing to quality control and efficiency in manufacturing lines.',
         },
-        tags: [{ ja: 'Python', en: 'Python' }, { ja: 'PyTorch', en: 'PyTorch' }, { ja: 'OpenCV', en: 'OpenCV' }, { ja: 'NVIDIA Jetson', en: 'NVIDIA Jetson' }, { ja: 'チーム開発', en: 'Team Development' }],
+        tags: [
+            { ja: 'Python', en: 'Python' },
+            { ja: 'PyTorch', en: 'PyTorch' },
+            { ja: 'OpenCV', en: 'OpenCV' },
+            { ja: 'NVIDIA Jetson', en: 'NVIDIA Jetson' },
+            { ja: 'チーム開発', en: 'Team Development' },
+        ],
         content: [
             { type: 'heading', text: { ja: '概要', en: 'Overview' } },
             {
                 type: 'paragraph',
-                text: { ja: '製造業における品質管理のため、動画像からリアルタイムに以上を検知するシステムを開発しました。NVIDIA Jetsonをエッジデバイスとして使用し、現場での即時異常検知を可能にしています。リアルタイム性能を向上させるため、TensorRTを活用し、モデルの推論速度を最適化しました。', en: 'We developed a system for real-time anomaly detection from video footage for quality control in manufacturing. Using NVIDIA Jetson as an edge device enables immediate anomaly detection on-site. To enhance real-time performance, we utilized TensorRT to optimize model inference speed.' },
+                text: {
+                    ja: '製造業における品質管理のため、動画像からリアルタイムに以上を検知するシステムを開発しました。NVIDIA Jetsonをエッジデバイスとして使用し、現場での即時異常検知を可能にしています。リアルタイム性能を向上させるため、TensorRTを活用し、モデルの推論速度を最適化しました。',
+                    en: 'We developed a system for real-time anomaly detection from video footage for quality control in manufacturing. Using NVIDIA Jetson as an edge device enables immediate anomaly detection on-site. To enhance real-time performance, we utilized TensorRT to optimize model inference speed.',
+                },
             },
             {
                 type: 'heading',
@@ -119,11 +200,26 @@ export const projects: Project[] = [
             {
                 type: 'list',
                 items: [
-                    { ja: 'Python: 主要な開発言語として使用。', en: 'Python: Used as the main development language.' },
-                    { ja: 'PyTorch: 深層学習モデルの構築とトレーニングに使用。', en: 'PyTorch: Used for building and training deep learning models.' },
-                    { ja: 'OpenCV: 動画像の前処理と解析に利用。', en: 'OpenCV: Used for preprocessing and analyzing video footage.' },
-                    { ja: 'NVIDIA Jetson: エッジデバイスとしてリアルタイム推論を実現。', en: 'NVIDIA Jetson: Used as an edge device for real-time inference.' },
-                    { ja: 'TensorRT: モデルの最適化と高速推論に使用。', en: 'TensorRT: Used for model optimization and fast inference.' },
+                    {
+                        ja: 'Python: 主要な開発言語として使用。',
+                        en: 'Python: Used as the main development language.',
+                    },
+                    {
+                        ja: 'PyTorch: 深層学習モデルの構築とトレーニングに使用。',
+                        en: 'PyTorch: Used for building and training deep learning models.',
+                    },
+                    {
+                        ja: 'OpenCV: 動画像の前処理と解析に利用。',
+                        en: 'OpenCV: Used for preprocessing and analyzing video footage.',
+                    },
+                    {
+                        ja: 'NVIDIA Jetson: エッジデバイスとしてリアルタイム推論を実現。',
+                        en: 'NVIDIA Jetson: Used as an edge device for real-time inference.',
+                    },
+                    {
+                        ja: 'TensorRT: モデルの最適化と高速推論に使用。',
+                        en: 'TensorRT: Used for model optimization and fast inference.',
+                    },
                 ],
             },
         ],

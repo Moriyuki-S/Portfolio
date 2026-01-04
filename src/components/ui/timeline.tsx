@@ -1,3 +1,4 @@
+import type { Multilingual } from '$lib/i18n/type';
 import { cn } from '$lib/utils';
 import { Link } from '@heroui/react';
 import type { FC } from 'react';
@@ -10,7 +11,6 @@ import {
     LuUniversity,
 } from 'react-icons/lu';
 import type { TimelineType } from 'src/types/timeline';
-import type { Multilingual } from '$lib/i18n/type';
 
 type TimelineProps = {
     timeline: TimelineType;

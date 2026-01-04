@@ -1,14 +1,13 @@
 ---
+import { useTranslations as createTranslator } from '$lib/i18n/utils';
 import { cn } from '$lib/utils';
 import SectionContainer from 'src/components/layout/sectionContainer.astro';
 import { ProjectCardList } from 'src/features/projects/components/ProjectCardList';
 import { projects } from 'src/features/projects/data/projects';
 import type { Lang } from 'src/lib/i18n/type';
-import { useTranslations } from '$lib/i18n/utils';
 
 const lang = Astro.currentLocale as Lang;
-const t = useTranslations(lang);
-
+const t = createTranslator(lang);
 ---
 
 <SectionContainer sectionID="project">
