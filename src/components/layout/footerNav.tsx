@@ -14,6 +14,7 @@ import { LuGithub, LuLinkedin, LuMenu } from 'react-icons/lu';
 import type { Lang } from 'src/lib/i18n/type';
 import { useLanguagePreference, useTranslations } from 'src/lib/i18n/utils';
 import { AnimatedLogo } from '../ui/AnimatedLogo';
+import { LanguageSwitcher } from '../ui/LanguageSwitcher';
 import { ThemeToggleButton } from '../ui/ThemeToggleButton';
 
 type FooterNavProps = {
@@ -195,9 +196,12 @@ export const FooterNav: FC<FooterNavProps> = ({ initialLang }) => {
                         </ul>
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="danger" onPress={handleMenuToggle}>
-                            {t(TEXT.close)}
-                        </Button>
+                        <div className="flex w-full items-center justify-between">
+                            <LanguageSwitcher initialLang={initialLang} />
+                            <Button color="danger" onPress={handleMenuToggle}>
+                                {t(TEXT.close)}
+                            </Button>
+                        </div>
                     </ModalFooter>
                 </ModalContent>
             </Modal>
