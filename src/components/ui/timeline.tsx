@@ -187,6 +187,8 @@ export const Timeline: FC<TimelineProps> = (props) => {
                                         'text-blue-600',
                                         'hover:underline',
                                     ])}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                 >
                                     {locationText}
                                     <IoOpenOutline className="ms-2" />

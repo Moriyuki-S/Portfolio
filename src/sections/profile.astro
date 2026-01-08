@@ -47,10 +47,10 @@ const t = createTranslator(Astro.currentLocale as Lang);
                 {t({
                     ja: `京都大学工学部物理工学科の4回生です。
                     大学の制御研究室では、深層学習を応用した多自由度ロボットの制御手法について研究しています。
-                    また、学業と並行して実務面ではバックエンド開発や画像認識AIの実装にも従事してきました。
-                    制御理論の基礎と実システムへの実装経験、双方で培った知見を活かし、現在はより自律的な動作を実現する強化学習や模倣学習を活用したロボット開発に挑戦したいと考えています。`,
-                    en: `I am a senior in the Department of Engineering Science at Kyoto University. My research focuses on control methods for multi-degree-of-freedom robots using deep learning. Alongside my academic work, I have gained practical experience in backend development and image recognition AI through professional projects.
-Leveraging both my foundation in control theory and my hands-on implementation skills, I am now eager to develop autonomous robots using reinforcement learning and imitation learning.`,
+                    また、学業と並行して実務面ではバックエンド開発や画像認識AIの実装にも取り組んできました。
+                    現在は強化学習や模倣学習を活用したロボット開発に挑戦したいと考えています。`,
+                    en: `I am a senior in the Department of Engineering Science at Kyoto University, where my research focuses on deep learning-based control for multi-degree-of-freedom robots. I have also gained practical experience in backend development and image recognition AI.
+I am now interested in applying reinforcement learning and imitation learning to autonomous robot development.`,
                 })}
             </p>
         </div>
@@ -107,8 +107,8 @@ Leveraging both my foundation in control theory and my hands-on implementation s
                     id: 1,
                     title: { ja: 'mui Lab, Inc.', en: 'mui Lab, Inc.' },
                     description: {
-                        ja: 'TypeScriptとAWSを用いたバックエンド開発を行いました。現在はRaspberry Piを使用したIoTプロジェクトにも取り組んでいます。',
-                        en: 'I worked on backend development using TypeScript and AWS. Currently, I am also involved in an IoT project using Raspberry Pi.',
+                        ja: 'TypeScriptとAWSを用いたバックエンド開発を行いました。現在はRaspberry Piを使用した開発にも取り組んでいます。',
+                        en: 'I worked on backend development using TypeScript and AWS. Currently, I am also involved in development using Raspberry Pi.',
                     },
                     date: {
                         start: new Date('2024-04'),
@@ -126,9 +126,10 @@ Leveraging both my foundation in control theory and my hands-on implementation s
                         en: 'STAR UP Inc.',
                     },
                     description: {
-                        ja: '工場内の異常を検知する画像認識AIの開発に携わっています。NVIDIA Jetsonを使用したエッジデバイスでの実装経験もあります。',
-                        en: 'I am involved in the development of image recognition AI that detects abnormalities in factories. I also have experience implementing it on edge devices using NVIDIA Jetson.',
-                    },                    date: {
+                        ja: '異常検知の画像認識AI開発に携わっています。',
+                        en: 'I am involved in developing image recognition AI for anomaly detection.',
+                    },                    
+                    date: {
                         start: new Date('2024-09-01'),
                     },
                     type: 'work',
@@ -201,29 +202,21 @@ Leveraging both my foundation in control theory and my hands-on implementation s
                         end: new Date('2026-03-31'),
                     },
                     type: 'education',
-                    location: {
-                        text: { ja: '京都大学', en: 'Kyoto University' },
-                        url: 'https://www.kyoto-u.ac.jp/',
-                    },
                 },
                 {
                     id: 2,
                     title: {
-                        ja: '京都大学大学院工学研究科',
-                        en: 'Kyoto University, Graduate School of Engineering',
+                        ja: '京都大学大学院情報学研究科',
+                        en: 'Kyoto University, Graduate School of Informatics',
                     },
                     description: {
-                        ja: '制御工学やロボティクス、機械学習をさらに深く学び、研究を進めるために大学院への進学を予定しています。',
-                        en: 'I plan to pursue graduate studies to further deepen my knowledge in control engineering, robotics, and machine learning, and to advance my research in these fields.',
+                        ja: 'ロボティクスや機械学習をさらに深く学ぶため、大学院への進学を予定しています。',
+                        en: 'I plan to pursue graduate studies to further deepen my knowledge in robotics and machine learning, and to advance my research in these fields.',
                     },
                     date: {
                         start: new Date('2026-04-01'),
                     },
                     type: 'education',
-                    location: {
-                        text: { ja: '京都大学', en: 'Kyoto University' },
-                        url: 'https://www.kyoto-u.ac.jp/'
-                    }
                 }
             ]}
             translate={t}
