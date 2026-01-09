@@ -69,6 +69,26 @@ export const useLanguagePreference = (initialLang?: Lang) => {
 
         setCurrentLang(target);
         persistLanguagePreference(target);
+
+        const scrollX = window.scrollX;
+        const scrollY = window.scrollY;
+        const restoreScroll = () =>
+            window.scrollTo({
+                left: scrollX,
+                top: scrollY,
+                behavior: 'auto',
+            });
+
+        const cleanupFallback = window.setTimeout(restoreScroll, 800);
+        document.addEventListener(
+            'astro:after-swap',
+            () => {
+                window.clearTimeout(cleanupFallback);
+                restoreScroll();
+            },
+            { once: true },
+        );
+
         navigate(nextUrl);
     };
 

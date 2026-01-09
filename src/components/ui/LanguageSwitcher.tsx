@@ -1,3 +1,4 @@
+import { showLanguageTransition } from '$lib/i18n/LanguageTransitionOverlay';
 import { useLanguagePreference } from '$lib/i18n/utils';
 import { cn } from '$lib/utils';
 import {
@@ -26,11 +27,29 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({
     const { currentLang, switchLanguage } = useLanguagePreference(initialLang);
     const [isOpen, setIsOpen] = useState(false);
 
-    const options: Array<{
-        key: Lang;
-        label: string;
-        icon: ReactElement;
-    }> = [
+    const handleSelectionChange = (keys: Selection) => {
+        if (keys === 'all') return;
+
+        const nextLang = Array.from(keys).at(0) as Lang | undefined;
+        if (!nextLang) return;
+
+        setIsOpen(false);
+
+        if (nextLang !== currentLang) {
+            showLanguageTransition(nextLang, () => {
+                switchLanguage(nextLang);
+            });
+        } else {
+            switchLanguage(nextLang);
+        }
+    };
+
+    const selectedKeys = useMemo(
+        () => new Set([currentLang]) as Selection,
+        [currentLang],
+    );
+
+    const options: Array<{ key: Lang; label: string; icon: ReactElement }> = [
         {
             key: 'ja',
             label: '日本語',
@@ -51,11 +70,6 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({
         },
     ];
 
-    const selectedKeys = useMemo(
-        () => new Set([currentLang]) as Selection,
-        [currentLang],
-    );
-
     return (
         <Dropdown
             placement="bottom-end"
@@ -66,28 +80,22 @@ export const LanguageSwitcher: FC<LanguageSwitcherProps> = ({
                 <Button
                     size={compact ? 'sm' : 'md'}
                     variant="bordered"
-                    className={cn(
-                        ['flex', 'items-center', 'gap-2', 'px-3'],
-                        className,
-                    )}
-                    aria-label="言語を切り替える"
-                    endContent={<LuLanguages className={cn(['h-4', 'w-4'])} />}
+                    className={cn('flex items-center gap-2 px-3', className)}
+                    aria-label={
+                        currentLang === 'ja'
+                            ? '言語を切り替える'
+                            : 'Switch language'
+                    }
+                    endContent={<LuLanguages className="h-4 w-4" />}
                 >
                     {currentLang === 'ja' ? '日本語' : 'English'}
                 </Button>
             </DropdownTrigger>
             <DropdownMenu
-                aria-label="言語選択"
+                aria-label="Language selection"
                 selectedKeys={selectedKeys}
                 selectionMode="single"
-                onSelectionChange={(keys) => {
-                    if (keys === 'all') return;
-                    const next = Array.from(keys).at(0) as Lang | undefined;
-                    if (next) {
-                        setIsOpen(false);
-                        switchLanguage(next);
-                    }
-                }}
+                onSelectionChange={handleSelectionChange}
             >
                 {options.map((option) => (
                     <DropdownItem key={option.key} startContent={option.icon}>
