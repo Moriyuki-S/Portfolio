@@ -1,0 +1,44 @@
+---
+import { cn } from '$lib/utils';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer
+    class={cn([
+        'w-full',
+        'border-t',
+        'border-slate-200',
+        'bg-white/80',
+        'backdrop-blur-sm',
+        'dark:border-slate-800',
+        'dark:bg-slate-950/70',
+    ])}
+>
+    <div
+        class={cn([
+            'mx-auto',
+            'flex',
+            'w-full',
+            'max-w-screen-xl',
+            'flex-col',
+            'gap-2',
+            'px-6',
+            'py-6',
+            'md:pb-14',
+            'text-sm',
+            'text-slate-600',
+            'dark:text-slate-400',
+            'md:flex-row',
+            'md:items-center',
+            'md:justify-between',
+            'md:px-10',
+            'md:pb-10',
+            'lg:px-24',
+        ])}
+    >
+        <p class={cn(['text-center', 'leading-relaxed', 'md:text-left'])}>
+            © {currentYear} Moriyuki Suzuki. All rights reserved.
+        </p>
+    </div>
+</footer>
