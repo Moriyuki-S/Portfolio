@@ -21,6 +21,7 @@ type CloudflareEnv = Cloudflare.Env;
 declare namespace App {
     interface Locals {
         runtime: import('@astrojs/cloudflare').Runtime<CloudflareEnv>['runtime'];
+        lang?: import('./lib/i18n/type').Lang;
     }
 }
 declare namespace NodeJS {

@@ -3,6 +3,10 @@ import { cn } from '$lib/utils';
 import { Avatar } from '@heroui/react';
 import SectionContainer from 'src/components/layout/sectionContainer.astro';
 import TimelineList from 'src/components/ui/timelineList.astro';
+import type { Lang } from 'src/lib/i18n/type';
+import { useTranslations as createTranslator } from 'src/lib/i18n/utils';
+
+const t = createTranslator(Astro.currentLocale as Lang);
 ---
 
 <SectionContainer sectionID="profile">
@@ -40,10 +44,14 @@ import TimelineList from 'src/components/ui/timelineList.astro';
                 />
             </div>
             <p class={cn(['leading-relaxed', 'max-w-3xl'])}>
-                京都大学工学部物理工学科の4回生です。
-                大学の制御研究室では、深層学習を応用した多自由度ロボットの制御手法について研究しています。
-                また、学業と並行して実務面ではバックエンド開発や画像認識AIの実装にも従事してきました。
-                制御理論の基礎と実システムへの実装経験、双方で培った知見を活かし、現在はより自律的な動作を実現する強化学習や模倣学習を活用したロボット開発に挑戦したいと考えています。
+                {t({
+                    ja: `京都大学工学部物理工学科の4回生です。
+                    大学の制御研究室では、深層学習を応用した多自由度ロボットの制御手法について研究しています。
+                    また、学業と並行して実務面ではバックエンド開発や画像認識AIの実装にも取り組んできました。
+                    現在は強化学習や模倣学習を活用したロボット開発に挑戦したいと考えています。`,
+                    en: `I am a senior in the Department of Engineering Science at Kyoto University, where my research focuses on deep learning-based control for multi-degree-of-freedom robots. I have also gained practical experience in backend development and image recognition AI.
+I am now interested in applying reinforcement learning and imitation learning to autonomous robot development.`,
+                })}
             </p>
         </div>
     </hgroup>
@@ -97,32 +105,41 @@ import TimelineList from 'src/components/ui/timelineList.astro';
             timelines={[
                 {
                     id: 1,
-                    title: 'mui Lab, Inc.',
-                    description: 'TypeScriptとAWSを用いたバックエンド開発を行いました。現在はRaspberry Piを使用したIoTプロジェクトにも取り組んでいます。',
+                    title: { ja: 'mui Lab, Inc.', en: 'mui Lab, Inc.' },
+                    description: {
+                        ja: 'TypeScriptとAWSを用いたバックエンド開発を行いました。現在はRaspberry Piを使用した開発にも取り組んでいます。',
+                        en: 'I worked on backend development using TypeScript and AWS. Currently, I am also involved in development using Raspberry Pi.',
+                    },
                     date: {
                         start: new Date('2024-04'),
                     },
                     type: 'work',
                     location: {
-                        text: 'mui Lab, Inc.',
+                        text: { ja: 'mui Lab, Inc.', en: 'mui Lab, Inc.' },
                         url: 'https://muilab.com/',
                     },
                 },
                 {
                     id: 2,
-                    title: '株式会社STAR UP',
-                    description:
-                        '工場内の異常を検知する画像認識AIの開発に携わっています。NVIDIA Jetsonを使用したエッジデバイスでの実装経験もあります。',
+                    title: {
+                        ja: '株式会社STAR UP',
+                        en: 'STAR UP Inc.',
+                    },
+                    description: {
+                        ja: '異常検知の画像認識AI開発に携わっています。',
+                        en: 'I am involved in developing image recognition AI for anomaly detection.',
+                    },                    
                     date: {
                         start: new Date('2024-09-01'),
                     },
                     type: 'work',
                     location: {
-                        text: 'STAR UP',
+                        text: { ja: '株式会社STAR UP', en: 'STAR UP Inc.' },
                         url: 'https://www.starup01.jp/',
                     },
                 },
             ]}
+            translate={t}
         />
     </section>
     <section
@@ -172,33 +189,37 @@ import TimelineList from 'src/components/ui/timelineList.astro';
             timelines={[
                 {
                     id: 1,
-                    title: '京都大学工学部物理工学科',
-                    description:
-                        '4大力学(機械力学、熱力学、材料力学、流体力学)や制御工学を中心に学びました。現在は制御研究室に所属し、深層学習とモデル予測制御(MPC)を組み合わせた多自由度ロボットの制御手法について研究しています。',
+                    title: {
+                        ja: '京都大学工学部物理工学科',
+                        en: 'Kyoto University, Faculty of Engineering Science',
+                    },
+                    description: {
+                        ja: '4大力学(機械力学、熱力学、材料力学、流体力学)や制御工学を中心に学びました。現在は制御研究室に所属し、深層学習とモデル予測制御(MPC)を組み合わせた多自由度ロボットの制御手法について研究しています。',
+                        en: 'I studied the four major mechanics (mechanical, thermal, material, and fluid mechanics) and control engineering. Currently, I belong to the control laboratory, where I research control methods for multi-degree-of-freedom robots by combining deep learning and model predictive control (MPC).',
+                    },
                     date: {
                         start: new Date('2022-04-01'),
                         end: new Date('2026-03-31'),
                     },
                     type: 'education',
-                    location: {
-                        text: '京都大学',
-                        url: 'https://www.kyoto-u.ac.jp/',
-                    },
                 },
                 {
                     id: 2,
-                    title: '京都大学大学院情報学研究科（進学予定）',
-                    description: '2026年4月からの進学を予定しています。学習機械分野の研究室に所属し、強化学習などを用いた自律型ロボットの研究に取り組みたいと考えています。',
+                    title: {
+                        ja: '京都大学大学院情報学研究科',
+                        en: 'Kyoto University, Graduate School of Informatics',
+                    },
+                    description: {
+                        ja: 'ロボティクスや機械学習をさらに深く学ぶため、大学院への進学を予定しています。',
+                        en: 'I plan to pursue graduate studies to further deepen my knowledge in robotics and machine learning, and to advance my research in these fields.',
+                    },
                     date: {
                         start: new Date('2026-04-01'),
                     },
                     type: 'education',
-                    location: {
-                        text: '京都大学',
-                        url: 'https://www.kyoto-u.ac.jp/'
-                    }
                 }
             ]}
+            translate={t}
         />
     </section>
 </SectionContainer>

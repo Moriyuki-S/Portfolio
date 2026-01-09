@@ -1,8 +1,13 @@
 ---
+import { useTranslations as createTranslator } from '$lib/i18n/utils';
 import { cn } from '$lib/utils';
 import SectionContainer from 'src/components/layout/sectionContainer.astro';
 import { ProjectCardList } from 'src/features/projects/components/ProjectCardList';
 import { projects } from 'src/features/projects/data/projects';
+import type { Lang } from 'src/lib/i18n/type';
+
+const lang = Astro.currentLocale as Lang;
+const t = createTranslator(lang);
 ---
 
 <SectionContainer sectionID="project">
@@ -36,7 +41,10 @@ import { projects } from 'src/features/projects/data/projects';
                 'leading-relaxed',
             ])}
         >
-        これまでに携わったプロジェクトの一部を紹介します。各プロジェクトの詳細については、カードをクリックしてご覧ください。
+        {t({
+            ja: 'これまでに携わったプロジェクトの一部をご紹介します。詳細は各プロジェクトのリンクからご覧ください。',
+            en: 'Here are some of the projects I have been involved in. Please check the links for more details on each project.',
+        })}
         </p>
     </hgroup>
     <div
@@ -44,6 +52,6 @@ import { projects } from 'src/features/projects/data/projects';
             ['w-full']
         )}
     >
-            <ProjectCardList projects={projects} client:visible />
+            <ProjectCardList projects={projects} client:visible initialLang={lang} />
     </div>
 </SectionContainer>

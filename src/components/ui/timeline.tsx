@@ -1,3 +1,4 @@
+import type { Multilingual } from '$lib/i18n/type';
 import { cn } from '$lib/utils';
 import { Link } from '@heroui/react';
 import type { FC } from 'react';
@@ -13,6 +14,7 @@ import type { TimelineType } from 'src/types/timeline';
 
 type TimelineProps = {
     timeline: TimelineType;
+    translate: (value: Multilingual) => string;
 };
 
 const formatDate = (date: Date) =>
@@ -23,7 +25,12 @@ const formatDate = (date: Date) =>
     });
 
 export const Timeline: FC<TimelineProps> = (props) => {
-    const { timeline } = props;
+    const { timeline, translate } = props;
+    const titleText = translate(timeline.title);
+    const descriptionText = translate(timeline.description);
+    const locationText = timeline.location
+        ? translate(timeline.location.text)
+        : null;
 
     const getTimelineIcon = (
         type: TimelineType['type'],
@@ -130,7 +137,7 @@ export const Timeline: FC<TimelineProps> = (props) => {
                             ['md:text-2xl'],
                         )}
                     >
-                        {timeline.title}
+                        {titleText}
                     </h4>
                     <div
                         className={cn(
@@ -180,14 +187,16 @@ export const Timeline: FC<TimelineProps> = (props) => {
                                         'text-blue-600',
                                         'hover:underline',
                                     ])}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                 >
-                                    {timeline.location.text}
+                                    {locationText}
                                     <IoOpenOutline className="ms-2" />
                                 </Link>
                             </div>
                         )}
                     </div>
-                    <p>{timeline.description}</p>
+                    <p>{descriptionText}</p>
                 </div>
             </div>
         </div>

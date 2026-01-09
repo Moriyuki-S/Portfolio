@@ -3,10 +3,12 @@ import '../styles/global.css';
 import { ClientRouter, fade } from 'astro:transitions';
 import { FooterNav } from 'src/components/layout/footerNav';
 import { Header } from 'src/components/layout/header';
+
+const lang = Astro.locals.lang ?? 'ja';
 ---
 
 <!doctype html>
-<html lang="ja">
+<html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
@@ -69,9 +71,9 @@ import { Header } from 'src/components/layout/header';
 		<ClientRouter />
 	</head>
 	<body transition:animate={fade({ duration: '0.6s' })}  class="min-h-screen bg-white text-slate-900 antialiased text-slate-600 dark:text-slate-300 dark:bg-slate-950">
-		<Header transition:persist client:load />
+		<Header client:only initialLang={lang} />
 		<slot />
-		<FooterNav transition:persist client:idle />
+		<FooterNav client:only initialLang={lang} />
 	</body>
 </html>
 
