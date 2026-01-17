@@ -12,7 +12,7 @@ import {
     useRef,
     useState,
 } from 'react';
-import { LuExternalLink, LuGithub } from 'react-icons/lu';
+import { LuCalendar, LuExternalLink, LuGithub } from 'react-icons/lu';
 import type { Project, ProjectContentBlock } from '../types';
 import { ProjectCard } from './ProjectCard';
 
@@ -54,6 +54,9 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
         ? translate(active.description)
         : '';
     const translatedActiveTags = active ? active.tags.map(translate) : [];
+    const translatedActivePeriod = active?.period
+        ? translate(active.period)
+        : '';
 
     const handleClose = (event?: MouseEvent<HTMLButtonElement>) => {
         event?.stopPropagation();
@@ -207,6 +210,24 @@ export const ProjectCardList: FC<ProjectCardListProps> = (props) => {
                                             >
                                                 {translatedActiveTitle}
                                             </motion.h3>
+                                            {translatedActivePeriod && (
+                                                <motion.div
+                                                    layoutId={`period-${active.id}`}
+                                                    className={cn([
+                                                        'inline-flex items-center gap-2 self-start rounded-full border border-neutral-200 bg-white/80 px-3 py-1 font-semibold text-neutral-700 text-xs shadow-sm md:text-sm',
+                                                        'dark:border-neutral-800 dark:bg-neutral-900/70 dark:text-neutral-200',
+                                                    ])}
+                                                >
+                                                    <LuCalendar
+                                                        className={cn([
+                                                            'h-4 w-4',
+                                                        ])}
+                                                    />
+                                                    <span>
+                                                        {translatedActivePeriod}
+                                                    </span>
+                                                </motion.div>
+                                            )}
                                             <motion.p
                                                 layoutId={`description-${active.id}`}
                                                 className={cn([

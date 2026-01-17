@@ -8,6 +8,7 @@ export type ProjectContentBlock =
 export type Project = {
     id: number;
     title: Multilingual;
+    period?: Multilingual;
     src: string;
     description: Multilingual;
     tags: Multilingual[];

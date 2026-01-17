@@ -7,6 +7,10 @@ export const projects: Project[] = [
             ja: '多自由度ロボットの制御',
             en: 'Control of Multi-Degree-of-Freedom Robots',
         },
+        period: {
+            ja: '開発期間: 約4ヶ月',
+            en: 'Duration: About 4 months',
+        },
         src: '/images/lerobot.png',
         description: {
             ja: '運動方程式の記述が困難、かつ非線形性の強い多自由度ロボットについて高精度な手先位置制御を実現するため、深層学習とモデル予測制御(MPC)を組み合わせた制御手法を研究しています。',
@@ -65,6 +69,10 @@ export const projects: Project[] = [
     {
         id: 2,
         title: { ja: 'Debug Master', en: 'Debug Master' },
+        period: {
+            ja: '開発期間: 約11ヶ月',
+            en: 'Duration: About 11 months',
+        },
         src: '/images/debug-master-thumb.png',
         description: {
             ja: 'プログラミング初心者の「1から書く」ハードルを下げるため、AI生成の不具合コードを修正する新感覚学習アプリ「Debug Master」を開発しました。間違い探し感覚で楽しく学べる体験設計により、従来より気軽にコーディングスキルを習得できる学習環境を目指しています。',
@@ -123,6 +131,10 @@ export const projects: Project[] = [
     {
         id: 3,
         title: { ja: 'Debug Puzzle', en: 'Debug Puzzle' },
+        period: {
+            ja: '開発期間: 約2ヶ月',
+            en: 'Duration: About 2 months',
+        },
         src: '/images/debug-puzzle-thumb.png',
         description: {
             ja: 'Debug Masterの姉妹アプリで、ブロックを組み合わせてバグを修正するパズル形式の学習アプリです。コードを書いたことがない方でも、プログラミングの基礎概念を楽しく学べるよう設計しました。',
@@ -171,6 +183,10 @@ export const projects: Project[] = [
         title: {
             ja: '動画像の異常検知システム',
             en: 'Anomaly Detection System for Video Footage',
+        },
+        period: {
+            ja: '開発期間: 約12ヶ月',
+            en: 'Duration: About 12 months',
         },
         src: '/images/anomaly-detection.png',
         description: {
