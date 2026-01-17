@@ -12,6 +12,8 @@ import type { FC, ReactElement } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { LuMoon, LuSun } from 'react-icons/lu';
 import { MdOutlineComputer } from 'react-icons/md';
+import type { Multilingual } from 'src/lib/i18n/type';
+import { useLanguagePreference, useTranslations } from 'src/lib/i18n/utils';
 
 type ThemeOption = 'theme-light' | 'dark' | 'system';
 
@@ -64,29 +66,39 @@ const iconClass = cn([
     'flex-shrink-0',
 ]);
 
+const TEXT = {
+    ariaLabel: { ja: 'テーマを切り替える', en: 'Toggle theme' },
+    menuLabel: { ja: 'テーマ選択', en: 'Theme selection' },
+    light: { ja: 'ライトモード', en: 'Light mode' },
+    dark: { ja: 'ダークモード', en: 'Dark mode' },
+    system: { ja: 'システム', en: 'System' },
+} satisfies Record<string, Multilingual>;
+
 const options: Array<{
     key: ThemeOption;
-    label: string;
+    label: Multilingual;
     icon: ReactElement;
 }> = [
     {
         key: 'theme-light',
-        label: 'ライトモード',
+        label: TEXT.light,
         icon: <LuSun className={iconClass} />,
     },
     {
         key: 'dark',
-        label: 'ダークモード',
+        label: TEXT.dark,
         icon: <LuMoon className={iconClass} />,
     },
     {
         key: 'system',
-        label: 'システム',
+        label: TEXT.system,
         icon: <MdOutlineComputer className={iconClass} />,
     },
 ];
 
 export const ThemeToggleButton: FC = () => {
+    const { currentLang } = useLanguagePreference();
+    const t = useTranslations(currentLang);
     const [theme, setTheme] = useState<ThemeOption>(() =>
         resolveInitialTheme(),
     );
@@ -129,7 +141,7 @@ export const ThemeToggleButton: FC = () => {
                     size="lg"
                     isIconOnly
                     className={cn(['flex', 'justify-center', 'p-2'])}
-                    aria-label="テーマを切り替える"
+                    aria-label={t(TEXT.ariaLabel)}
                     variant="bordered"
                 >
                     {loading ? (
@@ -146,7 +158,7 @@ export const ThemeToggleButton: FC = () => {
                 </Button>
             </DropdownTrigger>
             <DropdownMenu
-                aria-label="テーマ選択"
+                aria-label={t(TEXT.menuLabel)}
                 selectedKeys={selectedKeys}
                 selectionMode="single"
                 onSelectionChange={handleSelectionChange}
@@ -158,7 +170,7 @@ export const ThemeToggleButton: FC = () => {
                         startContent={option.icon}
                         className={cn(['text-sm', 'font-medium'])}
                     >
-                        {option.label}
+                        {t(option.label)}
                     </DropdownItem>
                 ))}
             </DropdownMenu>
