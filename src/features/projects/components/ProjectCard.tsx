@@ -2,6 +2,7 @@ import type { Multilingual } from '$lib/i18n/type';
 import { cn } from '$lib/utils';
 import { motion } from 'motion/react';
 import type { Dispatch, FC, SetStateAction } from 'react';
+import { LuCalendar } from 'react-icons/lu';
 import type { Project } from '../types';
 
 type Translate = (value: Multilingual) => string;
@@ -17,6 +18,7 @@ export const ProjectCard: FC<ProjectCardProps> = (props) => {
     const titleText = translate(project.title);
     const descriptionText = translate(project.description);
     const tagTexts = project.tags.map(translate);
+    const periodText = project.period ? translate(project.period) : '';
 
     return (
         <motion.div
@@ -64,6 +66,18 @@ export const ProjectCard: FC<ProjectCardProps> = (props) => {
                     >
                         {titleText}
                     </motion.h3>
+                    {periodText && (
+                        <motion.div
+                            layoutId={`period-${project.id}`}
+                            className={cn([
+                                'mt-2 inline-flex items-center gap-2 self-center rounded-full border border-neutral-200 bg-white/80 px-3 py-1 font-semibold text-[11px] text-neutral-700 shadow-sm md:self-start md:text-xs',
+                                'dark:border-neutral-800 dark:bg-neutral-900/70 dark:text-neutral-200',
+                            ])}
+                        >
+                            <LuCalendar className={cn(['h-3.5 w-3.5'])} />
+                            <span>{periodText}</span>
+                        </motion.div>
+                    )}
                     <motion.p
                         layoutId={`description-${project.id}`}
                         className={cn([
